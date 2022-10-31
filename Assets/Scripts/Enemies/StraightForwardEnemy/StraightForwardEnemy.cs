@@ -32,12 +32,19 @@ namespace Main
 
 
         private PlayerController _playerController;
+        private Room _targetRoom;
+
 
 
         [Inject]
         private void Construct(PlayerController playerController)
         {
             _playerController = playerController;
+        }
+        private void Awake()
+        {
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _targetRoom = GetComponentInParent<Room>();
         }
 
         private void OnEnable()
@@ -49,13 +56,6 @@ namespace Main
         {
             GameManager.OnGameOver -= GameOver;
         }
-
-
-        private void Awake()
-        {
-            _navMeshAgent = GetComponent<NavMeshAgent>();
-        }
-
 
         private void Start()
         {
@@ -83,7 +83,7 @@ namespace Main
             if (_health <= 0)
             {
                 IsDead = true;
-                EnemyManager.Instance.RemoveEnemy(this);
+                _targetRoom.RemoveEnemy(this);
                 gameObject.SetActive(false);
             }
         }

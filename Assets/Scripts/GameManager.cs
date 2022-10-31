@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.SceneManagement;
 
 namespace Main
 {
@@ -28,6 +29,11 @@ namespace Main
                     OnRoomCleaned?.Invoke();
                     break;
             }
+        }
+
+        public static void Restart()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
 
