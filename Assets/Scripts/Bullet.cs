@@ -46,7 +46,6 @@ namespace Main
 
         public void Launch(Transform enemy)
         {
-
             _direction = enemy.position + new Vector3(0f, 1f, 0f) - transform.position;
             _isLaunched = true;
         }

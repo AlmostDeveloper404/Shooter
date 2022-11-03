@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 using Zenject;
 
 namespace Main
@@ -18,7 +19,7 @@ namespace Main
 
         private NavMeshAgent _navMeshAgent;
 
-        [Header("AdjustableModules")]
+        [Header("Enemy behavior")]
         [SerializeField] private Weapon _enemyWeapon;
         [SerializeField] private Animator _animator;
         [SerializeField] private Transform _patrolPointsContainer;
@@ -30,10 +31,16 @@ namespace Main
         [SerializeField] private float _attackRate;
         [SerializeField] private LayerMask _rayMask;
 
+        [Header("Loot")]
+        [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private GameObject _loot;
+        [SerializeField] private int _amount;
+        [SerializeField] private float _angle;
+        [SerializeField] private float _minSplashRadius;
+        [SerializeField] private float _maxSplashRadius;
 
         private PlayerController _playerController;
         private Room _targetRoom;
-
 
 
         [Inject]
@@ -60,6 +67,7 @@ namespace Main
         private void Start()
         {
             _patrolPointsContainer.transform.parent = null;
+
             _patrolling = new StraightForwardPatrollingState(_patrolPointsContainer, _navMeshAgent, _animator, _timeToStayNearbyPatrollingPoint, _detectionRadius, _patrollingSpeed);
             _approaching = new StraightForwardApproachingState(_playerController, _navMeshAgent, _animator, _runningSpeed, _attackRadius, _rayMask);
             _attack = new StraightForwardAttackState(_playerController, _animator, _attackRadius, _navMeshAgent, _attackRate, _enemyWeapon);
@@ -82,9 +90,7 @@ namespace Main
             _health -= damage;
             if (_health <= 0)
             {
-                IsDead = true;
-                _targetRoom.RemoveEnemy(this);
-                gameObject.SetActive(false);
+                Death();
             }
         }
 
@@ -98,6 +104,37 @@ namespace Main
             _currentState = null;
             _animator.SetTrigger(Animations.Idle);
         }
+
+        private void Death()
+        {
+            SpawnLoot();
+            IsDead = true;
+            _targetRoom?.RemoveEnemy(this);
+            _currentState = null;
+            gameObject.SetActive(false);
+        }
+
+        private void SpawnLoot()
+        {
+            float currentYAngle = 0;
+            float angleInterval = 360f / _amount;
+
+            Vector3 point = Vector3.zero;
+
+
+            for (int i = 0; i < _amount; i++)
+            {
+                Coin coin = CoinsSpawner.GetCoin(_loot, _spawnPoint.position);
+                _spawnPoint.localRotation = Quaternion.Euler(0f, currentYAngle, 0f);
+
+
+                point = transform.position + _spawnPoint.forward * UnityEngine.Random.Range(_minSplashRadius, _maxSplashRadius);
+
+                currentYAngle += angleInterval;
+                coin.Launch(point, _spawnPoint.forward, _angle);
+            }
+        }
+
     }
 }
 

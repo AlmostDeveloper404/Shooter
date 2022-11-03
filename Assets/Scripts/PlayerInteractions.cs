@@ -12,6 +12,7 @@ namespace Main
 
 
 
+
         private void Start()
         {
             _playerInteractionCollider.OnTriggerEnterAsObservable().Where(t => t.gameObject.GetComponent<IInteractable>() as MonoBehaviour).Subscribe(_ => Interact(_.GetComponent<IInteractable>())).AddTo(_onTriggerEnterDis);
@@ -19,9 +20,9 @@ namespace Main
 
         private void Interact(IInteractable interactable)
         {
-            Debug.Log("Yep");
             interactable.Interact();
         }
+
         private void OnDestroy()
         {
             _onTriggerEnterDis?.Clear();

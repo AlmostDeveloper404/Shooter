@@ -16,8 +16,6 @@ namespace Main
         private float _progress = 0;
         [SerializeField] private float _openingMultiplier = 0.5f;
 
-        private bool _isOpened = false;
-
         private BoxCollider _boxCollider;
 
         private void Awake()
@@ -27,7 +25,7 @@ namespace Main
 
         public void Interact()
         {
-            if (PlayerResources.KeysAmount != 0 && !_isOpened)
+            if (PlayerResources.KeysAmount != 0)
             {
                 Observable.EveryUpdate().Subscribe(_ => Fill()).AddTo(_everyUpdateDis);
                 _boxCollider.OnTriggerExitAsObservable().Where(t => t.GetComponent<PlayerController>()).Subscribe(_ => StopInteracting()).AddTo(_onTriggerExitDis);
@@ -54,16 +52,15 @@ namespace Main
         private void OpenRoom()
         {
             PlayerResources.RemoveKey();
-            enabled = false;
             _targetRoom.gameObject.SetActive(true);
             _filledImage.fillAmount = 1;
             _everyUpdateDis?.Clear();
             _onTriggerExitDis?.Clear();
+            gameObject.SetActive(false);
         }
 
         private void StopInteracting()
         {
-            Debug.Log("Stop");
             _onTriggerExitDis?.Clear();
             _everyUpdateDis?.Clear();
             _progress = 0;
