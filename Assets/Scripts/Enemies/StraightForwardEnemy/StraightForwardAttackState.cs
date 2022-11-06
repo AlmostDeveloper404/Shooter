@@ -14,13 +14,15 @@ namespace Main
         private float _attackRate;
         private Weapon _enemyWeapon;
         private Vector3 _lookDirection;
+        private LayerMask _layerMask;
 
         private float _timer;
 
         private CompositeDisposable _onTriggerExitDis = new CompositeDisposable();
 
-        public StraightForwardAttackState(PlayerController playerController, Animator animator, Collider attackRadiusCollider, NavMeshAgent navMeshAgent, float attackRate, Weapon weapon)
+        public StraightForwardAttackState(PlayerController playerController, Animator animator, Collider attackRadiusCollider, NavMeshAgent navMeshAgent, float attackRate, Weapon weapon, LayerMask layerMask)
         {
+            _layerMask = layerMask;
             _playerController = playerController;
             _animator = animator;
             _attackRadius = attackRadiusCollider;
@@ -41,6 +43,12 @@ namespace Main
         }
         public override void UpdateState(StraightForwardEnemy straightForwardEnemy)
         {
+            if (!HasDirectView<PlayerController>.HasView(straightForwardEnemy.transform.position, _playerController.transform.position, _layerMask))
+            {
+                _onTriggerExitDis?.Clear();
+                straightForwardEnemy.ChangeState(straightForwardEnemy.ApproachingToAttackState);
+            }
+
             _lookDirection = _playerController.transform.position - straightForwardEnemy.transform.position;
             straightForwardEnemy.transform.rotation = Quaternion.LookRotation(_lookDirection.normalized);
 

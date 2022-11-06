@@ -30,6 +30,8 @@ namespace Main
             _sphereCollider.isTrigger = false;
             _rigidbody.isKinematic = false;
             _rigidbody.useGravity = true;
+
+            _sphereCollider.OnCollisionEnterAsObservable().Where(t => t.gameObject.layer == LayerMask.NameToLayer("Default")).Subscribe(_ => CheckCollision()).AddTo(_onCollisionEnter);
         }
 
         public void Interact()
@@ -44,20 +46,17 @@ namespace Main
         }
 
         public void Launch(Vector3 target, Vector3 launchDirection, float angleInDegree)
-        {
+        {           
             _rigidbody.velocity = CulculateVelocity.Culculate(transform.position, target, launchDirection, angleInDegree);
         }
 
         private void CheckCollision()
         {
-
+            _sphereCollider.isTrigger = true;
+            _rigidbody.isKinematic = true;
+            _rigidbody.useGravity = false;
         }
-        //private void OnCollisionEnter(Collision collision)
-        //{
-        //    _sphereCollider.isTrigger = true;
-        //    _rigidbody.isKinematic = true;
-        //    _rigidbody.useGravity = false;
-        //}
+
         private void OnDisable()
         {
             ReturnToPool();

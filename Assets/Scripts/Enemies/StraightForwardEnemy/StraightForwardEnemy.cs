@@ -31,6 +31,8 @@ namespace Main
         [SerializeField] private float _attackRate;
         [SerializeField] private LayerMask _rayMask;
 
+        private int _currentHealth;
+
         [Header("Loot")]
         [SerializeField] private Transform _spawnPoint;
         [SerializeField] private GameObject _loot;
@@ -42,6 +44,9 @@ namespace Main
         private PlayerController _playerController;
         private Room _targetRoom;
 
+        private HealthBar _healthBar;
+
+
 
         [Inject]
         private void Construct(PlayerController playerController)
@@ -52,6 +57,7 @@ namespace Main
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _targetRoom = GetComponentInParent<Room>();
+            _healthBar = GetComponentInChildren<HealthBar>();
         }
 
         private void OnEnable()
@@ -66,11 +72,14 @@ namespace Main
 
         private void Start()
         {
+            _currentHealth = _health;
+            _healthBar.UpdateUI(_health, _currentHealth);
+
             _patrolPointsContainer.transform.parent = null;
 
-            _patrolling = new StraightForwardPatrollingState(_patrolPointsContainer, _navMeshAgent, _animator, _timeToStayNearbyPatrollingPoint, _detectionRadius, _patrollingSpeed);
+            _patrolling = new StraightForwardPatrollingState(_patrolPointsContainer, _navMeshAgent, _animator, _timeToStayNearbyPatrollingPoint, _detectionRadius, _patrollingSpeed, _rayMask);
             _approaching = new StraightForwardApproachingState(_playerController, _navMeshAgent, _animator, _runningSpeed, _attackRadius, _rayMask);
-            _attack = new StraightForwardAttackState(_playerController, _animator, _attackRadius, _navMeshAgent, _attackRate, _enemyWeapon);
+            _attack = new StraightForwardAttackState(_playerController, _animator, _attackRadius, _navMeshAgent, _attackRate, _enemyWeapon, _rayMask);
             _currentState = _patrolling;
             _currentState?.EntryState(this);
         }
@@ -87,8 +96,9 @@ namespace Main
 
         public override void TakeDamage(int damage)
         {
-            _health -= damage;
-            if (_health <= 0)
+            _currentHealth -= damage;
+            _healthBar.UpdateUI(_health, _currentHealth);
+            if (_currentHealth <= 0)
             {
                 Death();
             }
@@ -107,6 +117,7 @@ namespace Main
 
         private void Death()
         {
+            _healthBar.gameObject.SetActive(false);
             SpawnLoot();
             IsDead = true;
             _targetRoom?.RemoveEnemy(this);

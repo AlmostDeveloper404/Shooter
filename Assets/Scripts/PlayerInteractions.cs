@@ -6,12 +6,14 @@ namespace Main
 {
     public class PlayerInteractions : MonoBehaviour
     {
-        [SerializeField] private Collider _playerInteractionCollider;
+        private Collider _playerInteractionCollider;
 
         private CompositeDisposable _onTriggerEnterDis = new CompositeDisposable();
 
-
-
+        private void Awake()
+        {
+            _playerInteractionCollider = GetComponent<CapsuleCollider>();
+        }
 
         private void Start()
         {

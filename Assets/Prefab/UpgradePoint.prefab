@@ -440,11 +440,12 @@ MonoBehaviour:
   _dropType: 0
   _backgroundImage: {fileID: 8364279752879140769}
   _coinsCounter: {fileID: 4513881877250789901}
-  _coinsNeed: 20
+  _coinsNeed: 10
   _target: {fileID: 2011542630}
   _exitCollider: {fileID: 4582879881908492984}
-  _timeBetweenInvest: 0.2
-  _coin: {fileID: 3557003289304506442, guid: 63332456c00356c42a3b6457340fedde, type: 3}
+  _timeBetweenInvest: 0.1
+  _coin: {fileID: 8012934420602065552, guid: b73dabdbb7d3228409b05550fd7a7522, type: 3}
+  _angle: 45
 --- !u!1 &4582879881958746151
 GameObject:
   m_ObjectHideFlags: 0

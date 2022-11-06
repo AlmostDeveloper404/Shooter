@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Main
 {
-    public enum DropType { Upgrade, Clon, FireRate, HP }
+    public enum DropType { Damage, Clon, FireRate, HP }
 
     public class UpgradePoint : MonoBehaviour, IInteractable
     {
@@ -31,17 +31,18 @@ namespace Main
         private float _timer = 0;
         [SerializeField] private float _timeBetweenInvest = 0.2f;
 
-        private PlayerInteractions _playerInteractions;
+        private PlayerController _controller;
         private FloatingJoystick _floatingJoystick;
 
         [SerializeField] private GameObject _coin;
 
+        [SerializeField] private float _angle = 45f;
+
         [Inject]
         private void Construct(PlayerController controller, FloatingJoystick floatingJoystick)
         {
-            _playerInteractions = controller.GetComponent<PlayerInteractions>();
+            _controller = controller;
             _floatingJoystick = floatingJoystick;
-
         }
 
 
@@ -84,17 +85,17 @@ namespace Main
             if (_coinsInvested == _coinsNeed)
             {
                 _timer = -0.5f;
-
+                _backgroundImage.fillAmount = 0;
+                _coinsInvested = 0;
                 Upgrade();
             }
         }
 
         private void ShowAnimation()
         {
-            Vector3 direction = _target.position - _playerInteractions.transform.position;
-            Coin coin = CoinsSpawner.GetCoin(_coin.gameObject, _playerInteractions.transform.position + Vector3.up);
-            coin.Launch(_target.position, direction.normalized, 85f);
-            //coin.Launch(_target.position, direction.normalized, 45f);
+            Vector3 direction = _target.position - _controller.transform.position;
+            CoinGrx coin = CoinsSpawner.GetCoinForGrx(_coin.gameObject, _controller.transform.position + Vector3.up);
+            coin.Launch(_target.position, direction.normalized, _angle);
         }
 
         private void StopInvesting()
@@ -105,17 +106,7 @@ namespace Main
 
         private void Upgrade()
         {
-            switch (_dropType)
-            {
-                case DropType.Upgrade:
-                    break;
-                case DropType.Clon:
-                    break;
-                case DropType.FireRate:
-                    break;
-                case DropType.HP:
-                    break;
-            }
+            _controller.UpgradeCharacter(_dropType);
         }
     }
 }

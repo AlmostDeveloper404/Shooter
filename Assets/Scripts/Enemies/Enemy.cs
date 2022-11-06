@@ -6,6 +6,8 @@ namespace Main
     {
         public bool IsDead { get; set; }
 
+        
+
         public virtual void TakeDamage(int damage)
         {
 

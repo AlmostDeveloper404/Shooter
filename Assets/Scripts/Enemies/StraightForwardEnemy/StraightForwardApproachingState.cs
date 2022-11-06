@@ -34,6 +34,7 @@ namespace Main
             _readyToAttackCollider.OnTriggerStayAsObservable().Where(t => t.gameObject.GetComponent<PlayerController>()).Subscribe(_ => TryAttack(_, straightForwardEnemy)).AddTo(_onTriggerStayDis);
             _navMeshAgent.speed = _runSpeed;
             _animator.SetBool(Animations.Attack, false);
+            _animator.SetBool(Animations.Idle, false);
             _animator.SetBool(Animations.Run, true);
         }
 

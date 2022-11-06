@@ -9,6 +9,8 @@ namespace Main
 
         private ObjectPool<Bullet> _bulletPull;
 
+
+
         private void Start()
         {
             _bulletPull = new ObjectPool<Bullet>(_bulletPref);
@@ -17,7 +19,7 @@ namespace Main
         public override void Attack(Transform damagable)
         {
             Bullet bullet = _bulletPull.Pull(_spawnPoint.position);
-            bullet.Launch(damagable);
+            bullet.Launch(damagable, Damage);
         }
     }
 }

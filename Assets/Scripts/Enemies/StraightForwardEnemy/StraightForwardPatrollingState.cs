@@ -18,13 +18,20 @@ namespace Main
         private float _patrollingSpeed;
         private float _timeToStay;
 
-        private CompositeDisposable _detectionRadius = new CompositeDisposable();
-        private Collider _detectionCollider;
+        private CompositeDisposable _onDetectionTriggerEnter = new CompositeDisposable();
+        private CompositeDisposable _onDetectionTriggerExit = new CompositeDisposable();
 
-        public StraightForwardPatrollingState(Transform container, NavMeshAgent navMeshAgent, Animator animator, float timeToStay, Collider detectionRadiusCollider, float partolSpeed)
+        private Collider _detectionCollider;
+        private Collider _foundObjectCollider;
+
+        private bool _isInAttackRadius = false;
+
+        private LayerMask _layerMask;
+
+        public StraightForwardPatrollingState(Transform container, NavMeshAgent navMeshAgent, Animator animator, float timeToStay, Collider detectionRadiusCollider, float partolSpeed, LayerMask layerMask)
         {
 
-
+            _layerMask = layerMask;
             _detectionCollider = detectionRadiusCollider;
             _timeToStay = timeToStay;
             _animator = animator;
@@ -45,9 +52,11 @@ namespace Main
 
             _navMeshAgent.speed = _patrollingSpeed;
 
-            _detectionRadius?.Clear();
+            _onDetectionTriggerExit?.Clear();
+            _onDetectionTriggerEnter?.Clear();
 
-            _detectionCollider.OnTriggerEnterAsObservable().Where(t => t.gameObject.GetComponent<PlayerController>()).Subscribe(_ => CheckForPlayer(straightForwardEnemy)).AddTo(_detectionRadius);
+            _detectionCollider.OnTriggerExitAsObservable().Where(t => t.gameObject.GetComponent<PlayerController>()).Subscribe(_ => StopCheckingForAttack()).AddTo(_onDetectionTriggerExit);
+            _detectionCollider.OnTriggerEnterAsObservable().Where(t => t.gameObject.GetComponent<PlayerController>()).Subscribe(_ => ReadyToAttack(straightForwardEnemy, _)).AddTo(_onDetectionTriggerEnter);
             _currentPatrollingPointIndex = 0;
             _navMeshAgent.SetDestination(_points[_currentPatrollingPointIndex].position);
 
@@ -67,6 +76,11 @@ namespace Main
                 _currentPatrollingPointIndex = _currentPatrollingPointIndex == _points.Length - 1 ? 0 : _currentPatrollingPointIndex += 1;
                 _navMeshAgent.SetDestination(_points[_currentPatrollingPointIndex].position);
             }
+
+            if (_isInAttackRadius)
+            {
+                TryAttack(straightForwardEnemy, _foundObjectCollider);
+            }
         }
 
         public override void OnTriggerEnter(StraightForwardEnemy enemy, Collider collider)
@@ -77,11 +91,26 @@ namespace Main
             _isEnd = true;
         }
 
-        private void CheckForPlayer(StraightForwardEnemy straightForwardEnemy)
+        private void TryAttack(StraightForwardEnemy straightForwardEnemy, Collider attackCollider)
         {
+            bool result = HasDirectView<PlayerController>.HasView(straightForwardEnemy.transform.position, _foundObjectCollider.transform.position, _layerMask);
+            if (result)
+            {
+                _onDetectionTriggerEnter?.Clear();
+                _onDetectionTriggerExit?.Clear();
+                straightForwardEnemy.ChangeState(straightForwardEnemy.ApproachingToAttackState);
+            }
+        }
 
-            _detectionRadius?.Clear();
-            straightForwardEnemy.ChangeState(straightForwardEnemy.ApproachingToAttackState);
+        private void StopCheckingForAttack()
+        {
+            _isInAttackRadius = false;
+        }
+
+        private void ReadyToAttack(StraightForwardEnemy straightForwardEnemy, Collider collider)
+        {
+            _foundObjectCollider = collider;
+            _isInAttackRadius = true;
         }
 
     }

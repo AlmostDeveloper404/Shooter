@@ -12,7 +12,7 @@ namespace Main
         private Rigidbody _rigidbody;
 
         private Vector3 _direction;
-        [SerializeField] private int _damage;
+        private int _damage;
 
         private bool _isLaunched = false;
 
@@ -44,8 +44,10 @@ namespace Main
             _rigidbody.velocity = _direction.normalized * _speed;
         }
 
-        public void Launch(Transform enemy)
+        public void Launch(Transform enemy, int damage)
         {
+            _damage = damage;
+
             _direction = enemy.position + new Vector3(0f, 1f, 0f) - transform.position;
             _isLaunched = true;
         }

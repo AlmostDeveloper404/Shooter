@@ -17,7 +17,7 @@ namespace Main
         public override void Attack(Transform damagable)
         {
             Bullet bullet = _bulletPull.Pull(_spawnPoint.position);
-            bullet.Launch(damagable);
+            bullet.Launch(damagable, Damage);
         }
     }
 }
