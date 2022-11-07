@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace Main
 {
@@ -66,6 +67,7 @@ namespace Main
             if (nearestCollider)
             {
                 Enemy targetEnemy = nearestCollider.GetComponent<Enemy>();
+                playerController.OnEnemyDetected?.Invoke(targetEnemy);
                 _playerAttackState = new PlayerAttackState(targetEnemy, _animator, _rigidBody, _joystick, _shootingRate, _detectionRadius, _weapon);
                 playerController.ChangeState(_playerAttackState);
             }
@@ -93,7 +95,7 @@ namespace Main
         }
         public override void OnTriggerEnter(PlayerController playerController)
         {
-            throw new System.NotImplementedException();
+
         }
 
     }

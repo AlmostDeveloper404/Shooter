@@ -85,6 +85,7 @@ namespace Main
 
         public override void OnTriggerEnter(StraightForwardEnemy enemy, Collider collider)
         {
+            _navMeshAgent.velocity = Vector3.zero;
             _navMeshAgent.speed = 0;
             _animator.SetBool(Animations.Detecting, false);
             _animator.SetBool(Animations.Idle, true);

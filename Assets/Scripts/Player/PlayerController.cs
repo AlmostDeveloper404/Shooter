@@ -4,6 +4,13 @@ using Zenject;
 
 namespace Main
 {
+    [Serializable]
+    public struct PlayerStats
+    {
+        public float FireRate;
+        public float Health;
+    }
+
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
     public class PlayerController : MonoBehaviour, ITakeDamage
     {
@@ -21,6 +28,11 @@ namespace Main
         [SerializeField] private float _shootingRate;
         [SerializeField] private Weapon _activeWeapon;
         [SerializeField] private int _maxHealth;
+        [SerializeField] private float _minShootingRate = 0.1f;
+
+        private PlayerStats _currentStats;
+        public PlayerStats PlayerStats { get { return _currentStats; } }
+
         private int _currentHealth;
 
         private PlayerBaseState _currentState;
@@ -30,16 +42,10 @@ namespace Main
         public PlayerRunningState PlayerRunningState { get { return _playerRunningState; } }
         public PlayerStayingState PlayerStayingState { get { return _playerStayingState; } }
 
-        public Action<float> OnFireRateUpgraded;
-        public Action<int> OnDamageChanged;
-        public Action OnClonCreated;
-        public Action<int> OnHealthUpgraded;
-
-        [SerializeField] private int _healthIncreaseModificator;
-        [SerializeField] private float _fireRateIncreseModificator;
-        [SerializeField] private int _damageIncreaseModificator;
+        public Action<Enemy> OnEnemyDetected;
 
         private HealthBar _healthBar;
+        private PlayerUpgrade _playerUpgrade;
 
         [Inject]
         private void Construct(FloatingJoystick floatingJoystick)
@@ -54,70 +60,27 @@ namespace Main
         private void Awake()
         {
             _healthBar = GetComponentInChildren<HealthBar>();
+            _playerUpgrade = GetComponent<PlayerUpgrade>();
         }
+
+        private void OnEnable()
+        {
+            _playerUpgrade.OnFireRateUpgraded += FireRateUpgraded;
+            _playerUpgrade.OnHealthUpgraded += HealthUpgraded;
+        }
+
+        private void OnDisable()
+        {
+            _playerUpgrade.OnFireRateUpgraded -= FireRateUpgraded;
+            _playerUpgrade.OnHealthUpgraded -= HealthUpgraded;
+        }
+
 
         private void Start()
         {
             _currentHealth = _maxHealth;
             _healthBar.UpdateUI(_maxHealth, _currentHealth);
-        }
-
-        private void OnEnable()
-        {
-            OnFireRateUpgraded += IncreaseFireRate;
-            OnHealthUpgraded += IncreaseHP;
-        }
-
-        private void OnDisable()
-        {
-            OnFireRateUpgraded -= IncreaseFireRate;
-            OnHealthUpgraded -= IncreaseHP;
-        }
-
-
-        public void UpgradeCharacter(DropType dropType)
-        {
-            switch (dropType)
-            {
-                case DropType.Damage:
-                    OnDamageChanged?.Invoke(_damageIncreaseModificator);
-                    break;
-                case DropType.Clon:
-                    OnClonCreated?.Invoke();
-                    break;
-                case DropType.FireRate:
-                    OnFireRateUpgraded?.Invoke(_fireRateIncreseModificator);
-                    break;
-                case DropType.HP:
-                    OnHealthUpgraded?.Invoke(_healthIncreaseModificator);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void IncreaseHP(int amount)
-        {
-            _maxHealth += amount;
-            UpdateBehaviour();
-        }
-
-        private void IncreaseFireRate(float amount)
-        {
-            _shootingRate -= amount;
-            UpdateBehaviour();
-        }
-
-        public void UpdateBehaviour()
-        {
-            _currentHealth = _maxHealth;
-
-            _playerStayingState = new PlayerStayingState(_joystick, _layerMask, _rayMask, _detectionRadius, _animator, _rigidbody, _shootingRate, _activeWeapon);
-            _playerRunningState = new PlayerRunningState(_joystick, _animator, _speed, _rotationSpeed, _rigidbody);
-            _currentState = _playerStayingState;
-            _currentState?.EntryState(this);
-
-            _healthBar.UpdateUI(_maxHealth, _currentHealth);
+            PlayerResources.AddMoney(10000);
         }
 
         private void Update()
@@ -135,6 +98,31 @@ namespace Main
         {
             _currentState = playerBaseState;
             _currentState?.EntryState(this);
+        }
+        private void HealthUpgraded(int amount)
+        {
+            _maxHealth += amount;
+            UpdateBehaviour();
+        }
+
+        private void FireRateUpgraded(float amount)
+        {
+            _shootingRate -= amount;
+            _shootingRate = Mathf.Clamp(_shootingRate, _minShootingRate, Mathf.Infinity);
+            UpdateBehaviour();
+        }
+
+        public void UpdateBehaviour()
+        {
+            _currentHealth = _maxHealth;
+
+            _currentStats = new PlayerStats() { FireRate = _shootingRate, Health = _currentHealth };
+            _playerStayingState = new PlayerStayingState(_joystick, _layerMask, _rayMask, _detectionRadius, _animator, _rigidbody, _shootingRate, _activeWeapon);
+            _playerRunningState = new PlayerRunningState(_joystick, _animator, _speed, _rotationSpeed, _rigidbody);
+            _currentState = _playerStayingState;
+            _currentState?.EntryState(this);
+
+            _healthBar.UpdateUI(_maxHealth, _currentHealth);
         }
 
         public void TakeDamage(int damage)

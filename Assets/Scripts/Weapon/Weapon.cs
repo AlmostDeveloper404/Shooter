@@ -5,7 +5,7 @@ namespace Main
 {
     public class Weapon : MonoBehaviour, IDoDamage
     {
-        private PlayerController _playerController;
+        private PlayerUpgrade _playerUpgrade;
 
         [SerializeField] private int _damage;
 
@@ -14,23 +14,22 @@ namespace Main
         [Inject]
         private void Construct(PlayerController playerController)
         {
-            _playerController = playerController;
+            _playerUpgrade = playerController.GetComponent<PlayerUpgrade>();
         }
 
         private void OnEnable()
         {
-            _playerController.OnDamageChanged += UpgradeDamage;
+            _playerUpgrade.OnDamageChanged += UpgradeDamage;
         }
 
         private void OnDisable()
         {
-            _playerController.OnDamageChanged -= UpgradeDamage;
+            _playerUpgrade.OnDamageChanged -= UpgradeDamage;
         }
 
         private void UpgradeDamage(int amount)
         {
             _damage += amount;
-            _playerController.UpdateBehaviour();
         }
 
         public virtual void Attack(Transform enemy)

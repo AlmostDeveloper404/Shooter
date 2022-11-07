@@ -4546,6 +4546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2224924457636655046}
   - component: {fileID: 2224924457636655047}
+  - component: {fileID: 2081314226}
   m_Layer: 0
   m_Name: PlayerGRX
   m_TagString: Untagged
@@ -4598,6 +4599,47 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2081314226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561435897720911228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b62a6fc4a2028448c7990e1ada0e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _armor:
+  - _allArmor:
+    - {fileID: 5106367661173326764}
+    - {fileID: 4614820863218555163}
+    - {fileID: 2533260601410632774}
+    - {fileID: 3809574350085745627}
+    - {fileID: 4698219169543531463}
+    - {fileID: 1323499692346966371}
+  - _allArmor:
+    - {fileID: 5106367661173326764}
+    - {fileID: 4614820863218555163}
+    - {fileID: 2533260601410632774}
+    - {fileID: 3809574350085745627}
+    - {fileID: 6230635039584920552}
+    - {fileID: 1323499692346966371}
+  - _allArmor:
+    - {fileID: 7459999225673989923}
+    - {fileID: 2180176675477291693}
+    - {fileID: 5029418081885296220}
+    - {fileID: 3809574350085745627}
+    - {fileID: 5877970552117712808}
+    - {fileID: 8267447043996578256}
+  - _allArmor:
+    - {fileID: 5078080820622107063}
+    - {fileID: 8549382092701140087}
+    - {fileID: 2075513218623192379}
+    - {fileID: 1028864330322823423}
+    - {fileID: 3331685172751408846}
+    - {fileID: 1697545997863468097}
 --- !u!1 &1600830757412919467
 GameObject:
   m_ObjectHideFlags: 0
@@ -19878,6 +19920,7 @@ GameObject:
   - component: {fileID: 5089730237198802545}
   - component: {fileID: 766025645464305012}
   - component: {fileID: 393246837433622717}
+  - component: {fileID: 1160052519}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -19959,9 +20002,7 @@ MonoBehaviour:
   _shootingRate: 0.5
   _activeWeapon: {fileID: 1009335682}
   _maxHealth: 100
-  _healthIncreaseModificator: 25
-  _fireRateIncreseModificator: 0.05
-  _damageIncreaseModificator: 15
+  _minShootingRate: 0.1
 --- !u!114 &393246837433622717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19974,6 +20015,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbaf67257a11f245a9dc71cf9dc7a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1160052519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7972331043507469834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79aaa47f890542545bd8aca8fbc9b9e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthIncreaseModificator: 25
+  _fireRateIncreseModificator: 0.05
+  _damageIncreaseModificator: 15
+  _clonPrefab: {fileID: 590216073923513675, guid: 23ff8a308b4f5b64ebcdf21ae7cc5abf, type: 3}
 --- !u!1 &7977769942415546568
 GameObject:
   m_ObjectHideFlags: 0
@@ -23097,15 +23154,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4282578979233964, guid: 47ee121af4f825f44831f81a06a6526a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00078
+      value: -0.00082
       objectReference: {fileID: 0}
     - target: {fileID: 4282578979233964, guid: 47ee121af4f825f44831f81a06a6526a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00236
+      value: 0.0027
       objectReference: {fileID: 0}
     - target: {fileID: 4282578979233964, guid: 47ee121af4f825f44831f81a06a6526a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.00073
+      value: 0.00045
       objectReference: {fileID: 0}
     - target: {fileID: 4282578979233964, guid: 47ee121af4f825f44831f81a06a6526a, type: 3}
       propertyPath: m_LocalRotation.w
