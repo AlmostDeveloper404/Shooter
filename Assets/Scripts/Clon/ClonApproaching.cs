@@ -34,6 +34,7 @@ namespace Main
         {
             _playerClon = playerClon;
 
+            Debug.Log("Approach");
             _attackRadiusCollider.OnTriggerEnterAsObservable().Where(t => t.GetComponent<Enemy>()).Subscribe(_ => ChangeToAttackState()).AddTo(_onTriggerEnter);
 
             _animator.SetBool(Animations.Idle, false);
@@ -42,6 +43,7 @@ namespace Main
 
         public override void UpdateState(PlayerClon playerClon)
         {
+            Debug.Log("UpdateApproaching");
             _navMesh.SetDestination(_targetEnemy.transform.position);
         }
 

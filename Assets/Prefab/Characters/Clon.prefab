@@ -4280,7 +4280,7 @@ GameObject:
   - component: {fileID: 6032768992458041174}
   - component: {fileID: 5765862830305050846}
   - component: {fileID: 7585178345626854573}
-  m_Layer: 14
+  m_Layer: 6
   m_Name: AttackRadiusCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
