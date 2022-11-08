@@ -36,14 +36,14 @@ namespace Main
             _onTriggerExitDis?.Clear();
 
             _timer = 0;
-            _attackRadius.OnTriggerExitAsObservable().Where(t => t.gameObject.GetComponent<PlayerController>()).Subscribe(_ => AttackRadiusExit(straightForwardEnemy)).AddTo(_onTriggerExitDis);
+            _attackRadius.OnTriggerExitAsObservable().Where(t => t.gameObject.GetComponent<Unit>()).Subscribe(_ => AttackRadiusExit(straightForwardEnemy)).AddTo(_onTriggerExitDis);
             _navMeshAgent.speed = 0;
             _animator.SetBool(Animations.Attack, true);
             _animator.SetBool(Animations.Run, false);
         }
         public override void UpdateState(StraightForwardEnemy straightForwardEnemy)
         {
-            if (!HasDirectView<PlayerController>.HasView(straightForwardEnemy.transform.position, _playerController.transform.position, _layerMask))
+            if (!HasDirectView<Unit>.HasView(straightForwardEnemy.transform.position, _playerController.transform.position, _layerMask))
             {
                 _onTriggerExitDis?.Clear();
                 straightForwardEnemy.ChangeState(straightForwardEnemy.ApproachingToAttackState);

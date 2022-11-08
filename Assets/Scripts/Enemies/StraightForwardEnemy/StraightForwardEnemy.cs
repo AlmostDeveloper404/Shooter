@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
 using Zenject;
 
 namespace Main
@@ -31,6 +30,8 @@ namespace Main
         [SerializeField] private float _attackRate;
         [SerializeField] private LayerMask _rayMask;
 
+        private CapsuleCollider _enemyCollider;
+
         private int _currentHealth;
 
         [Header("Loot")]
@@ -58,6 +59,7 @@ namespace Main
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _targetRoom = GetComponentInParent<Room>();
             _healthBar = GetComponentInChildren<HealthBar>();
+            _enemyCollider = GetComponent<CapsuleCollider>();
         }
 
         private void OnEnable()
@@ -117,12 +119,20 @@ namespace Main
 
         private void Death()
         {
+            _currentState = null;
+            _detectionRadius.enabled = false;
+            _attackRadius.enabled = false;
+            _enemyCollider.enabled = false;
+            _navMeshAgent.velocity = Vector3.zero;
+            _navMeshAgent.speed = 0;
+
             _healthBar.gameObject.SetActive(false);
             SpawnLoot();
+            _animator.applyRootMotion = true;
+            _animator.SetTrigger(Animations.Death);
             IsDead = true;
+            _navMeshAgent.enabled = false;
             _targetRoom?.RemoveEnemy(this);
-            _currentState = null;
-            gameObject.SetActive(false);
         }
 
         private void SpawnLoot()

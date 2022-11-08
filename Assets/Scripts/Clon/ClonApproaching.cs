@@ -19,8 +19,9 @@ namespace Main
         private ClonAttackState _clonAttackState;
 
         private PlayerClon _playerClon;
+        private LayerMask _enemyMask;
 
-        public ClonApproaching(Enemy enemy, NavMeshAgent navMeshAgent, Animator animator, Collider collider, Weapon weapon, PlayerController playerController)
+        public ClonApproaching(Enemy enemy, NavMeshAgent navMeshAgent, Animator animator, Collider collider, Weapon weapon, PlayerController playerController, LayerMask enemyMask)
         {
             _targetEnemy = enemy;
             _navMesh = navMeshAgent;
@@ -28,14 +29,17 @@ namespace Main
             _attackRadiusCollider = collider;
             _weapon = weapon;
             _playerController = playerController;
+            _enemyMask = enemyMask;
         }
 
         public override void EntryState(PlayerClon playerClon)
         {
+            _onTriggerEnter?.Clear();
+
             _playerClon = playerClon;
 
-            Debug.Log("Approach");
-            _attackRadiusCollider.OnTriggerEnterAsObservable().Where(t => t.GetComponent<Enemy>()).Subscribe(_ => ChangeToAttackState()).AddTo(_onTriggerEnter);
+            _navMesh.speed = playerClon.Speed;
+            _attackRadiusCollider.OnTriggerStayAsObservable().Where(t => t.GetComponent<Enemy>()).Subscribe(_ => ChangeToAttackState()).AddTo(_onTriggerEnter);
 
             _animator.SetBool(Animations.Idle, false);
             _animator.SetBool(Animations.Run, true);
@@ -43,16 +47,16 @@ namespace Main
 
         public override void UpdateState(PlayerClon playerClon)
         {
-            Debug.Log("UpdateApproaching");
             _navMesh.SetDestination(_targetEnemy.transform.position);
         }
 
         private void ChangeToAttackState()
         {
             Debug.Log("Yep");
-            _clonAttackState = new ClonAttackState(_animator, _targetEnemy, _weapon, _navMesh,_playerController);
-            _playerClon.ChangeClonState(_clonAttackState);
             _onTriggerEnter?.Clear();
+
+            _clonAttackState = new ClonAttackState(_animator, _targetEnemy, _weapon, _navMesh, _playerController, _enemyMask);
+            _playerClon.ChangeClonState(_clonAttackState);
         }
     }
 }

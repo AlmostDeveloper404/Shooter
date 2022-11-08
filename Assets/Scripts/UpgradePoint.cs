@@ -7,7 +7,6 @@ using Zenject;
 
 namespace Main
 {
-    public enum DropType { Damage, Clon, FireRate, HP }
 
     public class UpgradePoint : MonoBehaviour, IInteractable
     {

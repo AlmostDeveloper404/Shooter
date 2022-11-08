@@ -6,12 +6,14 @@ using Zenject;
 namespace Main
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class PlayerClon : MonoBehaviour, IPoolable<PlayerClon>
+    public class PlayerClon : Unit, IPoolable<PlayerClon>
     {
         private NavMeshAgent _navMesh;
         private ClonBaseState _currentState;
 
         private ClonEscortState _clonEscortState;
+
+        public ClonEscortState ClonEscortState { get { return _clonEscortState; } }
 
         private Action<PlayerClon> _returnAction;
 
@@ -22,12 +24,20 @@ namespace Main
 
         private Animator _animator;
 
+        private PlayerUpgrade _playerUpgrade;
+        private float _navMeshSpeed;
+
+        [SerializeField] private LayerMask _enemyMask;
+
+        public float Speed { get { return _navMeshSpeed; } }
+
         [SerializeField] private Collider _attackRadiusCollider;
 
         [Inject]
         private void Construct(PlayerController playerController)
         {
             _playerController = playerController;
+            _playerUpgrade = playerController.GetComponent<PlayerUpgrade>();
             _animator = GetComponentInChildren<Animator>();
         }
 
@@ -38,14 +48,13 @@ namespace Main
 
         private void Start()
         {
-            _clonEscortState = new ClonEscortState(_playerController, _navMesh, _animator, _attackRadiusCollider, _weapon);
-            _currentState = _clonEscortState;
-            _currentState?.EntryState(this);
+            _navMeshSpeed = _navMesh.speed;
+            UpdateClonBehaivior();
         }
 
-        public void SetupSpawnPoint(Vector3 point)
+        public void Setup(Vector3 spawnPoint)
         {
-            _spawnPoint = point;
+            _spawnPoint = spawnPoint;
         }
 
         public void Initialize(Action<PlayerClon> returnAction)
@@ -70,9 +79,11 @@ namespace Main
             _currentState.EntryState(this);
         }
 
-        private void Death()
+        private void UpdateClonBehaivior()
         {
-            _playerController.GetComponent<PlayerUpgrade>().CreateClon(_spawnPoint);
+            _clonEscortState = new ClonEscortState(_playerController, _navMesh, _animator, _attackRadiusCollider, _weapon, _enemyMask);
+            _currentState = _clonEscortState;
+            _currentState?.EntryState(this);
         }
     }
 }

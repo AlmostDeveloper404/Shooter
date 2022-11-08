@@ -1,27 +1,22 @@
-using System;
 using UnityEngine;
 using Zenject;
 
 namespace Main
 {
-    [Serializable]
-    public struct ArmorOverUpgrade
-    {
-        public SkinnedMeshRenderer[] _allArmor;
-    }
-
-    public class PlayerCustomization : MonoBehaviour
+    public class ClonCustomization : MonoBehaviour
     {
         private PlayerUpgrade _playerUpgrade;
 
         [SerializeField] private ArmorOverUpgrade[] _armor;
         private int _currentArmorIndex = 0;
-        public int ArmorIndex { get { return _currentArmorIndex; } }
+
+        private PlayerCustomization _playerCustomization;
 
         [Inject]
-        private void Construct(PlayerController playerController)
+        private void Construct(PlayerController playerController, PlayerCustomization playerCustomization)
         {
             _playerUpgrade = playerController.GetComponent<PlayerUpgrade>();
+            _playerCustomization = playerCustomization;
         }
 
         private void OnEnable()
@@ -33,6 +28,18 @@ namespace Main
         private void OnDisable()
         {
             _playerUpgrade.OnHealthUpgraded -= UpdateArmor;
+        }
+
+        private void Start()
+        {
+            SetupArmor();
+        }
+
+        private void SetupArmor()
+        {
+            _currentArmorIndex = _playerCustomization.ArmorIndex;
+            TakeOffArmor(_armor[0]);
+            PutOnArmor(_armor[_currentArmorIndex]);
         }
 
         private void UpdateArmor(int health)

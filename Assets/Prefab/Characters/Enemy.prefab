@@ -1748,6 +1748,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 9
+  _fireRate: 1
+  _minShootingRate: 0.5
+  _weaponUser: 1
 --- !u!1 &4142205537633093555
 GameObject:
   m_ObjectHideFlags: 0

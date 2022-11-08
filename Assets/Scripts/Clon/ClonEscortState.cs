@@ -17,8 +17,9 @@ namespace Main
         private bool _isStopped = false;
 
         private ClonApproaching _clonApproachingState;
+        private LayerMask _enemyMask;
 
-        public ClonEscortState(PlayerController playerController, NavMeshAgent navMeshAgent, Animator animator, Collider collider, Weapon weapon)
+        public ClonEscortState(PlayerController playerController, NavMeshAgent navMeshAgent, Animator animator, Collider collider, Weapon weapon, LayerMask enemyMask)
         {
             _playerController = playerController;
             _navMeshAgent = navMeshAgent;
@@ -31,6 +32,7 @@ namespace Main
         {
             _playerClon = playerClon;
 
+            _navMeshAgent.speed = playerClon.Speed;
             _playerController.OnEnemyDetected += ChangeState;
 
             _animator.SetBool(Animations.Idle, true);
@@ -39,12 +41,14 @@ namespace Main
 
         public override void UpdateState(PlayerClon playerClon)
         {
+            Debug.Log("Escort");
             _navMeshAgent.SetDestination(_playerController.transform.position);
             if (_navMeshAgent.velocity == Vector3.zero && !_isStopped)
             {
                 _isStopped = true;
                 _animator.SetBool(Animations.Idle, true);
                 _animator.SetBool(Animations.Run, false);
+                _navMeshAgent.velocity = Vector3.zero;
             }
 
             if (_navMeshAgent.velocity != Vector3.zero && _isStopped)
@@ -57,7 +61,7 @@ namespace Main
 
         private void ChangeState(Enemy enemy)
         {
-            _clonApproachingState = new ClonApproaching(enemy, _navMeshAgent, _animator, _attackRadiusCollider, _weapon,_playerController);
+            _clonApproachingState = new ClonApproaching(enemy, _navMeshAgent, _animator, _attackRadiusCollider, _weapon, _playerController, _enemyMask);
             _playerClon.ChangeClonState(_clonApproachingState);
             _playerController.OnEnemyDetected -= ChangeState;
         }

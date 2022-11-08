@@ -272,6 +272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 18
+  _fireRate: 0.5
+  _minShootingRate: 0.1
   _spawnPoint: {fileID: 183963661}
   _bulletPref: {fileID: 5133899227334299625, guid: 1c32f7074b674e943a8d1789750e7cef, type: 3}
 --- !u!1 &1275597194
@@ -19921,6 +19923,7 @@ GameObject:
   - component: {fileID: 766025645464305012}
   - component: {fileID: 393246837433622717}
   - component: {fileID: 1160052519}
+  - component: {fileID: 4077475892702633146}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -19998,11 +20001,7 @@ MonoBehaviour:
   _rayMask:
     serializedVersion: 2
     m_Bits: 257
-  _animator: {fileID: 2224924457636655047}
-  _shootingRate: 0.5
   _activeWeapon: {fileID: 1009335682}
-  _maxHealth: 100
-  _minShootingRate: 0.1
 --- !u!114 &393246837433622717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20031,6 +20030,19 @@ MonoBehaviour:
   _fireRateIncreseModificator: 0.05
   _damageIncreaseModificator: 15
   _clonPrefab: {fileID: 590216073923513675, guid: 23ff8a308b4f5b64ebcdf21ae7cc5abf, type: 3}
+--- !u!114 &4077475892702633146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7972331043507469834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a9e84e6821d1943864ea437d21d69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!1 &7977769942415546568
 GameObject:
   m_ObjectHideFlags: 0

@@ -2705,6 +2705,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 13
+  _fireRate: 0.7
+  _minShootingRate: 0
+  _weaponUser: 1
   _spawnPoint: {fileID: 4437325556848345341}
   _bulletPref: {fileID: 5133899227334299625, guid: c740351469f32e94697258774b67535f, type: 3}
 --- !u!1 &7329537987736916310

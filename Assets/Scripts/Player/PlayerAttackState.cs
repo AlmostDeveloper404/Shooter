@@ -8,7 +8,6 @@ namespace Main
         private Animator _animator;
         private Rigidbody _rigidBody;
         private FloatingJoystick _joystick;
-        private float _shootingRate;
         private float _detectionRadius;
         private Weapon _weapon;
 
@@ -16,20 +15,19 @@ namespace Main
 
         private float _timer;
 
-        public PlayerAttackState(Enemy enemy, Animator animator, Rigidbody rigidbody, FloatingJoystick floatingJoystick, float shootingRate, float detectionRadius, Weapon weapon)
+        public PlayerAttackState(Enemy enemy, Animator animator, Rigidbody rigidbody, FloatingJoystick floatingJoystick, float detectionRadius, Weapon weapon)
         {
             _targetEnemy = enemy;
             _animator = animator;
             _rigidBody = rigidbody;
             _joystick = floatingJoystick;
-            _shootingRate = shootingRate;
             _detectionRadius = detectionRadius;
             _weapon = weapon;
         }
 
         public override void EntryState(PlayerController playerController)
         {
-            _timer = _shootingRate * 0.5f;
+            _timer = _weapon.FireRate * 0.5f;
             _animator.SetBool(Animations.Attack, true);
             _animator.SetBool(Animations.Run, false);
             _animator.SetBool(Animations.Idle, false);
@@ -57,7 +55,7 @@ namespace Main
             }
 
             _timer += Time.deltaTime;
-            if (_timer > _shootingRate)
+            if (_timer > _weapon.FireRate)
             {
                 _timer = 0;
                 Shoot();

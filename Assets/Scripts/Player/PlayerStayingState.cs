@@ -10,13 +10,12 @@ namespace Main
         private float _detectionRadius;
         private Animator _animator;
         private Rigidbody _rigidBody;
-        private float _shootingRate;
         private Weapon _weapon;
         private LayerMask _rayMask;
 
         private PlayerAttackState _playerAttackState;
 
-        public PlayerStayingState(FloatingJoystick floatingJoystick, LayerMask detectionMask, LayerMask rayMask, float detectionRadius, Animator animator, Rigidbody rigidbody, float shootingRate, Weapon activeWeapon)
+        public PlayerStayingState(FloatingJoystick floatingJoystick, LayerMask detectionMask, LayerMask rayMask, float detectionRadius, Animator animator, Rigidbody rigidbody, Weapon activeWeapon)
         {
             _joystick = floatingJoystick;
             _detectionMask = detectionMask;
@@ -24,7 +23,6 @@ namespace Main
             _rayMask = rayMask;
             _animator = animator;
             _rigidBody = rigidbody;
-            _shootingRate = shootingRate;
             _weapon = activeWeapon;
         }
 
@@ -51,24 +49,28 @@ namespace Main
 
 
             float minDistance = Mathf.Infinity;
-            Collider nearestCollider = null;
+            Enemy nearestEnemy = null;
             for (int i = 0; i < _allDetectedColliders.Length; i++)
             {
                 if (!HasDirectView(_allDetectedColliders[i], playerController)) continue;
 
+                Enemy enemy = _allDetectedColliders[i].GetComponent<Enemy>();
+                if (enemy.IsDead) continue;
+
+
                 float distance = Vector3.Distance(playerController.transform.position, _allDetectedColliders[i].transform.position);
                 if (distance < minDistance)
                 {
-                    nearestCollider = _allDetectedColliders[i];
+                    nearestEnemy = _allDetectedColliders[i].GetComponent<Enemy>();
                     minDistance = distance;
                 }
             }
 
-            if (nearestCollider)
+            if (nearestEnemy)
             {
-                Enemy targetEnemy = nearestCollider.GetComponent<Enemy>();
+                Enemy targetEnemy = nearestEnemy;
                 playerController.OnEnemyDetected?.Invoke(targetEnemy);
-                _playerAttackState = new PlayerAttackState(targetEnemy, _animator, _rigidBody, _joystick, _shootingRate, _detectionRadius, _weapon);
+                _playerAttackState = new PlayerAttackState(targetEnemy, _animator, _rigidBody, _joystick, _detectionRadius, _weapon);
                 playerController.ChangeState(_playerAttackState);
             }
         }

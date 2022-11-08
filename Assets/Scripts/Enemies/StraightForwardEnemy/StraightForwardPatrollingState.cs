@@ -55,8 +55,8 @@ namespace Main
             _onDetectionTriggerExit?.Clear();
             _onDetectionTriggerEnter?.Clear();
 
-            _detectionCollider.OnTriggerExitAsObservable().Where(t => t.gameObject.GetComponent<PlayerController>()).Subscribe(_ => StopCheckingForAttack()).AddTo(_onDetectionTriggerExit);
-            _detectionCollider.OnTriggerEnterAsObservable().Where(t => t.gameObject.GetComponent<PlayerController>()).Subscribe(_ => ReadyToAttack(straightForwardEnemy, _)).AddTo(_onDetectionTriggerEnter);
+            _detectionCollider.OnTriggerExitAsObservable().Where(t => t.gameObject.GetComponent<Unit>()).Subscribe(_ => StopCheckingForAttack()).AddTo(_onDetectionTriggerExit);
+            _detectionCollider.OnTriggerEnterAsObservable().Where(t => t.gameObject.GetComponent<Unit>()).Subscribe(_ => ReadyToAttack(straightForwardEnemy, _)).AddTo(_onDetectionTriggerEnter);
             _currentPatrollingPointIndex = 0;
             _navMeshAgent.SetDestination(_points[_currentPatrollingPointIndex].position);
 
@@ -94,7 +94,7 @@ namespace Main
 
         private void TryAttack(StraightForwardEnemy straightForwardEnemy, Collider attackCollider)
         {
-            bool result = HasDirectView<PlayerController>.HasView(straightForwardEnemy.transform.position, _foundObjectCollider.transform.position, _layerMask);
+            bool result = HasDirectView<Unit>.HasView(straightForwardEnemy.transform.position, _foundObjectCollider.transform.position, _layerMask);
             if (result)
             {
                 _onDetectionTriggerEnter?.Clear();

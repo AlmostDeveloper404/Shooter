@@ -31,7 +31,7 @@ namespace Main
         {
             _onTriggerStayDis?.Clear();
 
-            _readyToAttackCollider.OnTriggerStayAsObservable().Where(t => t.gameObject.GetComponent<PlayerController>()).Subscribe(_ => TryAttack(_, straightForwardEnemy)).AddTo(_onTriggerStayDis);
+            _readyToAttackCollider.OnTriggerStayAsObservable().Where(t => t.gameObject.GetComponent<Unit>()).Subscribe(_ => TryAttack(_, straightForwardEnemy)).AddTo(_onTriggerStayDis);
             _navMeshAgent.speed = _runSpeed;
             _animator.SetBool(Animations.Attack, false);
             _animator.SetBool(Animations.Idle, false);
@@ -56,7 +56,7 @@ namespace Main
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo, direction.magnitude + 1, _rayMask))
             {
-                if (hitInfo.collider.GetComponent<PlayerController>())
+                if (hitInfo.collider.GetComponent<Unit>())
                 {
                     Attack(straightForwardEnemy);
                 }
