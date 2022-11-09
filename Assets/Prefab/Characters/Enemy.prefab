@@ -741,6 +741,7 @@ GameObject:
   - component: {fileID: 3128349374811906105}
   - component: {fileID: 2555081051718727786}
   - component: {fileID: 7972331043687299869}
+  - component: {fileID: 78982636378769519}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -842,11 +843,23 @@ MonoBehaviour:
   _attackRadius: {fileID: 718694401}
   _patrollingSpeed: 2
   _runningSpeed: 2.8
-  _health: 150
-  _attackRate: 1
+  _waitingAfterLosingTarget: 5
   _rayMask:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 16513
+--- !u!114 &78982636378769519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246311881556541506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cfe85000c25a64eba035116c5a570a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
   _spawnPoint: {fileID: 9118421511058850685}
   _loot: {fileID: 3557003289304506442, guid: 63332456c00356c42a3b6457340fedde, type: 3}
   _amount: 5

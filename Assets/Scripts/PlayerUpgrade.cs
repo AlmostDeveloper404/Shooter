@@ -15,6 +15,8 @@ namespace Main
         public event Action<int> OnHealthUpgraded;
         public event Action<Weapon> OnWeaponChanged;
 
+        public event Action OnUpgraded;
+
         private Weapon _playerWeapon;
 
         [SerializeField] private int _healthIncreaseModificator;
@@ -59,6 +61,7 @@ namespace Main
                 default:
                     break;
             }
+            OnUpgraded?.Invoke();
         }
 
         public void CreateClon(Vector3 pos)

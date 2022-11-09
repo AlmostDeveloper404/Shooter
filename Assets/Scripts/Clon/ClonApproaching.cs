@@ -12,7 +12,6 @@ namespace Main
         private Animator _animator;
         private Collider _attackRadiusCollider;
         private Weapon _weapon;
-        private PlayerController _playerController;
 
         private CompositeDisposable _onTriggerEnter = new CompositeDisposable();
 
@@ -21,14 +20,13 @@ namespace Main
         private PlayerClon _playerClon;
         private LayerMask _enemyMask;
 
-        public ClonApproaching(Enemy enemy, NavMeshAgent navMeshAgent, Animator animator, Collider collider, Weapon weapon, PlayerController playerController, LayerMask enemyMask)
+        public ClonApproaching(Enemy enemy, NavMeshAgent navMeshAgent, Animator animator, Collider collider, Weapon weapon, LayerMask enemyMask)
         {
             _targetEnemy = enemy;
             _navMesh = navMeshAgent;
             _animator = animator;
             _attackRadiusCollider = collider;
             _weapon = weapon;
-            _playerController = playerController;
             _enemyMask = enemyMask;
         }
 
@@ -39,7 +37,7 @@ namespace Main
             _playerClon = playerClon;
 
             _navMesh.speed = playerClon.Speed;
-            _attackRadiusCollider.OnTriggerStayAsObservable().Where(t => t.GetComponent<Enemy>()).Subscribe(_ => ChangeToAttackState()).AddTo(_onTriggerEnter);
+            _attackRadiusCollider.OnTriggerStayAsObservable().Where(t => t.GetComponent<Enemy>()).Subscribe(_ => TryChangeToAttackState()).AddTo(_onTriggerEnter);
 
             _animator.SetBool(Animations.Idle, false);
             _animator.SetBool(Animations.Run, true);
@@ -47,15 +45,23 @@ namespace Main
 
         public override void UpdateState(PlayerClon playerClon)
         {
+
+
+            if (_targetEnemy.IsDead)
+            {
+                playerClon.ChangeClonState(playerClon.ClonEscortState);
+                _onTriggerEnter?.Clear();
+            }
             _navMesh.SetDestination(_targetEnemy.transform.position);
         }
 
-        private void ChangeToAttackState()
+        private void TryChangeToAttackState()
         {
-            Debug.Log("Yep");
+            if (!HasDirectView<Enemy>.HasView(_playerClon.transform.position, _targetEnemy.transform.position, _enemyMask)) return;
+
             _onTriggerEnter?.Clear();
 
-            _clonAttackState = new ClonAttackState(_animator, _targetEnemy, _weapon, _navMesh, _playerController, _enemyMask);
+            _clonAttackState = new ClonAttackState(_animator, _targetEnemy, _weapon, _navMesh, _enemyMask, _attackRadiusCollider);
             _playerClon.ChangeClonState(_clonAttackState);
         }
     }

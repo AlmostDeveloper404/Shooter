@@ -52,7 +52,7 @@ namespace Main
             Enemy nearestEnemy = null;
             for (int i = 0; i < _allDetectedColliders.Length; i++)
             {
-                if (!HasDirectView(_allDetectedColliders[i], playerController)) continue;
+                if (!HasDirectView<Enemy>.HasView(playerController.transform.position, _allDetectedColliders[i].transform.position, _rayMask)) continue;
 
                 Enemy enemy = _allDetectedColliders[i].GetComponent<Enemy>();
                 if (enemy.IsDead) continue;
@@ -73,22 +73,6 @@ namespace Main
                 _playerAttackState = new PlayerAttackState(targetEnemy, _animator, _rigidBody, _joystick, _detectionRadius, _weapon);
                 playerController.ChangeState(_playerAttackState);
             }
-        }
-
-        private bool HasDirectView(Collider collider, PlayerController playerController)
-        {
-            Vector3 direction = collider.transform.position - playerController.transform.position;
-            Ray ray = new Ray(playerController.transform.position + Vector3.up, direction);
-
-            RaycastHit hitInfo;
-            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, _rayMask))
-            {
-                if (hitInfo.collider.GetComponent<Enemy>())
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         public override void FixedUpdate(PlayerController playerController)

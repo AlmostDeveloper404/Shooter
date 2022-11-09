@@ -29,13 +29,16 @@ namespace Main
 
         [SerializeField] private LayerMask _enemyMask;
 
+        private FloatingJoystick _joystick;
+
         public float Speed { get { return _navMeshSpeed; } }
 
         [SerializeField] private Collider _attackRadiusCollider;
 
         [Inject]
-        private void Construct(PlayerController playerController)
+        private void Construct(PlayerController playerController, FloatingJoystick floatingJoystick)
         {
+            _joystick = floatingJoystick;
             _playerController = playerController;
             _playerUpgrade = playerController.GetComponent<PlayerUpgrade>();
             _animator = GetComponentInChildren<Animator>();
@@ -81,7 +84,7 @@ namespace Main
 
         private void UpdateClonBehaivior()
         {
-            _clonEscortState = new ClonEscortState(_playerController, _navMesh, _animator, _attackRadiusCollider, _weapon, _enemyMask);
+            _clonEscortState = new ClonEscortState(_playerController, _navMesh, _animator, _attackRadiusCollider, _weapon, _enemyMask,_joystick);
             _currentState = _clonEscortState;
             _currentState?.EntryState(this);
         }

@@ -15,9 +15,9 @@ namespace Main
             {
                 return hitInfo.collider.GetComponent<T>() ? true : false;
             }
-
             return false;
         }
+
     }
 }
 

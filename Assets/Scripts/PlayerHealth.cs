@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Main
@@ -27,14 +28,22 @@ namespace Main
         private void OnEnable()
         {
             _playerUpgrade.OnHealthUpgraded += HealthUpgraded;
+            _playerUpgrade.OnUpgraded += Heal;
         }
+
 
         private void OnDisable()
         {
             _playerUpgrade.OnHealthUpgraded -= HealthUpgraded;
+            _playerUpgrade.OnUpgraded -= Heal;
         }
 
         private void Start()
+        {
+            _currentHealth = _maxHealth;
+            _healthBar.UpdateUI(_maxHealth, _currentHealth);
+        }
+        private void Heal()
         {
             _currentHealth = _maxHealth;
             _healthBar.UpdateUI(_maxHealth, _currentHealth);

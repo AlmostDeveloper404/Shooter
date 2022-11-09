@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -33,11 +34,14 @@ namespace Main
         private void OnEnable()
         {
             _playerUpgrade.OnHealthUpgraded += HealthUpgraded;
+            _playerUpgrade.OnUpgraded += Heal;
         }
+
 
         private void OnDisable()
         {
             _playerUpgrade.OnHealthUpgraded -= HealthUpgraded;
+            _playerUpgrade.OnUpgraded -= Heal;
         }
 
 
@@ -46,6 +50,11 @@ namespace Main
             UpdateHealth();
         }
 
+        private void Heal()
+        {
+            _currentHealth = _maxHealth;
+            _healthBar.UpdateUI(_maxHealth, _currentHealth);
+        }
         private void HealthUpgraded(int amount)
         {
             _maxHealth += amount;

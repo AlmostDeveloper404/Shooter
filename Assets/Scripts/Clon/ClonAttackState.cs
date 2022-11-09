@@ -9,6 +9,7 @@ namespace Main
         private Weapon _weapon;
         private Enemy _enemy;
         private NavMeshAgent _navMesh;
+        private Collider _attackCollider;
 
         private float _fireRate;
         private float _timer = 0;
@@ -17,7 +18,9 @@ namespace Main
         private Vector3 _direction;
         private LayerMask _enemyMask;
 
-        public ClonAttackState(Animator animator, Enemy enemy, Weapon weapon, NavMeshAgent navMeshAgent, PlayerController playerController, LayerMask enemyMask)
+        private ClonApproaching _clonApproachingState;
+
+        public ClonAttackState(Animator animator, Enemy enemy, Weapon weapon, NavMeshAgent navMeshAgent, LayerMask enemyMask, Collider attackCollider)
         {
             _animator = animator;
             _enemy = enemy;
@@ -25,6 +28,7 @@ namespace Main
             _navMesh = navMeshAgent;
             _fireRate = weapon.FireRate;
             _enemyMask = enemyMask;
+            _attackCollider = attackCollider;
         }
 
         public override void EntryState(PlayerClon playerClon)
@@ -42,7 +46,7 @@ namespace Main
         {
             if (!HasDirectView<Enemy>.HasView(playerClon.transform.position, _enemy.transform.position, _enemyMask))
             {
-                
+                _clonApproachingState = new ClonApproaching(_enemy, _navMesh, _animator, _attackCollider, _weapon, _enemyMask);
             }
 
 
