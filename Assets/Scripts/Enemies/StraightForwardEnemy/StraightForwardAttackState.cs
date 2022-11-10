@@ -42,14 +42,14 @@ namespace Main
         {
             Debug.Log("Attack");
             _onTriggerExitDis?.Clear();
-
-            _timer = 0;
-            _attackRadius.OnTriggerExitAsObservable().Where(t => t.gameObject.GetComponent<Unit>()).Subscribe(_ => AttackRadiusExit(straightForwardEnemy, _)).AddTo(_onTriggerExitDis);
-            _navMeshAgent.speed = 0;
             _animator.SetBool(Animations.Attack, true);
             _animator.SetBool(Animations.Idle, false);
             _animator.SetBool(Animations.Detecting, false);
             _animator.SetBool(Animations.Run, false);
+
+            _timer = 0;
+            _attackRadius.OnTriggerExitAsObservable().Where(t => t.gameObject.GetComponent<Unit>()).Subscribe(_ => AttackRadiusExit(straightForwardEnemy, _)).AddTo(_onTriggerExitDis);
+            _navMeshAgent.speed = 0;
         }
         public override void UpdateState(StraightForwardEnemy straightForwardEnemy)
         {

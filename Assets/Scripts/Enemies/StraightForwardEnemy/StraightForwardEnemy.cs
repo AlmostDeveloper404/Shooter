@@ -68,7 +68,10 @@ namespace Main
         {
             _navMeshAgent.speed = 0;
             _currentState = null;
-            _animator.SetTrigger(Animations.Idle);
+            _animator.SetBool(Animations.Idle, true);
+            _animator.SetBool(Animations.Run, false);
+            _animator.SetBool(Animations.Attack, false);
+            _animator.SetBool(Animations.Detecting, false);
         }
 
         private void Death()

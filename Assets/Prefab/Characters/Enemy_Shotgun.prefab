@@ -3150,6 +3150,7 @@ GameObject:
   - component: {fileID: 5758159709647428945}
   - component: {fileID: 161856679989354022}
   - component: {fileID: 5373642332653800947}
+  - component: {fileID: 9128286059694688264}
   m_Layer: 8
   m_Name: Enemy_Shotgun
   m_TagString: Untagged
@@ -3268,6 +3269,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 100
+--- !u!114 &9128286059694688264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8068053920190309753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250f488f5100f6346b6509c49c82722f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 8125027730212638304}
   _loot: {fileID: 3557003289304506442, guid: 63332456c00356c42a3b6457340fedde, type: 3}
   _amount: 5
