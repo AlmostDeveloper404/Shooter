@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Zenject;
 
 namespace Main
 {
@@ -10,6 +11,16 @@ namespace Main
 
         [SerializeField] private TMP_Text _keysText;
         [SerializeField] private TMP_Text _moneyText;
+
+        [SerializeField] private GameObject _blockPanal;
+
+        private BossTriggerActivator _bossTriggerActivator;
+
+        [Inject]
+        private void Construct(BossTriggerActivator bossTriggerActivator)
+        {
+            _bossTriggerActivator = bossTriggerActivator;
+        }
 
         private void Start()
         {
@@ -24,17 +35,40 @@ namespace Main
             GameManager.OnGameOver += GameOver;
             GameManager.OnLevelCompleted += LevelCompleted;
 
+            _bossTriggerActivator.OnCutSceneEnded += StopCutScene;
+            _bossTriggerActivator.OnBossFight += StartCutScene;
             _restartButton.onClick.AddListener(() => GameManager.Restart());
         }
 
+        private void OnDisable()
+        {
+            PlayerResources.OnMoneyAmountChanged -= UpdateMoney;
+            PlayerResources.OnKeysAmountChanged -= UpdateKeys;
+            GameManager.OnGameOver -= GameOver;
+            GameManager.OnLevelCompleted -= LevelCompleted;
+
+            _bossTriggerActivator.OnCutSceneEnded -= StopCutScene;
+            _bossTriggerActivator.OnBossFight -= StartCutScene;
+            _restartButton.onClick.RemoveAllListeners();
+        }
         private void LevelCompleted()
         {
-            
+
         }
 
         private void GameOver()
         {
-            
+
+        }
+
+        private void StartCutScene()
+        {
+            _blockPanal.SetActive(true);
+        }
+
+        private void StopCutScene()
+        {
+            _blockPanal.SetActive(false);
         }
 
         private void UpdateKeys(int amount)
@@ -47,15 +81,6 @@ namespace Main
             _moneyText.text = amount.ToString();
         }
 
-        private void OnDisable()
-        {
-            PlayerResources.OnMoneyAmountChanged -= UpdateMoney;
-            PlayerResources.OnKeysAmountChanged -= UpdateKeys;
-            GameManager.OnGameOver -= GameOver;
-            GameManager.OnLevelCompleted -= LevelCompleted;
-
-            _restartButton.onClick.RemoveAllListeners();
-        }
     }
 }
 

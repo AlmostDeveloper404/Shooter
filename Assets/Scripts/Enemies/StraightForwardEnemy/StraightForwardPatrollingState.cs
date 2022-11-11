@@ -61,7 +61,6 @@ namespace Main
 
         public override void EntryState(StraightForwardEnemy straightForwardEnemy)
         {
-            Debug.Log("Patrol");
             _animator.SetBool(Animations.Idle, false);
             _animator.SetBool(Animations.Detecting, true);
 

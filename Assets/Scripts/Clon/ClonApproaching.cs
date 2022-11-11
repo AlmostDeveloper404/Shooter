@@ -36,8 +36,8 @@ namespace Main
 
             _playerClon = playerClon;
 
-            _navMesh.speed = playerClon.Speed;
-            _attackRadiusCollider.OnTriggerStayAsObservable().Where(t => t.GetComponent<Enemy>()).Subscribe(_ => TryChangeToAttackState()).AddTo(_onTriggerEnter);
+            _navMesh.speed = _playerClon.Speed;
+            _attackRadiusCollider.OnTriggerStayAsObservable().Where(t => t.gameObject.GetComponent<Enemy>()).Subscribe(_ => TryChangeToAttackState()).AddTo(_onTriggerEnter);
 
             _animator.SetBool(Animations.Idle, false);
             _animator.SetBool(Animations.Run, true);
@@ -45,18 +45,18 @@ namespace Main
 
         public override void UpdateState(PlayerClon playerClon)
         {
-
-
             if (_targetEnemy.IsDead)
             {
                 playerClon.ChangeClonState(playerClon.ClonEscortState);
                 _onTriggerEnter?.Clear();
             }
+
             _navMesh.SetDestination(_targetEnemy.transform.position);
         }
 
         private void TryChangeToAttackState()
         {
+            Debug.Log(HasDirectView<Enemy>.HasView(_playerClon.transform.position, _targetEnemy.transform.position, _enemyMask));
             if (!HasDirectView<Enemy>.HasView(_playerClon.transform.position, _targetEnemy.transform.position, _enemyMask)) return;
 
             _onTriggerEnter?.Clear();

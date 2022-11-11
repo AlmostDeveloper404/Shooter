@@ -59,7 +59,7 @@ namespace Main
             _damage += amount;
         }
 
-        public virtual void Attack(Transform enemy)
+        public virtual void Attack(Transform target)
         {
 
         }

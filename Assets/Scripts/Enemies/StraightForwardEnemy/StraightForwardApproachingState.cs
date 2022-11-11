@@ -45,7 +45,6 @@ namespace Main
 
         public override void EntryState(StraightForwardEnemy straightForwardEnemy)
         {
-            Debug.Log("Approach");
             _targetIsVisible = true;
             _onTriggerStayDis?.Clear();
             _onTriggerExitDis?.Clear();

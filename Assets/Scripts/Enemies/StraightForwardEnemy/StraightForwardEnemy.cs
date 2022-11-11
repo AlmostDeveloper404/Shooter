@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 namespace Main
 {
+    [RequireComponent(typeof(NavMeshAgent))]
     public class StraightForwardEnemy : Enemy
     {
         private EnemyBaseState<StraightForwardEnemy> _currentState;

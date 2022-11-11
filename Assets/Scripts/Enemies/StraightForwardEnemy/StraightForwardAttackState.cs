@@ -40,7 +40,6 @@ namespace Main
 
         public override void EntryState(StraightForwardEnemy straightForwardEnemy)
         {
-            Debug.Log("Attack");
             _onTriggerExitDis?.Clear();
             _animator.SetBool(Animations.Attack, true);
             _animator.SetBool(Animations.Idle, false);

@@ -20000,7 +20000,7 @@ MonoBehaviour:
     m_Bits: 256
   _rayMask:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 65792
 --- !u!114 &393246837433622717
 MonoBehaviour:
   m_ObjectHideFlags: 0

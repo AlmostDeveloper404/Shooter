@@ -82,6 +82,7 @@ namespace Main
 
         private void Death()
         {
+            GetComponent<CapsuleCollider>().enabled = false;
             _healthBar.gameObject.SetActive(false);
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.angularVelocity = Vector3.zero;

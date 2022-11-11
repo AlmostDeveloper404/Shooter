@@ -32,11 +32,13 @@ namespace Main
 
         public Action<Enemy> OnEnemyDetected;
 
+        private BossTriggerActivator _bossTriggerActivator;
+
         [Inject]
-        private void Construct(FloatingJoystick floatingJoystick)
+        private void Construct(FloatingJoystick floatingJoystick, BossTriggerActivator bossTriggerActivator)
         {
             _joystick = floatingJoystick;
-
+            _bossTriggerActivator = bossTriggerActivator;
         }
         private void Awake()
         {
@@ -49,12 +51,16 @@ namespace Main
         {
             GameManager.OnGameOver += GameOver;
             _playerUpgrade.OnWeaponChanged += WeaponChanged;
+            _bossTriggerActivator.OnBossFight += DisableController;
+            _bossTriggerActivator.OnCutSceneEnded += EnableController;
         }
 
         private void OnDisable()
         {
             GameManager.OnGameOver -= GameOver;
             _playerUpgrade.OnWeaponChanged -= WeaponChanged;
+            _bossTriggerActivator.OnBossFight -= DisableController;
+            _bossTriggerActivator.OnCutSceneEnded -= EnableController;
         }
 
         private void Start()
@@ -86,6 +92,19 @@ namespace Main
             _playerRunningState = new PlayerRunningState(_joystick, _animator, _speed, _rotationSpeed, _rigidbody);
             _currentState = _playerStayingState;
             _currentState?.EntryState(this);
+        }
+
+        private void DisableController()
+        {
+            _rigidbody.velocity = Vector3.zero;
+            _animator.SetBool(Animations.Idle, true);
+            _animator.SetBool(Animations.Run, false);
+            _currentState = null;
+        }
+
+        private void EnableController()
+        {
+            UpdateBehaviour();
         }
 
         private void GameOver()

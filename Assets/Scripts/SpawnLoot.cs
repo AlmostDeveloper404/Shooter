@@ -7,9 +7,6 @@ namespace Main
     {
         private EnemyHealth _enemyHealth;
 
-
-
-
         [Header("Loot")]
         [SerializeField] private Transform _spawnPoint;
         [SerializeField] private GameObject _loot;

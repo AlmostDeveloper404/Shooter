@@ -31,7 +31,7 @@ namespace Main
             _rigidbody.isKinematic = false;
             _rigidbody.useGravity = true;
 
-            _sphereCollider.OnCollisionEnterAsObservable().Where(t => t.gameObject.layer == LayerMask.NameToLayer("Default")).Subscribe(_ => CheckCollision()).AddTo(_onCollisionEnter);
+            _sphereCollider.OnCollisionEnterAsObservable().Where(t => t.gameObject.layer == LayerMask.NameToLayer("Ground")).Subscribe(_ => CheckCollision()).AddTo(_onCollisionEnter);
         }
 
         public void Interact()

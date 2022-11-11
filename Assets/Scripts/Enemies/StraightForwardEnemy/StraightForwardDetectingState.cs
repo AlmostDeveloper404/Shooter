@@ -35,7 +35,6 @@ namespace Main
 
         public override void EntryState(StraightForwardEnemy straightForwardEnemy)
         {
-            Debug.Log("Detection");
             _onTriggerEnterDisposable?.Clear();
             
             _detectionCollider.OnTriggerStayAsObservable().Where(t => t.GetComponent<Unit>()).Subscribe(_ => CheckForTarget(straightForwardEnemy, _)).AddTo(_onTriggerEnterDisposable);
