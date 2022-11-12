@@ -246,8 +246,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.53
-  m_fontSizeBase: 0.53
+  m_fontSize: 0.3
+  m_fontSizeBase: 0.3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _filledImage: {fileID: 1089732655}
   _targetRoom: {fileID: 0}
-  _timeToOpen: 0.5
+  _openingMultiplier: 0.5
 --- !u!65 &5443247651998856502
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -348,8 +348,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.045232, y: 0.0898016, z: 2.068163}
-  m_Center: {x: 0.2198, y: 0.028, z: -0.059}
+  m_Size: {x: 1.0404162, y: 0.1, z: 1.0236139}
+  m_Center: {x: 0.5202081, y: 0, z: 0.51180696}
 --- !u!1 &5443247652047226793
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +377,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5443247652047226793}
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -388,8 +388,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.75, y: -0.000000059604645}
-  m_SizeDelta: {x: 2, y: 2}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1.0495, y: 1.0495}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &5443247652047226789
 Canvas:
