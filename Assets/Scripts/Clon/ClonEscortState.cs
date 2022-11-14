@@ -45,6 +45,7 @@ namespace Main
 
         public override void UpdateState(PlayerClon playerClon)
         {
+
             _navMeshAgent.SetDestination(_playerController.transform.position);
             if (_navMeshAgent.velocity.magnitude == 0 && !_isStopped)
             {

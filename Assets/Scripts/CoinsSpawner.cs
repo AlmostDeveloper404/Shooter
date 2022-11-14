@@ -2,32 +2,27 @@ using UnityEngine;
 
 namespace Main
 {
-    public static class CoinsSpawner
+    public class CoinsSpawner : MonoBehaviour
     {
-        private static ObjectPool<Coin> _coinsPool;
-        private static ObjectPool<CoinGrx> _coinGrx;
+        private ObjectPool<Coin> _coinsPool;
+        private ObjectPool<CoinGrx> _coinGrx;
 
-        private static bool _isFirstLaunch = true;
-        private static bool _isFirstLaunchForGrx = true;
-        public static Coin GetCoin(GameObject pref, Vector3 spawnPoint)
+        [SerializeField] private GameObject _coin;
+        [SerializeField] private GameObject _coinGRX;
+
+        private void Start()
         {
-            if (_isFirstLaunch)
-            {
-                _coinsPool = new ObjectPool<Coin>(pref);
-                _isFirstLaunch = false;
-            }
+            _coinsPool = new ObjectPool<Coin>(_coin);
+            _coinGrx = new ObjectPool<CoinGrx>(_coinGRX);
+        }
 
+        public Coin GetCoin(Vector3 spawnPoint)
+        {
             return _coinsPool.Pull(spawnPoint);
         }
 
-        public static CoinGrx GetCoinForGrx(GameObject pref, Vector3 spawnPoint)
+        public CoinGrx GetCoinForGrx(Vector3 spawnPoint)
         {
-            if (_isFirstLaunchForGrx)
-            {
-                _coinGrx = new ObjectPool<CoinGrx>(pref);
-                _isFirstLaunchForGrx = false;
-            }
-
             return _coinGrx.Pull(spawnPoint);
         }
     }

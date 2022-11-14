@@ -13,10 +13,17 @@ namespace Main
         [SerializeField]
         private DropType _dropType;
 
+
+        [Header("UI Reference")]
         [SerializeField] private Image _backgroundImage;
         [SerializeField] private TMP_Text _coinsCounter;
         [SerializeField] private Image _dropTypeImage;
         [SerializeField] private TMP_Text _upgradeDropName;
+        [SerializeField] private Sprite _fireRate;
+        [SerializeField] private Sprite _health;
+        [SerializeField] private Sprite _clon;
+        [SerializeField] private Sprite _damage;
+        [SerializeField] private Image _frontImage;
 
         [SerializeField] private int _coinsNeed;
 
@@ -25,28 +32,30 @@ namespace Main
         private CompositeDisposable _onEveryUpdateDis = new CompositeDisposable();
         private CompositeDisposable _onTriggerExitDis = new CompositeDisposable();
 
-        [SerializeField] private Transform _target;
 
         public Vector3 ClonSpawnPosition { get { return _target.position; } }
 
         [SerializeField] private Collider _exitCollider;
+        [SerializeField] private float _timeBetweenInvest = 0.2f;
+        //[SerializeField] private GameObject _coin;
+        [SerializeField] private float _angle = 45f;
+        [SerializeField] private Transform _target;
 
 
         private float _timer = 0;
-        [SerializeField] private float _timeBetweenInvest = 0.2f;
 
         private PlayerUpgrade _playerUpgrade;
         private FloatingJoystick _floatingJoystick;
+        private CoinsSpawner _coinSpawner;
 
-        [SerializeField] private GameObject _coin;
 
-        [SerializeField] private float _angle = 45f;
 
         [Inject]
-        private void Construct(PlayerController controller, FloatingJoystick floatingJoystick)
+        private void Construct(PlayerController controller, FloatingJoystick floatingJoystick,CoinsSpawner coinsSpawner)
         {
             _playerUpgrade = controller.GetComponent<PlayerUpgrade>();
             _floatingJoystick = floatingJoystick;
+            _coinSpawner = coinsSpawner;
         }
 
 
@@ -70,16 +79,20 @@ namespace Main
             switch (_dropType)
             {
                 case DropType.Damage:
-                    _upgradeDropName.text = $"Damage";
+                    _dropTypeImage.sprite = _damage;
+                    _frontImage.color = Color.red;
                     break;
                 case DropType.Clon:
-                    _upgradeDropName.text = $"Clon";
+                    _dropTypeImage.sprite = _clon;
+                    _frontImage.color = Color.yellow;
                     break;
                 case DropType.FireRate:
-                    _upgradeDropName.text = $"FireRate";
+                    _dropTypeImage.sprite = _fireRate;
+                    _frontImage.color = Color.blue;
                     break;
                 case DropType.HP:
-                    _upgradeDropName.text = $"Health";
+                    _dropTypeImage.sprite = _health;
+                    _frontImage.color = Color.green;
                     break;
                 default:
                     break;
@@ -106,7 +119,7 @@ namespace Main
         {
             float fillAmount = (float)_coinsInvested / (float)_coinsNeed;
             _backgroundImage.fillAmount = fillAmount;
-            _coinsCounter.text = $"{_coinsInvested}/{_coinsNeed}";
+            _coinsCounter.text = $"{_coinsNeed}";
 
             if (_coinsInvested == _coinsNeed)
             {
@@ -120,7 +133,7 @@ namespace Main
         private void ShowAnimation()
         {
             Vector3 direction = _target.position - _playerUpgrade.transform.position;
-            CoinGrx coin = CoinsSpawner.GetCoinForGrx(_coin.gameObject, _playerUpgrade.transform.position + Vector3.up);
+            CoinGrx coin = _coinSpawner.GetCoinForGrx(_playerUpgrade.transform.position + Vector3.up);
             coin.Launch(_target.position, direction.normalized, _angle);
         }
 
@@ -132,6 +145,7 @@ namespace Main
 
         private void Upgrade()
         {
+            UpdateUpgradePoint();
             _playerUpgrade.UpgradeCharacter(this, _dropType);
         }
     }

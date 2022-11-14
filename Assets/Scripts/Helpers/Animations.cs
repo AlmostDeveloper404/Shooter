@@ -9,6 +9,7 @@ namespace Main
         public static int Detecting = Animator.StringToHash("Detecting");
         public static int Attack = Animator.StringToHash("Attack");
         public static int Death = Animator.StringToHash("Death");
+        public static int Roar = Animator.StringToHash("Roar");
     }
 }
 

@@ -55,18 +55,13 @@ namespace Main
             _bossTriggerActivator.OnCutSceneEnded += EnableController;
         }
 
+
         private void OnDisable()
         {
             GameManager.OnGameOver -= GameOver;
             _playerUpgrade.OnWeaponChanged -= WeaponChanged;
             _bossTriggerActivator.OnBossFight -= DisableController;
             _bossTriggerActivator.OnCutSceneEnded -= EnableController;
-        }
-
-        private void Start()
-        {
-            PlayerResources.AddMoney(10000);
-
         }
 
         private void Update()

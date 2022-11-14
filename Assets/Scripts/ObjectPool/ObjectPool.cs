@@ -14,9 +14,9 @@ namespace Main
         private GameObject _prefab;
 
         private DiContainer _diContainer;
-        
 
-        public ObjectPool(GameObject pooledObject,DiContainer diContainer)
+
+        public ObjectPool(GameObject pooledObject, DiContainer diContainer)
         {
             _prefab = pooledObject;
             _diContainer = diContainer;
@@ -61,14 +61,14 @@ namespace Main
             return t;
         }
 
-        public T PullZenject()
+        public T PullZenject(Vector3 position)
         {
             T t;
             if (PooledCount > 0)
                 t = pooledObjects.Pop();
             else
             {
-                t = _diContainer.InstantiatePrefab(_prefab).GetComponent<T>();
+                t = _diContainer.InstantiatePrefab(_prefab, position, Quaternion.identity, null).GetComponent<T>();
             }
 
 

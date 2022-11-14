@@ -26,9 +26,9 @@ namespace Main
             OnKeysAmountChanged?.Invoke(_keys);
         }
 
-        public static void RemoveKey()
+        public static void RemoveKey(int amount)
         {
-            _keys -= 1;
+            _keys -= amount;
             OnKeysAmountChanged?.Invoke(_keys);
         }
 

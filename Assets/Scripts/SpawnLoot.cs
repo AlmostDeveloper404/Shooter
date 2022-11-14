@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace Main
 {
@@ -15,6 +16,15 @@ namespace Main
         [SerializeField] private float _minSplashRadius;
         [SerializeField] private float _maxSplashRadius;
 
+        private bool _lootSpawned = false;
+
+        private CoinsSpawner _coinSpawner;
+
+        [Inject]
+        private void Construct(CoinsSpawner coinsSpawner)
+        {
+            _coinSpawner = coinsSpawner;
+        }
 
         private void Awake()
         {
@@ -33,6 +43,10 @@ namespace Main
 
         private void Spawn()
         {
+            if (_lootSpawned) return;
+
+            _lootSpawned = true;
+
             float currentYAngle = 0;
             float angleInterval = 360f / _amount;
 
@@ -41,7 +55,7 @@ namespace Main
 
             for (int i = 0; i < _amount; i++)
             {
-                Coin coin = CoinsSpawner.GetCoin(_loot, _spawnPoint.position);
+                Coin coin = _coinSpawner.GetCoin(_spawnPoint.position);
                 _spawnPoint.localRotation = Quaternion.Euler(0f, currentYAngle, 0f);
 
 

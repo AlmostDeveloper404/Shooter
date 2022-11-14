@@ -13,6 +13,7 @@ namespace Main
         private Animator _animator;
         private PlayerUpgrade _playerUpgrade;
         private PlayerHealth _playerHealth;
+        private PlayerClon _playerClon;
 
         private int _maxHealth;
 
@@ -28,6 +29,7 @@ namespace Main
             _healthBar = GetComponentInChildren<HealthBar>();
             _rigidbody = GetComponent<Rigidbody>();
             _animator = GetComponentInChildren<Animator>();
+            _playerClon = GetComponent<PlayerClon>();
 
         }
 
@@ -82,6 +84,7 @@ namespace Main
 
         private void Death()
         {
+            _playerClon.Death();
             GetComponent<CapsuleCollider>().enabled = false;
             _healthBar.gameObject.SetActive(false);
             _rigidbody.velocity = Vector3.zero;

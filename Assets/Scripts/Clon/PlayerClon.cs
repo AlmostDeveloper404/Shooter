@@ -5,7 +5,6 @@ using Zenject;
 
 namespace Main
 {
-    [RequireComponent(typeof(NavMeshAgent))]
     public class PlayerClon : Unit, IPoolable<PlayerClon>
     {
         private NavMeshAgent _navMesh;
@@ -20,11 +19,9 @@ namespace Main
         [SerializeField] private Weapon _weapon;
 
         private PlayerController _playerController;
-        private Vector3 _spawnPoint;
 
         private Animator _animator;
 
-        private PlayerUpgrade _playerUpgrade;
         private float _navMeshSpeed;
 
         [SerializeField] private LayerMask _enemyMask;
@@ -40,24 +37,19 @@ namespace Main
         {
             _joystick = floatingJoystick;
             _playerController = playerController;
-            _playerUpgrade = playerController.GetComponent<PlayerUpgrade>();
             _animator = GetComponentInChildren<Animator>();
         }
 
         private void Awake()
         {
             _navMesh = GetComponent<NavMeshAgent>();
+
         }
 
         private void Start()
         {
             _navMeshSpeed = _navMesh.speed;
             UpdateClonBehaivior();
-        }
-
-        public void Setup(Vector3 spawnPoint)
-        {
-            _spawnPoint = spawnPoint;
         }
 
         public void Initialize(Action<PlayerClon> returnAction)
@@ -84,9 +76,14 @@ namespace Main
 
         private void UpdateClonBehaivior()
         {
-            _clonEscortState = new ClonEscortState(_playerController, _navMesh, _animator, _attackRadiusCollider, _weapon, _enemyMask,_joystick);
+            _clonEscortState = new ClonEscortState(_playerController, _navMesh, _animator, _attackRadiusCollider, _weapon, _enemyMask, _joystick);
             _currentState = _clonEscortState;
             _currentState?.EntryState(this);
+        }
+
+        public void Death()
+        {
+            _currentState = null;
         }
     }
 }

@@ -27,6 +27,8 @@ namespace Main
 
         private DiContainer _diContainer;
 
+        private ObjectPool<PlayerClon> _playerClonPull;
+
         private void Awake()
         {
             _playerWeapon = GetComponentInChildren<Weapon>();
@@ -39,6 +41,7 @@ namespace Main
         }
         private void Start()
         {
+            _playerClonPull = new ObjectPool<PlayerClon>(_clonPrefab, _diContainer);
             OnWeaponChanged?.Invoke(_playerWeapon);
         }
 
@@ -66,8 +69,7 @@ namespace Main
 
         public void CreateClon(Vector3 pos)
         {
-            PlayerClon playerClon = ClonCreator.CreateClon(pos, _clonPrefab, _diContainer);
-            playerClon.Setup(pos);
+            _playerClonPull.PullZenject(pos);
         }
     }
 }

@@ -23,15 +23,17 @@ namespace Main
 
         private void Start()
         {
-            _boxCollider.OnTriggerEnterAsObservable().Where(t => t.GetComponent<PlayerController>()).Subscribe(_ => StartCutScene()).AddTo(_onTriggerEnterDis);
+            //_boxCollider.OnTriggerEnterAsObservable().Where(t => t.GetComponent<PlayerController>()).Subscribe(_ => StartCutScene()).AddTo(_onTriggerEnterDis);
         }
 
-        private void StartCutScene()
+        public void StartCutScene()
         {
             _playableDirector.Play();
             OnBossFight?.Invoke();
-            _onTriggerEnterDis?.Clear();
+            //_onTriggerEnterDis?.Clear();
         }
+
+
 
         public void ContinueGame()
         {
