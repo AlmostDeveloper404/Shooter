@@ -1,5 +1,81 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &901863045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 901863046}
+  - component: {fileID: 901863048}
+  - component: {fileID: 901863047}
+  m_Layer: 0
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &901863046
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901863045}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.035}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4582879881958746150}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -0.51900005, y: 0.044}
+  m_SizeDelta: {x: 0.42060006, y: 0.42060006}
+  m_Pivot: {x: 1, y: 0}
+--- !u!222 &901863048
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901863045}
+  m_CullTransparentMesh: 1
+--- !u!114 &901863047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901863045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.97635156, b: 0.514151, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 78a480d4ec9fee94a8a687f6577f6e5f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2011542629
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.25, y: 0}
   m_SizeDelta: {x: 2, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8290820369937495741
@@ -189,7 +265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10/20
+  m_text: 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -453,21 +529,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07ef7376c462fd44b973dacc603bd56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dropType: 3
+  _dropType: 2
   _backgroundImage: {fileID: 8364279752879140769}
   _coinsCounter: {fileID: 4513881877250789901}
   _dropTypeImage: {fileID: 4671366668847950149}
   _upgradeDropName: {fileID: 4582879881562022453}
   _fireRate: {fileID: 21300000, guid: a93216231c7904d419f59ef551fb71e8, type: 3}
-  _health: {fileID: 21300000, guid: adc6721a6a3c54e4dae04428e465e2b7, type: 3}
+  _health: {fileID: 21300000, guid: cd2271c0b6d2f8f45a567e623f687799, type: 3}
   _clon: {fileID: 21300000, guid: 59922274065a82e40931f689f38084f8, type: 3}
   _damage: {fileID: 21300000, guid: 040bdc371e0851b48bd1b70decc0308e, type: 3}
   _frontImage: {fileID: 4582879882744941253}
   _coinsNeed: 10
   _exitCollider: {fileID: 4582879881908492984}
   _timeBetweenInvest: 0.1
-  _coin: {fileID: 8012934420602065552, guid: b73dabdbb7d3228409b05550fd7a7522, type: 3}
-  _angle: 45
+  _angle: 70
   _target: {fileID: 2011542630}
 --- !u!1 &4582879881958746151
 GameObject:
@@ -504,6 +579,7 @@ RectTransform:
   - {fileID: 4582879881562022450}
   - {fileID: 5830751625493242441}
   - {fileID: 2474529216240660599}
+  - {fileID: 901863046}
   m_Father: {fileID: 4582879881908492985}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}

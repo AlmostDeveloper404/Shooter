@@ -79,11 +79,6 @@ namespace Main
         {
             _rigidBody.velocity = Vector3.zero;
         }
-        public override void OnTriggerEnter(PlayerController playerController)
-        {
-
-        }
-
     }
 }
 

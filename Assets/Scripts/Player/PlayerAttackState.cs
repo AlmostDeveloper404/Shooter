@@ -61,13 +61,6 @@ namespace Main
                 Shoot();
             }
         }
-
-
-        public override void OnTriggerEnter(PlayerController playerController)
-        {
-
-        }
-
         public override void FixedUpdate(PlayerController playerController)
         {
             _shootingDirection = _targetEnemy.transform.position - playerController.transform.position;

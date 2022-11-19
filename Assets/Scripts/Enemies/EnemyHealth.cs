@@ -19,6 +19,8 @@ namespace Main
 
         private Enemy _enemy;
 
+        [SerializeField] private bool _isBoss = false;
+
 
         private void Awake()
         {
@@ -47,6 +49,10 @@ namespace Main
         private void Death()
         {
             OnDeath?.Invoke();
+            if (_isBoss)
+            {
+                GameManager.ChangeGameState(GameState.LevelCompleted);
+            }
 
             _healthBar.gameObject.SetActive(false);
             _targetRoom?.RemoveEnemy(_enemy);

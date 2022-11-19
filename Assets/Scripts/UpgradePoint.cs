@@ -37,7 +37,6 @@ namespace Main
 
         [SerializeField] private Collider _exitCollider;
         [SerializeField] private float _timeBetweenInvest = 0.2f;
-        //[SerializeField] private GameObject _coin;
         [SerializeField] private float _angle = 45f;
         [SerializeField] private Transform _target;
 
@@ -84,9 +83,10 @@ namespace Main
                     break;
                 case DropType.Clon:
                     _dropTypeImage.sprite = _clon;
-                    _frontImage.color = Color.yellow;
+                    _frontImage.color = Color.cyan;
                     break;
                 case DropType.FireRate:
+                    
                     _dropTypeImage.sprite = _fireRate;
                     _frontImage.color = Color.blue;
                     break;
@@ -119,7 +119,10 @@ namespace Main
         {
             float fillAmount = (float)_coinsInvested / (float)_coinsNeed;
             _backgroundImage.fillAmount = fillAmount;
-            _coinsCounter.text = $"{_coinsNeed}";
+
+            int coinsLeft = _coinsNeed - _coinsInvested;
+
+            _coinsCounter.text = $"{coinsLeft}";
 
             if (_coinsInvested == _coinsNeed)
             {

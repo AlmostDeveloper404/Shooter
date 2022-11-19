@@ -12,12 +12,14 @@ namespace Main
         [SerializeField] private TMP_Text _keysText;
         [SerializeField] private TMP_Text _moneyText;
 
+        [SerializeField] private TMP_Text _endText;
+
         [SerializeField] private GameObject _blockPanal;
 
-        private BossTriggerActivator _bossTriggerActivator;
+        private CutSceneActivator _bossTriggerActivator;
 
         [Inject]
-        private void Construct(BossTriggerActivator bossTriggerActivator)
+        private void Construct(CutSceneActivator bossTriggerActivator)
         {
             _bossTriggerActivator = bossTriggerActivator;
         }
@@ -53,12 +55,14 @@ namespace Main
         }
         private void LevelCompleted()
         {
-
+            _endText.color = Color.green;
+            _endText.text = "Victory!";
         }
 
         private void GameOver()
         {
-
+            _endText.color = Color.red;
+            _endText.text = "FAIL";
         }
 
         private void StartCutScene()

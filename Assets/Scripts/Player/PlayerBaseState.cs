@@ -6,7 +6,6 @@ namespace Main
     {
         public abstract void EntryState(PlayerController playerController);
         public abstract void Update(PlayerController playerController);
-        public abstract void OnTriggerEnter(PlayerController playerController);
         public abstract void FixedUpdate(PlayerController playerController);
     }
 }

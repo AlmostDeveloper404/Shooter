@@ -33,10 +33,6 @@ namespace Main
                 playerController.ChangeState(playerController.PlayerStayingState);
             }
         }
-        public override void OnTriggerEnter(PlayerController playerController)
-        {
-
-        }
 
         public override void FixedUpdate(PlayerController playerController)
         {

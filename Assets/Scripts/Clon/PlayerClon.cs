@@ -83,7 +83,9 @@ namespace Main
 
         public void Death()
         {
+
             _currentState = null;
+            enabled = false;
         }
     }
 }

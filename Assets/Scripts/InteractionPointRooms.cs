@@ -10,6 +10,7 @@ namespace Main
     public class InteractionPointRooms : MonoBehaviour, IInteractable
     {
         [SerializeField] private Image _filledImage;
+        [SerializeField] private Image _icon;
         private CompositeDisposable _everyUpdateDis = new CompositeDisposable();
         private CompositeDisposable _onTriggerExitDis = new CompositeDisposable();
         private CompositeDisposable _openDoorDis = new CompositeDisposable();
@@ -40,16 +41,6 @@ namespace Main
         [SerializeField] private float _extraDoorYTarget;
 
         [SerializeField] private bool _isBossDoor;
-        [SerializeField] private TMP_Text _counter;
-
-        private BossTriggerActivator _bossTriggerActivator;
-
-        [Inject]
-        private void Construct(BossTriggerActivator bossTriggerActivator)
-        {
-            _bossTriggerActivator = bossTriggerActivator;
-        }
-
 
         private void Awake()
         {
@@ -58,6 +49,15 @@ namespace Main
 
         private void Start()
         {
+            Setup();
+
+
+        }
+
+        private void Setup()
+        {
+            _icon.enabled = _keysNeeded == 0 ? false : true;
+
             if (_isBossDoor)
             {
                 _yExtra = _extraDoor.transform.eulerAngles.y;
@@ -66,7 +66,6 @@ namespace Main
 
             _y = _door.transform.eulerAngles.y;
             _totalAngleToRotate = Mathf.Abs(_door.transform.eulerAngles.y - _targetY);
-            _counter.text = _keysNeeded.ToString();
         }
 
         public void Interact()
@@ -100,8 +99,6 @@ namespace Main
 
         private void OpenRoom()
         {
-            if (_isBossDoor) _bossTriggerActivator.StartCutScene();
-
             PlayerResources.RemoveKey(_keysNeeded);
             _targetRoom.gameObject.SetActive(true);
             _filledImage.fillAmount = 1;

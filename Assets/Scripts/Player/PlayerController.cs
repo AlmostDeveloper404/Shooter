@@ -32,10 +32,10 @@ namespace Main
 
         public Action<Enemy> OnEnemyDetected;
 
-        private BossTriggerActivator _bossTriggerActivator;
+        private CutSceneActivator _bossTriggerActivator;
 
         [Inject]
-        private void Construct(FloatingJoystick floatingJoystick, BossTriggerActivator bossTriggerActivator)
+        private void Construct(FloatingJoystick floatingJoystick, CutSceneActivator bossTriggerActivator)
         {
             _joystick = floatingJoystick;
             _bossTriggerActivator = bossTriggerActivator;
@@ -45,6 +45,12 @@ namespace Main
             _rigidbody = GetComponent<Rigidbody>();
             _animator = GetComponentInChildren<Animator>();
             _playerUpgrade = GetComponent<PlayerUpgrade>();
+        }
+
+        private void Start()
+        {
+            int moneyAmount = PlayerResources.MoneyAmount;
+            PlayerResources.RemoveMoney(moneyAmount);
         }
 
         private void OnEnable()
