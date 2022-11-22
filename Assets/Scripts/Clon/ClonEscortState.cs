@@ -21,7 +21,11 @@ namespace Main
 
         private FloatingJoystick _floatingJoystick;
 
-        public ClonEscortState(PlayerController playerController, NavMeshAgent navMeshAgent, Animator animator, Collider collider, Weapon weapon, LayerMask enemyMask, FloatingJoystick floatingJoystick)
+        private Rigidbody _rigidBody;
+
+
+
+        public ClonEscortState(PlayerController playerController, NavMeshAgent navMeshAgent, Animator animator, Collider collider, Weapon weapon, LayerMask enemyMask, FloatingJoystick floatingJoystick, Rigidbody rigidbody)
         {
             _playerController = playerController;
             _navMeshAgent = navMeshAgent;
@@ -30,6 +34,7 @@ namespace Main
             _weapon = weapon;
             _floatingJoystick = floatingJoystick;
             _enemyMask = enemyMask;
+            _rigidBody = rigidbody;
         }
 
         public override void EntryState(PlayerClon playerClon)
@@ -39,8 +44,8 @@ namespace Main
             _navMeshAgent.speed = playerClon.Speed;
             _playerController.OnEnemyDetected += ChangeState;
 
-            _animator.SetBool(Animations.Idle, true);
-            _animator.SetBool(Animations.Run, false);
+            _animator.SetBool(Animations.Idle, false);
+            _animator.SetBool(Animations.Run, true);
         }
 
         public override void UpdateState(PlayerClon playerClon)
@@ -49,6 +54,7 @@ namespace Main
             _navMeshAgent.SetDestination(_playerController.transform.position);
             if (_navMeshAgent.velocity.magnitude == 0 && !_isStopped)
             {
+                _rigidBody.velocity = Vector3.zero;
                 _isStopped = true;
                 _animator.SetBool(Animations.Idle, true);
                 _animator.SetBool(Animations.Run, false);

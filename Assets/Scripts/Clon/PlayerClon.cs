@@ -26,6 +26,7 @@ namespace Main
 
         [SerializeField] private LayerMask _enemyMask;
 
+        private Rigidbody _rigidbody;
         private FloatingJoystick _joystick;
 
         public float Speed { get { return _navMeshSpeed; } }
@@ -43,6 +44,7 @@ namespace Main
         private void Awake()
         {
             _navMesh = GetComponent<NavMeshAgent>();
+            _rigidbody = GetComponent<Rigidbody>();
 
         }
 
@@ -76,7 +78,7 @@ namespace Main
 
         private void UpdateClonBehaivior()
         {
-            _clonEscortState = new ClonEscortState(_playerController, _navMesh, _animator, _attackRadiusCollider, _weapon, _enemyMask, _joystick);
+            _clonEscortState = new ClonEscortState(_playerController, _navMesh, _animator, _attackRadiusCollider, _weapon, _enemyMask, _joystick, _rigidbody);
             _currentState = _clonEscortState;
             _currentState?.EntryState(this);
         }

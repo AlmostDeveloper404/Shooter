@@ -50,8 +50,6 @@ namespace Main
         private void Start()
         {
             Setup();
-
-
         }
 
         private void Setup()
@@ -161,6 +159,14 @@ namespace Main
             _everyUpdateDis?.Clear();
             _progress = 0;
             _filledImage.fillAmount = 0;
+        }
+
+        private void OnDestroy()
+        {
+            _everyUpdateDis?.Clear();
+            _onTriggerExitDis?.Clear();
+            _openDoorDis?.Clear();
+            _openExtraDis?.Clear();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Main
         }
         public override void Update(PlayerController playerController)
         {
-            if (_joystick.Vertical != 0 || _joystick.Horizontal != 0)
+            if (_joystick.Vertical != 0 || _joystick.Horizontal != 0 && _rigidBody.velocity != Vector3.zero)
             {
                 playerController.ChangeState(playerController.PlayerRunningState);
                 return;

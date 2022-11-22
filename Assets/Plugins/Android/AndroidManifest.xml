@@ -16,7 +16,7 @@
     <activity android:name="com.facebook.unity.FBUnityDeepLinkingActivity" android:exported="true" />
     <activity android:name="com.facebook.unity.FBUnityGameRequestActivity" />
     <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="fb526620979386721" />
-    <meta-data android:name="com.facebook.sdk.ClientToken" android:value="" />
+    <meta-data android:name="com.facebook.sdk.ClientToken" android:value="65a67cbf8bf18d9cf37bf7cc3cb3e8f1" />
     <meta-data android:name="com.facebook.sdk.AutoLogAppEventsEnabled" android:value="true" />
     <meta-data android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled" android:value="true" />
     <provider android:name="com.facebook.FacebookContentProvider" android:authorities="com.facebook.app.FacebookContentProvider526620979386721" android:exported="true" />
