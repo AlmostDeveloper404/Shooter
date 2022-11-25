@@ -11,7 +11,7 @@ namespace Main
     {
 
         public event Action<float> OnFireRateUpgraded;
-        public event Action<int> OnDamageChanged;
+        public event Action<int, int> OnDamageChanged;
         public event Action<int> OnHealthUpgraded;
         public event Action<Weapon> OnWeaponChanged;
 
@@ -19,14 +19,28 @@ namespace Main
 
         private Weapon _playerWeapon;
 
-        [SerializeField] private int _healthIncreaseModificator;
+        [Header("FireRate")]
         [SerializeField] private float _fireRateIncreseModificator;
-        [SerializeField] private int _damageIncreaseModificator;
+        [SerializeField] private int _firerateMaxUpgrades;
+        private int _currentFireRateUpgrades;
 
+        [Header("Damage")]
+        [SerializeField] private int _damageIncreaseModificator;
+        [SerializeField] private int _damageMaxUpgrades;
+        private int _currentDamageUpgrades;
+
+        [Header("Clon")]
         [SerializeField] private GameObject _clonPrefab;
+        [SerializeField] private int _clonMaxUpgrades;
+        private int _currentClonUpgrades;
+
+        [Header("Health")]
+        [SerializeField] private int _healthIncreaseModificator;
+        [SerializeField] private int _healthMaxUpgrades;
+        private int _currentHealthUpgrades;
+
 
         private DiContainer _diContainer;
-
         private ObjectPool<PlayerClon> _playerClonPull;
 
         private void Awake()
@@ -50,15 +64,19 @@ namespace Main
             switch (dropType)
             {
                 case DropType.Damage:
-                    OnDamageChanged?.Invoke(_damageIncreaseModificator);
+                    UpdateUpgradePoint(upgradePoint, ref _currentDamageUpgrades, _damageMaxUpgrades);
+                    OnDamageChanged?.Invoke(_damageIncreaseModificator, _currentDamageUpgrades);
                     break;
                 case DropType.Clon:
-                    CreateClon(upgradePoint.ClonSpawnPosition);
+                    UpdateUpgradePoint(upgradePoint, ref _currentClonUpgrades, _clonMaxUpgrades);
+                    UpgradeClon(upgradePoint);
                     break;
                 case DropType.FireRate:
+                    UpdateUpgradePoint(upgradePoint, ref _currentFireRateUpgrades, _firerateMaxUpgrades);
                     OnFireRateUpgraded?.Invoke(_fireRateIncreseModificator);
                     break;
                 case DropType.HP:
+                    UpdateUpgradePoint(upgradePoint, ref _currentHealthUpgrades, _healthMaxUpgrades);
                     OnHealthUpgraded?.Invoke(_healthIncreaseModificator);
                     break;
                 default:
@@ -67,9 +85,19 @@ namespace Main
             OnUpgraded?.Invoke();
         }
 
-        public void CreateClon(Vector3 pos)
+        private void UpdateUpgradePoint(UpgradePoint upgradePoint, ref int currentUpgrades, int maxUpgrades)
         {
-            _playerClonPull.PullZenject(pos);
+            currentUpgrades++;
+            if (currentUpgrades == maxUpgrades)
+            {
+                upgradePoint.DisablePoint();
+            }
+        }
+
+
+        private void UpgradeClon(UpgradePoint upgradePoint)
+        {
+            _playerClonPull.PullZenject(upgradePoint.ClonSpawnPosition);
         }
     }
 }

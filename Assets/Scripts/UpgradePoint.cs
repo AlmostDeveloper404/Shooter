@@ -16,16 +16,15 @@ namespace Main
 
         [Header("UI Reference")]
         [SerializeField] private Image _backgroundImage;
-        [SerializeField] private TMP_Text _coinsCounter;
         [SerializeField] private Image _dropTypeImage;
+        [SerializeField] private Image _coinImage;
+        [SerializeField] private TMP_Text _coinsCounter;
         [SerializeField] private TMP_Text _upgradeDropName;
         [SerializeField] private Sprite _fireRate;
         [SerializeField] private Sprite _health;
         [SerializeField] private Sprite _clon;
         [SerializeField] private Sprite _damage;
         [SerializeField] private Image _frontImage;
-
-        [SerializeField] private int _coinsNeed;
 
         private int _coinsInvested;
 
@@ -35,6 +34,8 @@ namespace Main
 
         public Vector3 ClonSpawnPosition { get { return _target.position; } }
 
+        [Header("For Investing")]
+        [SerializeField] private int _coinsNeed = 10;
         [SerializeField] private Collider _exitCollider;
         [SerializeField] private float _timeBetweenInvest = 0.2f;
         [SerializeField] private float _angle = 45f;
@@ -50,7 +51,7 @@ namespace Main
 
 
         [Inject]
-        private void Construct(PlayerController controller, FloatingJoystick floatingJoystick,CoinsSpawner coinsSpawner)
+        private void Construct(PlayerController controller, FloatingJoystick floatingJoystick, CoinsSpawner coinsSpawner)
         {
             _playerUpgrade = controller.GetComponent<PlayerUpgrade>();
             _floatingJoystick = floatingJoystick;
@@ -86,7 +87,6 @@ namespace Main
                     _frontImage.color = Color.cyan;
                     break;
                 case DropType.FireRate:
-                    
                     _dropTypeImage.sprite = _fireRate;
                     _frontImage.color = Color.blue;
                     break;
@@ -150,6 +150,24 @@ namespace Main
         {
             UpdateUpgradePoint();
             _playerUpgrade.UpgradeCharacter(this, _dropType);
+        }
+
+        public void DisablePoint()
+        {
+            _onEveryUpdateDis?.Clear();
+            _onTriggerExitDis?.Clear();
+
+            _coinsCounter.alignment = TextAlignmentOptions.Center;
+            _coinsCounter.text = $"MAX";
+
+            _coinImage.enabled = false;
+            _exitCollider.enabled = false;
+        }
+
+        private void OnDestroy()
+        {
+            _onEveryUpdateDis?.Clear();
+            _onTriggerExitDis?.Clear();
         }
     }
 }

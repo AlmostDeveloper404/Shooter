@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +16,9 @@ namespace Main
 
         public int Damage { get { return _damage; } }
         public float FireRate { get { return _fireRate; } }
+
+        private int _damageProgression;
+        public int GetDamageProgression { get { return _damageProgression; } }
 
         [SerializeField] private WeaponUser _weaponUser;
 
@@ -52,10 +54,11 @@ namespace Main
             _fireRate = Mathf.Clamp(_fireRate, _minShootingRate, Mathf.Infinity);
         }
 
-        private void UpgradeDamage(int amount)
+        private void UpgradeDamage(int amount, int upgradeCount)
         {
             if (_weaponUser == WeaponUser.Enemy) return;
 
+            _damageProgression = upgradeCount;
             _damage += amount;
         }
 

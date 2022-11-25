@@ -9,6 +9,8 @@ namespace Main
 
         private ObjectPool<Bullet> _bulletPull;
 
+        [SerializeField] private ParticleSystem[] _shootParticles;
+
 
 
         private void Start()
@@ -18,8 +20,10 @@ namespace Main
 
         public override void Attack(Transform damagable)
         {
+            _shootParticles[GetDamageProgression].Play();
+
             Bullet bullet = _bulletPull.Pull(_spawnPoint.position);
-            bullet.Launch(damagable, Damage);
+            bullet.Launch(damagable, Damage, GetDamageProgression);
         }
     }
 }

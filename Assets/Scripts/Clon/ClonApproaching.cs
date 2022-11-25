@@ -56,7 +56,6 @@ namespace Main
 
         private void TryChangeToAttackState()
         {
-            Debug.Log(HasDirectView<Enemy>.HasView(_playerClon.transform.position, _targetEnemy.transform.position, _enemyMask));
             if (!HasDirectView<Enemy>.HasView(_playerClon.transform.position, _targetEnemy.transform.position, _enemyMask)) return;
 
             _onTriggerEnter?.Clear();

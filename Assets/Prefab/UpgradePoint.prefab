@@ -143,8 +143,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.141}
-  m_SizeDelta: {x: 1.4, y: 1.4}
+  m_AnchoredPosition: {x: 0, y: 0.107}
+  m_SizeDelta: {x: 1.3, y: 1.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5869637507046722854
 CanvasRenderer:
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab95a159c6af01b4b82309d5aebe054e, type: 2}
   m_sharedMaterial: {fileID: -5178920197101452597, guid: ab95a159c6af01b4b82309d5aebe054e, type: 2}
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0.50328445}
+  m_margin: {x: 0.8161764, y: 0, z: 0.14616537, w: 0.50328445}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -531,8 +531,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dropType: 2
   _backgroundImage: {fileID: 8364279752879140769}
-  _coinsCounter: {fileID: 4513881877250789901}
   _dropTypeImage: {fileID: 4671366668847950149}
+  _coinImage: {fileID: 901863047}
+  _coinsCounter: {fileID: 4513881877250789901}
   _upgradeDropName: {fileID: 4582879881562022453}
   _fireRate: {fileID: 21300000, guid: a93216231c7904d419f59ef551fb71e8, type: 3}
   _health: {fileID: 21300000, guid: cd2271c0b6d2f8f45a567e623f687799, type: 3}
