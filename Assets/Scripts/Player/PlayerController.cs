@@ -33,12 +33,16 @@ namespace Main
         public Action<Enemy> OnEnemyDetected;
 
         private CutSceneActivator _bossTriggerActivator;
+        private Sounds _sounds;
+
+        [SerializeField] private AudioClip _steps;
 
         [Inject]
-        private void Construct(FloatingJoystick floatingJoystick, CutSceneActivator bossTriggerActivator)
+        private void Construct(FloatingJoystick floatingJoystick, CutSceneActivator bossTriggerActivator, Sounds sounds)
         {
             _joystick = floatingJoystick;
             _bossTriggerActivator = bossTriggerActivator;
+            _sounds = sounds;
         }
         private void Awake()
         {
@@ -89,8 +93,8 @@ namespace Main
 
         public void UpdateBehaviour()
         {
-            _playerStayingState = new PlayerStayingState(_joystick, _layerMask, _rayMask, _detectionRadius, _animator, _rigidbody, _activeWeapon);
-            _playerRunningState = new PlayerRunningState(_joystick, _animator, _speed, _rotationSpeed, _rigidbody);
+            _playerStayingState = new PlayerStayingState(_joystick, _layerMask, _rayMask, _detectionRadius, _animator, _rigidbody, _activeWeapon, _sounds, _steps);
+            _playerRunningState = new PlayerRunningState(_joystick, _animator, _speed, _rotationSpeed, _rigidbody, _sounds, _steps);
             _currentState = _playerStayingState;
             _currentState?.EntryState(this);
         }

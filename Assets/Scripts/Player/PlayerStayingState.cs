@@ -14,8 +14,10 @@ namespace Main
         private LayerMask _rayMask;
 
         private PlayerAttackState _playerAttackState;
+        private Sounds _sounds;
+        private AudioClip _steps;
 
-        public PlayerStayingState(FloatingJoystick floatingJoystick, LayerMask detectionMask, LayerMask rayMask, float detectionRadius, Animator animator, Rigidbody rigidbody, Weapon activeWeapon)
+        public PlayerStayingState(FloatingJoystick floatingJoystick, LayerMask detectionMask, LayerMask rayMask, float detectionRadius, Animator animator, Rigidbody rigidbody, Weapon activeWeapon, Sounds sounds, AudioClip steps)
         {
             _joystick = floatingJoystick;
             _detectionMask = detectionMask;
@@ -24,10 +26,13 @@ namespace Main
             _animator = animator;
             _rigidBody = rigidbody;
             _weapon = activeWeapon;
+            _sounds = sounds;
+            _steps = steps;
         }
 
         public override void EntryState(PlayerController playerController)
         {
+            _sounds.StopSound(_steps);
             _animator.SetBool(Animations.Idle, true);
             _animator.SetBool(Animations.Run, false);
             _animator.SetBool(Animations.Attack, false);

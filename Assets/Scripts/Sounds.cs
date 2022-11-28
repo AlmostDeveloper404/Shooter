@@ -58,21 +58,21 @@ namespace Main
 
         private void LevelCompleted()
         {
-            StopBackgroundMusic();
+            StopSound(_backgroundMusic);
             PlaySound(_winSound);
         }
 
         private void GameOver()
         {
-            StopBackgroundMusic();
+            StopSound(_backgroundMusic);
             PlaySound(_lostSound);
         }
 
-        public void StopBackgroundMusic()
+        public void StopSound(AudioClip clip)
         {
             foreach (var item in _allAudio)
             {
-                if (_backgroundMusic == item.clip) item.Stop();
+                if (clip == item.clip) item.Stop();
             }
         }
     }

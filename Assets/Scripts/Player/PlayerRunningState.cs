@@ -10,18 +10,24 @@ namespace Main
         private float _rotationSpeed;
         private Rigidbody _rigidBody;
 
-        public PlayerRunningState(FloatingJoystick floatingJoystick, Animator animator, float speed, float rotationSpeed, Rigidbody rigidbody)
+        private Sounds _sounds;
+        private AudioClip _steps;
+
+        public PlayerRunningState(FloatingJoystick floatingJoystick, Animator animator, float speed, float rotationSpeed, Rigidbody rigidbody, Sounds sounds, AudioClip steps)
         {
             _floatingJoystick = floatingJoystick;
             _animator = animator;
             _speed = speed;
             _rotationSpeed = rotationSpeed;
             _rigidBody = rigidbody;
+            _sounds = sounds;
+            _steps = steps;
 
         }
 
         public override void EntryState(PlayerController playerController)
         {
+            _sounds.PlaySound(_steps);
             _animator.SetBool(Animations.Run, true);
             _animator.SetBool(Animations.Idle, false);
             _animator.SetBool(Animations.Attack, false);
