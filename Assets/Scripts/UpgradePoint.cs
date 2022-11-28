@@ -40,6 +40,9 @@ namespace Main
         [SerializeField] private float _timeBetweenInvest = 0.2f;
         [SerializeField] private float _angle = 45f;
         [SerializeField] private Transform _target;
+        [SerializeField] private ParticleSystem _upgradePart;
+        [SerializeField] private ParticleSystem _gettingItemPart;
+        [SerializeField] private AudioClip _investingSound;
 
 
         private float _timer = 0;
@@ -47,15 +50,16 @@ namespace Main
         private PlayerUpgrade _playerUpgrade;
         private FloatingJoystick _floatingJoystick;
         private CoinsSpawner _coinSpawner;
-
+        private Sounds _sounds;
 
 
         [Inject]
-        private void Construct(PlayerController controller, FloatingJoystick floatingJoystick, CoinsSpawner coinsSpawner)
+        private void Construct(PlayerController controller, FloatingJoystick floatingJoystick, CoinsSpawner coinsSpawner, Sounds sounds)
         {
             _playerUpgrade = controller.GetComponent<PlayerUpgrade>();
             _floatingJoystick = floatingJoystick;
             _coinSpawner = coinsSpawner;
+            _sounds = sounds;
         }
 
 
@@ -108,6 +112,7 @@ namespace Main
             {
                 _timer = 0;
                 _coinsInvested++;
+                _sounds.PlaySound(_investingSound);
                 ShowAnimation();
                 PlayerResources.RemoveMoney(1);
                 UpdateUpgradePoint();
@@ -149,8 +154,29 @@ namespace Main
         private void Upgrade()
         {
             UpdateUpgradePoint();
+            switch (_dropType)
+            {
+                case DropType.Damage:
+                    _upgradePart.transform.position = _playerUpgrade.transform.position + Vector3.up * 2f;
+                    _upgradePart.Play();
+                    break;
+                case DropType.Clon:
+                    _gettingItemPart.Play();
+                    break;
+                case DropType.FireRate:
+                    _upgradePart.transform.position = _playerUpgrade.transform.position + Vector3.up * 2f;
+                    _upgradePart.Play();
+                    break;
+                case DropType.HP:
+                    _gettingItemPart.Play();
+                    break;
+                default:
+                    break;
+            }
             _playerUpgrade.UpgradeCharacter(this, _dropType);
         }
+
+
 
         public void DisablePoint()
         {

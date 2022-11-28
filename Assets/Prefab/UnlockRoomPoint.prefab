@@ -210,6 +210,7 @@ MonoBehaviour:
   _targetY: -10
   _extraDoorYTarget: 0
   _isBossDoor: 0
+  _doorOpening: {fileID: 8300000, guid: dd91d71d264d353499fe5b8322914121, type: 3}
 --- !u!65 &5443247651998856502
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -391,7 +392,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 34a80c07e19628d42beb7a11e04fa3b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f30b1ee1c7b516c4a91c7dcc3cc10fbd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

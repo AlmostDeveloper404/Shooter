@@ -39,7 +39,6 @@ namespace Main
             
             _detectionCollider.OnTriggerStayAsObservable().Where(t => t.GetComponent<Unit>()).Subscribe(_ => CheckForTarget(straightForwardEnemy, _)).AddTo(_onTriggerEnterDisposable);
         }
-
         public override void UpdateState(StraightForwardEnemy straightForwardEnemy)
         {
             if (_navMeshAgent.velocity != Vector3.zero) return;
@@ -63,6 +62,12 @@ namespace Main
                 straightForwardEnemy.ChangeState(_straightForwardApproachingState);
             _onTriggerEnterDisposable?.Clear();
         }
+
+        public override void ExitState(StraightForwardEnemy straightForwardEnemy)
+        {
+            _onTriggerEnterDisposable?.Clear();
+        }
+
     }
 }
 

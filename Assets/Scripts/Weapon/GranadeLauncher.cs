@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace Main
 {
@@ -11,9 +12,17 @@ namespace Main
 
         [SerializeField] private float _angle;
 
+        private DiContainer _diContainer;
+
+        [Inject]
+        private void Construct(DiContainer diContainer)
+        {
+            _diContainer = diContainer;
+        }
+
         private void Start()
         {
-            _rocketPool = new ObjectPool<Rocket>(_rocketPref);
+            _rocketPool = new ObjectPool<Rocket>(_rocketPref, _diContainer);
         }
 
         private void Update()
@@ -22,7 +31,9 @@ namespace Main
         }
         public override void Attack(Transform target)
         {
-            Rocket rocket = _rocketPool.Pull(_spawnPoint.position, _spawnPoint.rotation);
+            base.Attack(target);
+
+            Rocket rocket = _rocketPool.PullZenject(_spawnPoint.position , _spawnPoint.rotation);
             rocket.Launch(target.position, _spawnPoint.forward, _angle);
         }
     }

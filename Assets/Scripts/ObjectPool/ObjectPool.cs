@@ -81,6 +81,15 @@ namespace Main
             return t;
         }
 
+        public T PullZenject(Vector3 position, Quaternion rotation)
+        {
+            T t = PullZenject(position);
+            t.transform.position = position;
+            t.transform.rotation = rotation;
+            return t;
+
+        }
+
         public T Pull(Vector3 position)
         {
             T t = Pull();

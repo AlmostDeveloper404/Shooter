@@ -99430,17 +99430,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 528c75d4e7fa2144ca97c2c37cada933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shotParticles:
+  - {fileID: 1134206259}
+  - {fileID: 377246060}
+  - {fileID: 1705846614}
+  - {fileID: 1647580457}
+  _shotSounds:
+  - {fileID: 8300000, guid: 01d8acaaa199dba4aa27dee867953762, type: 3}
+  - {fileID: 8300000, guid: 3741d750d9dcd444e94a74728c75a887, type: 3}
+  - {fileID: 8300000, guid: 4cbc0f52d332801449b920a2762b6ea7, type: 3}
+  - {fileID: 8300000, guid: 5a1e47bbe664fb54fbddad7132df5360, type: 3}
   _damage: 18
   _fireRate: 0.5
   _minShootingRate: 0.1
   _weaponUser: 0
   _spawnPoint: {fileID: 7391452332552889164}
   _bulletPref: {fileID: 5133899227334299625, guid: 1c32f7074b674e943a8d1789750e7cef, type: 3}
-  _shootParticles:
-  - {fileID: 1134206259}
-  - {fileID: 377246060}
-  - {fileID: 1705846614}
-  - {fileID: 1647580457}
 --- !u!1 &7391452332552889165
 GameObject:
   m_ObjectHideFlags: 0

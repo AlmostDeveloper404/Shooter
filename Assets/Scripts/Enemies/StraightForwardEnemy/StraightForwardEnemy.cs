@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace Main
 {
@@ -26,6 +27,19 @@ namespace Main
         [SerializeField] private LayerMask _rayMask;
 
         private EnemyHealth _enemyHealth;
+        [SerializeField] private ParticleSystem _deathParticles;
+        [SerializeField] private Vector3 _particlesOffset;
+
+        [SerializeField] private AudioClip _deathSound;
+
+        private Sounds _sounds;
+
+        [Inject]
+        private void Construct(Sounds sounds)
+        {
+            _sounds = sounds;
+        }
+
 
         private void Awake()
         {
@@ -35,6 +49,9 @@ namespace Main
 
         private void OnEnable()
         {
+            _currentState = _patrolling;
+            _currentState?.EntryState(this);
+
             GameManager.OnGameOver += GameOver;
             _enemyHealth.OnDeath += Death;
         }
@@ -43,16 +60,19 @@ namespace Main
         {
             GameManager.OnGameOver -= GameOver;
             _enemyHealth.OnDeath -= Death;
+
+
+            _currentState?.ExitState(this);
+            _currentState = null;
         }
 
         private void Start()
         {
-
+            _deathParticles.transform.parent = null;
             _patrolPointsContainer.transform.parent = null;
 
             _patrolling = new StraightForwardPatrollingState(_patrolPointsContainer, _navMeshAgent, _animator, _timeToStayNearbyPatrollingPoint, _detectionRadius, _attackRadius, _runningSpeed, _patrollingSpeed, _waitingAfterLosingTarget, _enemyWeapon, _rayMask);
-            _currentState = _patrolling;
-            _currentState?.EntryState(this);
+
         }
 
         private void Update()
@@ -77,6 +97,9 @@ namespace Main
 
         private void Death()
         {
+            _sounds.PlaySound(_deathSound);
+            _deathParticles.transform.position = transform.position + _particlesOffset;
+            _deathParticles.Play();
             _currentState = null;
             _detectionRadius.enabled = false;
             _attackRadius.enabled = false;
@@ -88,7 +111,6 @@ namespace Main
             _animator.SetTrigger(Animations.Death);
             IsDead = true;
             _navMeshAgent.enabled = false;
-
         }
 
     }

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Collections;
+using Zenject;
 using UnityEngine;
 
 namespace Main
@@ -18,6 +18,15 @@ namespace Main
 
         [SerializeField] private GameObject[] _goToActivate;
 
+        [SerializeField] private AudioClip _roomCleared;
+
+        private Sounds _sounds;
+
+        [Inject]
+        private void Construct(Sounds sounds)
+        {
+            _sounds = sounds;
+        }
 
         private void Start()
         {
@@ -34,6 +43,7 @@ namespace Main
 
         private void RoomCompleted()
         {
+            _sounds.PlaySound(_roomCleared);
             SetupRoom();
             SpawnLoot();
         }

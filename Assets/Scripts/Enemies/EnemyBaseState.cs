@@ -7,6 +7,7 @@ namespace Main
         public abstract void EntryState(T straightForwardEnemy);
 
         public abstract void UpdateState(T straightForwardEnemy);
+        public abstract void ExitState(T straightForwardEnemy);
     }
 }
 

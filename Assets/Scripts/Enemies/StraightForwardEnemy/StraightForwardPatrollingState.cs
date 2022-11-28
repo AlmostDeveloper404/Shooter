@@ -119,6 +119,11 @@ namespace Main
                 straightForwardEnemy.ChangeState(_approachingState);
             }
         }
+
+        public override void ExitState(StraightForwardEnemy straightForwardEnemy)
+        {
+            _onDetectionTriggerStay?.Clear();
+        }
     }
 }
 

@@ -8,6 +8,10 @@ namespace Main
     public class Weapon : MonoBehaviour, IDoDamage
     {
         private PlayerUpgrade _playerUpgrade;
+        private Sounds _sounds;
+
+        [SerializeField] private ParticleSystem[] _shotParticles;
+        [SerializeField] private AudioClip[] _shotSounds;
 
         [SerializeField] private int _damage;
         [SerializeField] private float _fireRate;
@@ -17,14 +21,16 @@ namespace Main
         public int Damage { get { return _damage; } }
         public float FireRate { get { return _fireRate; } }
 
-        private int _damageProgression;
+        private int _damageProgression = 0;
         public int GetDamageProgression { get { return _damageProgression; } }
 
         [SerializeField] private WeaponUser _weaponUser;
 
         [Inject]
-        private void Construct(PlayerController playerController)
+        private void Construct(PlayerController playerController, Sounds sounds)
         {
+            _sounds = sounds;
+
             if (_weaponUser == WeaponUser.Enemy) return;
 
             _playerUpgrade = playerController.GetComponent<PlayerUpgrade>();
@@ -64,7 +70,11 @@ namespace Main
 
         public virtual void Attack(Transform target)
         {
+            if (_shotSounds.Length > 0)
+                _sounds.PlaySound(_shotSounds[_damageProgression]);
 
+            if (_shotParticles.Length > 0)
+                _shotParticles[_damageProgression]?.Play();
         }
     }
 }

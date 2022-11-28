@@ -42,6 +42,16 @@ namespace Main
 
         [SerializeField] private bool _isBossDoor;
 
+        private Sounds _sounds;
+        [SerializeField] private AudioClip _doorOpening;
+
+
+        [Inject]
+        private void Construct(Sounds sounds)
+        {
+            _sounds = sounds;
+        }
+
         private void Awake()
         {
             _boxCollider = GetComponent<BoxCollider>();
@@ -97,6 +107,7 @@ namespace Main
 
         private void OpenRoom()
         {
+            _sounds.PlaySound(_doorOpening);
             PlayerResources.RemoveKey(_keysNeeded);
             _targetRoom.gameObject.SetActive(true);
             _filledImage.fillAmount = 1;

@@ -3,6 +3,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System.Collections;
+using Zenject;
 
 namespace Main
 {
@@ -15,6 +16,9 @@ namespace Main
         private CapsuleCollider _capsuleCollider;
         [SerializeField] private Transform _graphicSphere;
 
+        [SerializeField] private ParticleSystem _explosionParticles;
+        [SerializeField] private AudioClip _explosionSound;
+
         private CompositeDisposable _onCollisionEnterDis = new CompositeDisposable();
 
         [SerializeField] private float _radius;
@@ -22,10 +26,23 @@ namespace Main
 
         [SerializeField] private float _explosiveForce;
 
+        private Sounds _sounds;
+
+        [Inject]
+        private void Construct(Sounds sounds)
+        {
+            _sounds = sounds;
+        }
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
             _capsuleCollider = GetComponent<CapsuleCollider>();
+        }
+
+        private void Start()
+        {
+            _explosionParticles.transform.parent = null;
         }
 
         public void Initialize(Action<Rocket> returnAction)
@@ -54,12 +71,13 @@ namespace Main
 
         private void Explode()
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, _radius * 0.5f);
             foreach (var collider in colliders)
             {
                 ITakeDamage takeDamage = collider.GetComponent<ITakeDamage>();
                 if (takeDamage != null)
                 {
+                    Debug.Log(collider.name);
                     takeDamage.TakeDamage(_damage);
                     continue;
                 }
@@ -69,7 +87,11 @@ namespace Main
                     rigidbody.AddExplosionForce(_explosiveForce, transform.position, _radius);
                 }
             }
-
+            _explosionParticles.transform.position = transform.position;
+            _explosionParticles.transform.rotation = Quaternion.identity;
+            _explosionParticles.Play();
+            Debug.Log(_sounds);
+            _sounds.PlaySound(_explosionSound);
             gameObject.SetActive(false);
         }
 

@@ -99,6 +99,13 @@ namespace Main
             _straightForwardAttackState = new StraightForwardAttackState(unit, _animator, _readyToAttackCollider, _navMeshAgent, _weapon.FireRate, _runSpeed, _weapon, _rayMask, this);
             enemy.ChangeState(_straightForwardAttackState);
         }
+
+        public override void ExitState(StraightForwardEnemy straightForwardEnemy)
+        {
+            _onTriggerExitDis?.Clear();
+            _onTriggerStayDis?.Clear();
+            _onTriggerStayAttackDis?.Clear();
+        }
     }
 }
 

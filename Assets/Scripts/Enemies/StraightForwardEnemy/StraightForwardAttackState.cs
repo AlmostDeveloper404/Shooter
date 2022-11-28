@@ -77,6 +77,12 @@ namespace Main
             straightForwardEnemy.ChangeState(_straightForwardApproachingState);
         }
 
+        public override void ExitState(StraightForwardEnemy straightForwardEnemy)
+        {
+            _onTriggerExitDis?.Clear();
+        }
+
+
     }
 }
 

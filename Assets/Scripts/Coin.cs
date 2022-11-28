@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using Zenject;
 
 namespace Main
 {
@@ -15,6 +16,15 @@ namespace Main
         private CompositeDisposable _onCollisionEnter = new CompositeDisposable();
 
         public bool IsForPurchase { get; set; }
+
+        private Sounds _sounds;
+        [SerializeField] private AudioClip _collectSound;
+
+        [Inject]
+        private void Construct(Sounds sounds)
+        {
+            _sounds = sounds;
+        }
 
         private void Awake()
         {
@@ -38,6 +48,7 @@ namespace Main
         {
             PlayerResources.AddMoney(1);
             gameObject.SetActive(false);
+            _sounds.PlaySound(_collectSound);
         }
 
         public void ReturnToPool()
@@ -46,7 +57,7 @@ namespace Main
         }
 
         public void Launch(Vector3 target, Vector3 launchDirection, float angleInDegree)
-        {           
+        {
             _rigidbody.velocity = CulculateVelocity.Culculate(transform.position, target, launchDirection, angleInDegree);
         }
 

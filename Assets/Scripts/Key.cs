@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using Zenject;
 
 namespace Main
 {
@@ -13,6 +14,16 @@ namespace Main
         [SerializeField] private GameObject _glowingParticles;
 
         private Action<Key> _returnAction;
+
+        [SerializeField] private AudioClip _keysPickUp;
+
+        private Sounds _sounds;
+
+        [Inject]
+        private void Construct(Sounds sounds)
+        {
+            _sounds = sounds;
+        }
 
         private void OnDisable()
         {
@@ -28,6 +39,8 @@ namespace Main
         {
             PlayerResources.AddKey(_keysAmount);
             StartCoroutine(DisableKey());
+            _sounds.PlaySound(_keysPickUp);
+
         }
 
         public void ReturnToPool()
