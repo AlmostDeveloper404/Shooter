@@ -8,8 +8,8 @@ namespace Main
     public class PlayerController : Unit
     {
         [Header("PlayerSettings")]
-        [SerializeField] private float _detectionRadius;
-        [SerializeField] private float _speed;
+        private float _detectionRadius;
+        private float _speed;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private LayerMask _layerMask;
         [SerializeField] private LayerMask _rayMask;
@@ -60,6 +60,8 @@ namespace Main
         {
             GameManager.OnGameOver += GameOver;
             _playerUpgrade.OnWeaponChanged += WeaponChanged;
+            _playerUpgrade.OnRadiusUpgraded += UpgradeRadius;
+            _playerUpgrade.OnSpeedUpgraded += UpgradeSpeed;
             _bossTriggerActivator.OnBossFight += DisableController;
             _bossTriggerActivator.OnCutSceneEnded += EnableController;
         }
@@ -69,6 +71,8 @@ namespace Main
         {
             GameManager.OnGameOver -= GameOver;
             _playerUpgrade.OnWeaponChanged -= WeaponChanged;
+            _playerUpgrade.OnRadiusUpgraded -= UpgradeRadius;
+            _playerUpgrade.OnSpeedUpgraded -= UpgradeSpeed;
             _bossTriggerActivator.OnBossFight -= DisableController;
             _bossTriggerActivator.OnCutSceneEnded -= EnableController;
         }
@@ -123,7 +127,17 @@ namespace Main
             UpdateBehaviour();
         }
 
+        private void UpgradeRadius(float amount)
+        {
+            _detectionRadius = amount;
+            UpdateBehaviour();
+        }
 
+        private void UpgradeSpeed(float amount)
+        {
+            _speed = amount;
+            UpdateBehaviour();
+        }
     }
 }
 

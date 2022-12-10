@@ -107,9 +107,12 @@ namespace Main
                     _frontImage.color = Color.green;
                     break;
                 case DropType.AttackRadius:
+                    _dropTypeImage.sprite = _radius;
+                    _frontImage.color = Color.gray;
                     break;
                 case DropType.Speed:
-
+                    _dropTypeImage.sprite = _speed;
+                    _frontImage.color = Color.magenta;
                     break;
                 default:
                     break;

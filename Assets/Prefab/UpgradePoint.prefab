@@ -54009,6 +54009,8 @@ MonoBehaviour:
   _health: {fileID: 21300000, guid: 4f54279c47afd02439e3bdbc7cb175ca, type: 3}
   _clon: {fileID: 21300000, guid: 94bc769ac1982e14c9facb86a2495edc, type: 3}
   _damage: {fileID: 21300000, guid: 3622a45a10b7afc4b81511d87ffceecf, type: 3}
+  _radius: {fileID: 21300000, guid: 3c69364fe9f9cbc449ad728f63e28d51, type: 3}
+  _speed: {fileID: 21300000, guid: f28d0d2643d81e54f80986341384e812, type: 3}
   _frontImage: {fileID: 4582879882744941253}
   _coinsNeed: 10
   _exitCollider: {fileID: 4582879881908492984}
@@ -54018,6 +54020,7 @@ MonoBehaviour:
   _upgradePart: {fileID: 1546677043275411804}
   _gettingItemPart: {fileID: 7395494969757230186}
   _investingSound: {fileID: 8300000, guid: bd539961c0bd48e418b0f9c7f540af33, type: 3}
+  _maxUpgrades: 3
 --- !u!111 &3173159535864541919
 Animation:
   m_ObjectHideFlags: 0

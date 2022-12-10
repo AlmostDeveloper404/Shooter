@@ -76,6 +76,8 @@ namespace Main
         [SerializeField] private AudioClip _clonSound;
         [SerializeField] private AudioClip _healthSound;
 
+        [SerializeField] private RectTransform _attackRadiusTransform;
+
         private Animator _animator;
 
         [Inject]
@@ -142,6 +144,7 @@ namespace Main
             OnDamageChanged?.Invoke(_currentDamage, _damageUpgrades);
 
             _currentRadius = playerProgress.AttackRadius;
+            _attackRadiusTransform.sizeDelta = new Vector2(_currentRadius * 2, _currentRadius * 2);
             OnRadiusUpgraded?.Invoke(_currentRadius);
 
             _currentSpeed = playerProgress.Speed;
@@ -178,6 +181,7 @@ namespace Main
                     break;
                 case DropType.AttackRadius:
                     _currentRadius += _radiusIncreaseMOdificator;
+                    _attackRadiusTransform.sizeDelta = new Vector2(_currentRadius * 2, _currentRadius * 2);
                     OnRadiusUpgraded?.Invoke(_currentRadius);
                     break;
                 case DropType.Speed:
@@ -192,7 +196,7 @@ namespace Main
 
         private void Save()
         {
-            PlayerProgress playerProgress = new PlayerProgress { Damage = _currentDamage, Hp = _currentHealth, FireRate = _currentFireRate, DamageUpgrades = _damageUpgrades, HealthUpgrades = _healthUpgrades };
+            PlayerProgress playerProgress = new PlayerProgress { Damage = _currentDamage, Hp = _currentHealth, FireRate = _currentFireRate, DamageUpgrades = _damageUpgrades, HealthUpgrades = _healthUpgrades, AttackRadius = _currentRadius, Speed = _currentSpeed };
             SaveLoadProgress.SaveData(playerProgress, UniqSavingId.PlayerProgress);
         }
 
