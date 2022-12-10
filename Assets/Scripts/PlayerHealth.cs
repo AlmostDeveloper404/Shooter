@@ -13,7 +13,7 @@ namespace Main
         private Animator _animator;
         private PlayerUpgrade _playerUpgrade;
 
-        [SerializeField] private int _maxHealth;
+        private int _maxHealth;
 
         public int MaxHealth { get { return _maxHealth; } }
 
@@ -49,9 +49,10 @@ namespace Main
             _healthBar.UpdateUI(_maxHealth, _currentHealth);
         }
 
-        private void HealthUpgraded(int amount)
+        private void HealthUpgraded(int amount, int amountOfUpgrade)
         {
-            _maxHealth += amount;
+            _maxHealth = amount;
+            //_maxHealth += amount;
             UpdateHealth();
         }
 

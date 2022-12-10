@@ -34,6 +34,7 @@ namespace Main
 
         public StraightForwardPatrollingState(Transform container, NavMeshAgent navMeshAgent, Animator animator, float timeToStay, Collider detectionRadiusCollider, Collider attackRadiusCollider, float runSpeed, float partolSpeed, float waitingAfterLosingTarget, Weapon weapon, LayerMask layerMask)
         {
+            
             SetupPartollPoints(container);
 
             _layerMask = layerMask;
@@ -61,6 +62,7 @@ namespace Main
 
         public override void EntryState(StraightForwardEnemy straightForwardEnemy)
         {
+
             _animator.SetBool(Animations.Idle, false);
             _animator.SetBool(Animations.Detecting, true);
 

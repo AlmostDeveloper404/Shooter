@@ -57,9 +57,9 @@ namespace Main
             _currentHealth = _maxHealth;
             _healthBar.UpdateUI(_maxHealth, _currentHealth);
         }
-        private void HealthUpgraded(int amount)
+        private void HealthUpgraded(int amount, int amountOfUpgrades)
         {
-            _maxHealth += amount;
+            _maxHealth = amount;
             UpdateHealth();
         }
 

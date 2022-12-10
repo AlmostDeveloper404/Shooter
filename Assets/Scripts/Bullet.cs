@@ -19,7 +19,7 @@ namespace Main
 
         private bool _isLaunched = false;
 
-        private int _progression;
+        private int _damageUpgrades;
 
         private void Awake()
         {
@@ -59,9 +59,9 @@ namespace Main
 
         public void Launch(Transform enemy, int damage, int damageProgression)
         {
-            _progression = damageProgression;
+            _damageUpgrades = damageProgression;
 
-            EnableProgressionParticles(damageProgression);
+            EnableProgressionParticles(_damageUpgrades);
 
             _damage = damage;
 
@@ -78,24 +78,38 @@ namespace Main
             {
                 damagable.TakeDamage(_damage);
             }
-
-
-
-            _bulletImpacts[_progression].transform.position = collision.GetContact(0).point;
-            Vector3 direction = (transform.position - collision.transform.position).normalized;
-
-            _bulletImpacts[_progression].transform.rotation = Quaternion.LookRotation(direction);
-
-            _bulletImpacts[_progression].Play();
-            gameObject.SetActive(false);
+            ApplyDestruction(collision);
         }
 
         private void EnableProgressionParticles(int level)
         {
+            int maxArrayIndex = _trails.Length - 1;
+            if (level >= maxArrayIndex)
+            {
+                level = maxArrayIndex;
+            }
+
             for (int i = 0; i < _trails.Length; i++)
             {
                 _trails[i].SetActive(i == level);
             }
+        }
+
+        private void ApplyDestruction(Collision collision)
+        {
+            int maxArrayIndex = _bulletImpacts.Length - 1;
+            if (_damageUpgrades > maxArrayIndex)
+            {
+                _damageUpgrades = maxArrayIndex;
+            }
+
+            _bulletImpacts[_damageUpgrades].transform.position = collision.GetContact(0).point;
+            Vector3 direction = (transform.position - collision.transform.position).normalized;
+
+            _bulletImpacts[_damageUpgrades].transform.rotation = Quaternion.LookRotation(direction);
+
+            _bulletImpacts[_damageUpgrades].Play();
+            gameObject.SetActive(false);
         }
     }
 }

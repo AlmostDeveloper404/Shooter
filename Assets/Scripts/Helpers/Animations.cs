@@ -10,6 +10,8 @@ namespace Main
         public static int Attack = Animator.StringToHash("Attack");
         public static int Death = Animator.StringToHash("Death");
         public static int Roar = Animator.StringToHash("Roar");
+        public static int UpgradeFirst = Animator.StringToHash("UpgradeFirst");
+        public static int UpgradeSecond = Animator.StringToHash("UpgradeSecond");
     }
 }
 

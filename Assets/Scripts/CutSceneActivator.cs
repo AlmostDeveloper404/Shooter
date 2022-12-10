@@ -12,8 +12,6 @@ namespace Main
 
         [SerializeField] private GameObject[] _objectsToActivate;
 
-        [SerializeField] private Animator _bossAnimator;
-
 
         private void Start()
         {
@@ -22,7 +20,6 @@ namespace Main
 
         public void StartCutScene()
         {
-            _bossAnimator.SetTrigger(Animations.Roar);
             foreach (var item in _objectsToActivate)
             {
                 item.SetActive(true);

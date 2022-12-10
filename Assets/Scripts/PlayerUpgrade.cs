@@ -4,40 +4,66 @@ using Zenject;
 
 namespace Main
 {
-    public enum DropType { Damage, Clon, FireRate, HP }
+    public enum DropType { Damage, Clon, FireRate, HP, Speed, AttackRadius }
 
+    [Serializable]
+    public struct PlayerProgress
+    {
+        public float FireRate;
+        public float AttackRadius;
+        public float Speed;
+        public int Hp;
+        public int Damage;
+        public int DamageUpgrades;
+        public int HealthUpgrades;
+    }
 
     public class PlayerUpgrade : MonoBehaviour
     {
 
         public event Action<float> OnFireRateUpgraded;
+        public event Action<float> OnRadiusUpgraded;
+        public event Action<float> OnSpeedUpgraded;
         public event Action<int, int> OnDamageChanged;
-        public event Action<int> OnHealthUpgraded;
+        public event Action<int, int> OnHealthUpgraded;
         public event Action<Weapon> OnWeaponChanged;
 
         public event Action OnUpgraded;
 
         private Weapon _playerWeapon;
 
+        [Header("Default Player Values")]
+        [SerializeField] private int _defaultHealth;
+        [SerializeField] private float _defaultFireRate;
+        [SerializeField] private int _defaultDamage;
+        [SerializeField] private float _defaultRadius;
+        [SerializeField] private float _defaultSpeed;
+
+
         [Header("FireRate")]
         [SerializeField] private float _fireRateIncreseModificator;
-        [SerializeField] private int _firerateMaxUpgrades;
-        private int _currentFireRateUpgrades;
+        private float _currentFireRate;
 
         [Header("Damage")]
         [SerializeField] private int _damageIncreaseModificator;
-        [SerializeField] private int _damageMaxUpgrades;
-        private int _currentDamageUpgrades;
+        private int _currentDamage;
+        private int _damageUpgrades;
 
         [Header("Clon")]
         [SerializeField] private GameObject _clonPrefab;
-        [SerializeField] private int _clonMaxUpgrades;
-        private int _currentClonUpgrades;
 
         [Header("Health")]
         [SerializeField] private int _healthIncreaseModificator;
-        [SerializeField] private int _healthMaxUpgrades;
-        private int _currentHealthUpgrades;
+        private int _currentHealth;
+        private int _healthUpgrades;
+
+        [Header("DetectionRadius")]
+        [SerializeField] private float _radiusIncreaseMOdificator;
+        private float _currentRadius;
+
+        [Header("Speed")]
+        [SerializeField] private float _speedIncreaseModificator;
+        private float _currentSpeed;
 
 
         private DiContainer _diContainer;
@@ -50,6 +76,8 @@ namespace Main
         [SerializeField] private AudioClip _clonSound;
         [SerializeField] private AudioClip _healthSound;
 
+        private Animator _animator;
+
         [Inject]
         private void Construct(DiContainer diContainer, Sounds sounds)
         {
@@ -60,12 +88,64 @@ namespace Main
         private void Awake()
         {
             _playerWeapon = GetComponentInChildren<Weapon>();
+            _animator = GetComponentInChildren<Animator>();
         }
 
+        private void OnEnable()
+        {
+            GameManager.OnLevelCompleted += Save;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OnLevelCompleted -= Save;
+        }
         private void Start()
         {
+            LoadProgress();
             _playerClonPull = new ObjectPool<PlayerClon>(_clonPrefab, _diContainer);
             OnWeaponChanged?.Invoke(_playerWeapon);
+        }
+
+
+        private void LoadProgress()
+        {
+            PlayerProgress playerProgress = SaveLoadProgress.LoadData<PlayerProgress>(UniqSavingId.PlayerProgress);
+            if (playerProgress.Equals(default(PlayerProgress)))
+            {
+                playerProgress.Damage = _defaultDamage;
+                playerProgress.FireRate = _defaultFireRate;
+                playerProgress.Hp = _defaultHealth;
+                playerProgress.Speed = _defaultSpeed;
+                playerProgress.AttackRadius = _defaultRadius;
+                playerProgress.DamageUpgrades = 0;
+                playerProgress.HealthUpgrades = 0;
+                SetCharacterData(playerProgress);
+            }
+            else
+            {
+                SetCharacterData(playerProgress);
+            }
+        }
+
+        private void SetCharacterData(PlayerProgress playerProgress)
+        {
+            _currentHealth = playerProgress.Hp;
+            _healthUpgrades = playerProgress.HealthUpgrades;
+            OnHealthUpgraded?.Invoke(_currentHealth, _healthUpgrades);
+
+            _currentFireRate = playerProgress.FireRate;
+            OnFireRateUpgraded?.Invoke(_currentFireRate);
+
+            _currentDamage = playerProgress.Damage;
+            _damageUpgrades = playerProgress.DamageUpgrades;
+            OnDamageChanged?.Invoke(_currentDamage, _damageUpgrades);
+
+            _currentRadius = playerProgress.AttackRadius;
+            OnRadiusUpgraded?.Invoke(_currentRadius);
+
+            _currentSpeed = playerProgress.Speed;
+            OnSpeedUpgraded?.Invoke(_currentSpeed);
         }
 
         public void UpgradeCharacter(UpgradePoint upgradePoint, DropType dropType)
@@ -73,24 +153,36 @@ namespace Main
             switch (dropType)
             {
                 case DropType.Damage:
-                    UpdateUpgradePoint(upgradePoint, ref _currentDamageUpgrades, _damageMaxUpgrades);
-                    OnDamageChanged?.Invoke(_damageIncreaseModificator, _currentDamageUpgrades);
+                    _damageUpgrades++;
+                    _currentDamage += _damageIncreaseModificator;
+                    OnDamageChanged?.Invoke(_currentDamage, _damageUpgrades);
                     _sounds.PlaySound(_damageSound);
                     break;
                 case DropType.Clon:
-                    UpdateUpgradePoint(upgradePoint, ref _currentClonUpgrades, _clonMaxUpgrades);
                     UpgradeClon(upgradePoint);
                     _sounds.PlaySound(_clonSound);
+                    OnHealthUpgraded?.Invoke(_currentHealth, _healthUpgrades);
+                    OnDamageChanged?.Invoke(_currentDamage, _damageUpgrades);
+                    OnFireRateUpgraded?.Invoke(_currentFireRate);
                     break;
                 case DropType.FireRate:
-                    UpdateUpgradePoint(upgradePoint, ref _currentFireRateUpgrades, _firerateMaxUpgrades);
-                    OnFireRateUpgraded?.Invoke(_fireRateIncreseModificator);
+                    _currentFireRate -= _fireRateIncreseModificator;
+                    OnFireRateUpgraded?.Invoke(_currentFireRate);
                     _sounds.PlaySound(_fireRateSound);
                     break;
                 case DropType.HP:
-                    UpdateUpgradePoint(upgradePoint, ref _currentHealthUpgrades, _healthMaxUpgrades);
-                    OnHealthUpgraded?.Invoke(_healthIncreaseModificator);
+                    _healthUpgrades++;
+                    _currentHealth += _healthIncreaseModificator;
+                    OnHealthUpgraded?.Invoke(_currentHealth, _healthUpgrades);
                     _sounds.PlaySound(_healthSound);
+                    break;
+                case DropType.AttackRadius:
+                    _currentRadius += _radiusIncreaseMOdificator;
+                    OnRadiusUpgraded?.Invoke(_currentRadius);
+                    break;
+                case DropType.Speed:
+                    _currentSpeed += _speedIncreaseModificator;
+                    OnSpeedUpgraded?.Invoke(_currentSpeed);
                     break;
                 default:
                     break;
@@ -98,19 +190,21 @@ namespace Main
             OnUpgraded?.Invoke();
         }
 
-        private void UpdateUpgradePoint(UpgradePoint upgradePoint, ref int currentUpgrades, int maxUpgrades)
+        private void Save()
         {
-            currentUpgrades++;
-            if (currentUpgrades == maxUpgrades)
-            {
-                upgradePoint.DisablePoint();
-            }
+            PlayerProgress playerProgress = new PlayerProgress { Damage = _currentDamage, Hp = _currentHealth, FireRate = _currentFireRate, DamageUpgrades = _damageUpgrades, HealthUpgrades = _healthUpgrades };
+            SaveLoadProgress.SaveData(playerProgress, UniqSavingId.PlayerProgress);
         }
-
 
         private void UpgradeClon(UpgradePoint upgradePoint)
         {
             _playerClonPull.PullZenject(upgradePoint.ClonSpawnPosition);
+        }
+
+        [ContextMenu("Delete Saves")]
+        private void DeleteSaves()
+        {
+            SaveLoadProgress.DeleteData(UniqSavingId.PlayerProgress);
         }
     }
 }

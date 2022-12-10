@@ -18,12 +18,17 @@ namespace Main
         [SerializeField] private Image _backgroundImage;
         [SerializeField] private Image _dropTypeImage;
         [SerializeField] private Image _coinImage;
+
         [SerializeField] private TMP_Text _coinsCounter;
         [SerializeField] private TMP_Text _upgradeDropName;
+
         [SerializeField] private Sprite _fireRate;
         [SerializeField] private Sprite _health;
         [SerializeField] private Sprite _clon;
         [SerializeField] private Sprite _damage;
+        [SerializeField] private Sprite _radius;
+        [SerializeField] private Sprite _speed;
+
         [SerializeField] private Image _frontImage;
 
         private int _coinsInvested;
@@ -51,6 +56,9 @@ namespace Main
         private FloatingJoystick _floatingJoystick;
         private CoinsSpawner _coinSpawner;
         private Sounds _sounds;
+
+        private int _upgradesAmount = 0;
+        [SerializeField] private int _maxUpgrades = 3;
 
 
         [Inject]
@@ -97,6 +105,11 @@ namespace Main
                 case DropType.HP:
                     _dropTypeImage.sprite = _health;
                     _frontImage.color = Color.green;
+                    break;
+                case DropType.AttackRadius:
+                    break;
+                case DropType.Speed:
+
                     break;
                 default:
                     break;
@@ -170,10 +183,24 @@ namespace Main
                 case DropType.HP:
                     _gettingItemPart.Play();
                     break;
+                case DropType.Speed:
+
+                    break;
+                case DropType.AttackRadius:
+
+                    break;
                 default:
                     break;
             }
             _playerUpgrade.UpgradeCharacter(this, _dropType);
+            _upgradesAmount++;
+
+
+            if (_upgradesAmount == _maxUpgrades)
+            {
+                DisablePoint();
+            }
+
         }
 
 

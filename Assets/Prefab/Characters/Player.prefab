@@ -82582,14 +82582,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aaa47f890542545bd8aca8fbc9b9e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultHealth: 100
+  _defaultFireRate: 0.5
+  _defaultDamage: 18
   _fireRateIncreseModificator: 0.1
   _firerateMaxUpgrades: 3
+  _currentFireRate: 0
   _damageIncreaseModificator: 15
   _damageMaxUpgrades: 3
+  _currentDamage: 0
   _clonPrefab: {fileID: 590216073923513675, guid: 23ff8a308b4f5b64ebcdf21ae7cc5abf, type: 3}
   _clonMaxUpgrades: 3
   _healthIncreaseModificator: 25
   _healthMaxUpgrades: 3
+  _currentHealth: 0
   _damageSound: {fileID: 8300000, guid: 651883612e1701d4baadfa88d73dd22b, type: 3}
   _fireRateSound: {fileID: 8300000, guid: 95e6111a339830741baee42e03c26085, type: 3}
   _clonSound: {fileID: 8300000, guid: d9d89cf06571caf4c98b6557ee6cf27e, type: 3}

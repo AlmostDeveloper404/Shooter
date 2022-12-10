@@ -53,8 +53,7 @@ namespace Main
 
         private void Start()
         {
-            int moneyAmount = PlayerResources.MoneyAmount;
-            PlayerResources.RemoveMoney(moneyAmount);
+            PlayerResources.AddMoney(1000);
         }
 
         private void OnEnable()

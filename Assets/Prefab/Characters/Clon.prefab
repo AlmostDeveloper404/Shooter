@@ -102430,7 +102430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8679337796524694663}
   - component: {fileID: 8679337796524694662}
-  - component: {fileID: 6359065245749556605}
+  - component: {fileID: 4123210468631807447}
   m_Layer: 14
   m_Name: ClonGRX
   m_TagString: Untagged
@@ -102483,7 +102483,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6359065245749556605
+--- !u!114 &4123210468631807447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102492,7 +102492,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8302635576248075837}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e72202d43a145940a2f59650515b859, type: 3}
+  m_Script: {fileID: 11500000, guid: c5b62a6fc4a2028448c7990e1ada0e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _armor:

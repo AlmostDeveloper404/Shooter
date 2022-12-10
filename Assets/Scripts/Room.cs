@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Zenject;
 using UnityEngine;
+using System;
 
 namespace Main
 {
@@ -21,6 +22,8 @@ namespace Main
         [SerializeField] private AudioClip _roomCleared;
 
         private Sounds _sounds;
+
+        public Action OnRoomCleared;
 
         [Inject]
         private void Construct(Sounds sounds)
@@ -43,6 +46,7 @@ namespace Main
 
         private void RoomCompleted()
         {
+            OnRoomCleared?.Invoke();
             _sounds.PlaySound(_roomCleared);
             SetupRoom();
             SpawnLoot();

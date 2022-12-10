@@ -56,7 +56,7 @@ namespace Main
         {
             if (_weaponUser == WeaponUser.Enemy) return;
 
-            _fireRate -= amount;
+            _fireRate = amount;
             _fireRate = Mathf.Clamp(_fireRate, _minShootingRate, Mathf.Infinity);
         }
 
@@ -65,16 +65,25 @@ namespace Main
             if (_weaponUser == WeaponUser.Enemy) return;
 
             _damageProgression = upgradeCount;
-            _damage += amount;
+            _damage = amount;
         }
 
         public virtual void Attack(Transform target)
         {
+            int lastArrayIndexSounds = _shotSounds.Length - 1;
+            int lastArrayIndexParticles = _shotParticles.Length - 1;
+
             if (_shotSounds.Length > 0)
-                _sounds.PlaySound(_shotSounds[_damageProgression]);
+            {
+                AudioClip sound = _damageProgression >= lastArrayIndexSounds ? _shotSounds[lastArrayIndexSounds] : _shotSounds[_damageProgression];
+                _sounds.PlaySound(sound);
+            }
 
             if (_shotParticles.Length > 0)
-                _shotParticles[_damageProgression]?.Play();
+            {
+                ParticleSystem particleSystem = _damageProgression >= lastArrayIndexParticles ? _shotParticles[lastArrayIndexParticles] : _shotParticles[_damageProgression];
+                particleSystem.Play();
+            }
         }
     }
 }

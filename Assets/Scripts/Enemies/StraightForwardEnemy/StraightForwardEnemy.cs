@@ -45,6 +45,8 @@ namespace Main
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _enemyHealth = GetComponent<EnemyHealth>();
+
+            _patrolling = new StraightForwardPatrollingState(_patrolPointsContainer, _navMeshAgent, _animator, _timeToStayNearbyPatrollingPoint, _detectionRadius, _attackRadius, _runningSpeed, _patrollingSpeed, _waitingAfterLosingTarget, _enemyWeapon, _rayMask);
         }
 
         private void OnEnable()
@@ -70,9 +72,6 @@ namespace Main
         {
             _deathParticles.transform.parent = null;
             _patrolPointsContainer.transform.parent = null;
-
-            _patrolling = new StraightForwardPatrollingState(_patrolPointsContainer, _navMeshAgent, _animator, _timeToStayNearbyPatrollingPoint, _detectionRadius, _attackRadius, _runningSpeed, _patrollingSpeed, _waitingAfterLosingTarget, _enemyWeapon, _rayMask);
-
         }
 
         private void Update()

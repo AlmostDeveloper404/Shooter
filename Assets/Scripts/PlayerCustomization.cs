@@ -16,7 +16,6 @@ namespace Main
 
         [SerializeField] private ArmorOverUpgrade[] _armor;
         private int _currentArmorIndex = 0;
-        public int ArmorIndex { get { return _currentArmorIndex; } }
 
         [Inject]
         private void Construct(PlayerController playerController)
@@ -35,13 +34,18 @@ namespace Main
             _playerUpgrade.OnHealthUpgraded -= UpdateArmor;
         }
 
-        private void UpdateArmor(int health)
+        private void UpdateArmor(int health, int amountOfUpgrades)
         {
-            if (_currentArmorIndex == _armor.Length - 1) return;
+            if (amountOfUpgrades >= _armor.Length - 1)
+            {
+                TakeOffArmor(_armor[_currentArmorIndex]);
+                PutOnArmor(_armor[_armor.Length - 1]);
+                return;
+            }
 
             TakeOffArmor(_armor[_currentArmorIndex]);
 
-            _currentArmorIndex++;
+            _currentArmorIndex = amountOfUpgrades;
 
             PutOnArmor(_armor[_currentArmorIndex]);
         }

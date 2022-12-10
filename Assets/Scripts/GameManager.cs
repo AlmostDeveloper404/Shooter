@@ -36,7 +36,10 @@ namespace Main
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
 
-
+        public static void NextLevel()
+        {
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }
 

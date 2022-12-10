@@ -53952,7 +53952,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4582879881908492985
 Transform:
   m_ObjectHideFlags: 0
@@ -53999,7 +53999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07ef7376c462fd44b973dacc603bd56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dropType: 2
+  _dropType: 3
   _backgroundImage: {fileID: 8364279752879140769}
   _dropTypeImage: {fileID: 4671366668847950149}
   _coinImage: {fileID: 901863047}
