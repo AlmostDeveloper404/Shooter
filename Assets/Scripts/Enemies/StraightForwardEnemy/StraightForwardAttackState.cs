@@ -25,7 +25,7 @@ namespace Main
 
         private StraightForwardApproachingState _straightForwardApproachingState;
 
-        public StraightForwardAttackState(Unit targetUnit, Animator animator, Collider attackRadiusCollider,NavMeshAgent navMeshAgent, float attackRate, float runSpeed, Weapon weapon, LayerMask layerMask, StraightForwardApproachingState straightForwardApproachingState)
+        public StraightForwardAttackState(Unit targetUnit, Animator animator, Collider attackRadiusCollider, NavMeshAgent navMeshAgent, float attackRate, float runSpeed, Weapon weapon, LayerMask layerMask, StraightForwardApproachingState straightForwardApproachingState)
         {
             _layerMask = layerMask;
             _animator = animator;
@@ -46,7 +46,7 @@ namespace Main
             _animator.SetBool(Animations.Detecting, false);
             _animator.SetBool(Animations.Run, false);
 
-            _timer = 0;
+            _timer = _attackRate * 0.5f;
             _attackRadius.OnTriggerExitAsObservable().Where(t => t.gameObject.GetComponent<Unit>()).Subscribe(_ => AttackRadiusExit(straightForwardEnemy, _)).AddTo(_onTriggerExitDis);
             _navMeshAgent.speed = 0;
         }

@@ -18,11 +18,13 @@ namespace Main
         [SerializeField] private AudioClip _keysPickUp;
 
         private Sounds _sounds;
+        private PlayerResources _playerResources;
 
         [Inject]
-        private void Construct(Sounds sounds)
+        private void Construct(Sounds sounds,PlayerResources playerResources)
         {
             _sounds = sounds;
+            _playerResources = playerResources;
         }
 
         private void OnDisable()
@@ -37,7 +39,7 @@ namespace Main
 
         public void Interact()
         {
-            PlayerResources.AddKey(_keysAmount);
+            _playerResources.AddKey(_keysAmount);
             StartCoroutine(DisableKey());
             _sounds.PlaySound(_keysPickUp);
 

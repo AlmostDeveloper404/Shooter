@@ -17,11 +17,13 @@ namespace Main
         [SerializeField] private GameObject _blockPanal;
 
         private CutSceneActivator _bossTriggerActivator;
+        private PlayerResources _playerResources;
 
         [Inject]
-        private void Construct(CutSceneActivator bossTriggerActivator)
+        private void Construct(CutSceneActivator bossTriggerActivator,PlayerResources playerResources)
         {
             _bossTriggerActivator = bossTriggerActivator;
+            _playerResources = playerResources;
         }
 
         private void Start()
@@ -32,8 +34,8 @@ namespace Main
 
         private void OnEnable()
         {
-            PlayerResources.OnKeysAmountChanged += UpdateKeys;
-            PlayerResources.OnMoneyAmountChanged += UpdateMoney;
+            _playerResources.OnKeysAmountChanged += UpdateKeys;
+            _playerResources.OnMoneyAmountChanged += UpdateMoney;
             GameManager.OnGameOver += GameOver;
             GameManager.OnLevelCompleted += LevelCompleted;
 
@@ -44,8 +46,8 @@ namespace Main
 
         private void OnDisable()
         {
-            PlayerResources.OnMoneyAmountChanged -= UpdateMoney;
-            PlayerResources.OnKeysAmountChanged -= UpdateKeys;
+            _playerResources.OnMoneyAmountChanged -= UpdateMoney;
+            _playerResources.OnKeysAmountChanged -= UpdateKeys;
             GameManager.OnGameOver -= GameOver;
             GameManager.OnLevelCompleted -= LevelCompleted;
 

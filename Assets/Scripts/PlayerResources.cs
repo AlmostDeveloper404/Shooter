@@ -3,39 +3,89 @@ using System;
 
 namespace Main
 {
-    public static class PlayerResources
+    [Serializable]
+    public struct Currency
     {
-        private static int _money;
-        public static int MoneyAmount { get { return _money; } }
+        public int Money;
+    }
 
-        private static int _keys;
-        public static int KeysAmount { get { return _keys; } }
+    public class PlayerResources : MonoBehaviour
+    {
+        private int _money;
+        public int MoneyAmount { get { return _money; } }
 
-        public static Action<int> OnMoneyAmountChanged;
-        public static Action<int> OnKeysAmountChanged;
+        private int _keys;
+        public int KeysAmount { get { return _keys; } }
 
-        public static void AddMoney(int amount)
+        public Action<int> OnMoneyAmountChanged;
+        public Action<int> OnKeysAmountChanged;
+
+        private void Start()
+        {
+            Load();
+        }
+
+        private void OnEnable()
+        {
+            GameManager.OnLevelCompleted += Save;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OnLevelCompleted -= Save;
+        }
+
+        public void AddMoney(int amount)
         {
             _money += amount;
             OnMoneyAmountChanged?.Invoke(_money);
         }
 
-        public static void AddKey(int amount)
+        public void AddKey(int amount)
         {
             _keys += amount;
             OnKeysAmountChanged?.Invoke(_keys);
         }
 
-        public static void RemoveKey(int amount)
+        public void RemoveKey(int amount)
         {
             _keys -= amount;
             OnKeysAmountChanged?.Invoke(_keys);
         }
 
-        public static void RemoveMoney(int amount)
+        public void RemoveMoney(int amount)
         {
             _money -= amount;
             OnMoneyAmountChanged?.Invoke(_money);
+        }
+
+        private void Save()
+        {
+            Debug.Log("Saved");
+            Currency currency = new Currency { Money = _money };
+            SaveLoadProgress.SaveData(currency, UniqSavingId.Currency);
+        }
+
+        private void Load()
+        {
+            Debug.Log("Load");
+            Currency currency = SaveLoadProgress.LoadData<Currency>(UniqSavingId.Currency);
+            if (currency.Equals(default(Currency)))
+            {
+                _money = 0;
+                OnMoneyAmountChanged?.Invoke(_money);
+            }
+            else
+            {
+                _money = currency.Money;
+                OnMoneyAmountChanged?.Invoke(_money);
+            }
+        }
+
+        [ContextMenu("DeleteData")]
+        private void DeleteData()
+        {
+            SaveLoadProgress.DeleteData(UniqSavingId.Currency);
         }
     }
 }

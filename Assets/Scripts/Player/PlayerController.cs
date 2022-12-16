@@ -51,14 +51,10 @@ namespace Main
             _playerUpgrade = GetComponent<PlayerUpgrade>();
         }
 
-        private void Start()
-        {
-            PlayerResources.AddMoney(1000);
-        }
-
         private void OnEnable()
         {
             GameManager.OnGameOver += GameOver;
+            GameManager.OnLevelCompleted += LevelCompleted;
             _playerUpgrade.OnWeaponChanged += WeaponChanged;
             _playerUpgrade.OnRadiusUpgraded += UpgradeRadius;
             _playerUpgrade.OnSpeedUpgraded += UpgradeSpeed;
@@ -70,6 +66,7 @@ namespace Main
         private void OnDisable()
         {
             GameManager.OnGameOver -= GameOver;
+            GameManager.OnLevelCompleted -= LevelCompleted;
             _playerUpgrade.OnWeaponChanged -= WeaponChanged;
             _playerUpgrade.OnRadiusUpgraded -= UpgradeRadius;
             _playerUpgrade.OnSpeedUpgraded -= UpgradeSpeed;
@@ -137,6 +134,15 @@ namespace Main
         {
             _speed = amount;
             UpdateBehaviour();
+        }
+
+        private void LevelCompleted()
+        {
+            _currentState = null;
+            _animator.SetBool(Animations.Idle, true);
+            _animator.SetBool(Animations.Run, false);
+            _speed = 0;
+            _rigidbody.velocity = Vector3.zero;
         }
     }
 }

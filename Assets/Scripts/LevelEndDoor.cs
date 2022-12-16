@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.SceneManagement;
 
 namespace Main
 {
@@ -15,6 +16,14 @@ namespace Main
 
         [SerializeField] private float _timeToLoadNext;
 
+        private Animator _animator;
+        [SerializeField] private ParticleSystem _endParticles;
+
+        private void Awake()
+        {
+            _animator = GetComponentInChildren<Animator>();
+        }
+
 
         private void OnEnable()
         {
@@ -23,6 +32,8 @@ namespace Main
 
         private void EnableExit()
         {
+            _endParticles?.Play();
+            _animator.SetTrigger(Animations.OpenDoor);
             _endTrigger.OnTriggerEnterAsObservable().Where(t => t.gameObject.GetComponent<PlayerController>()).Subscribe(_ => LevelCompleted()).AddTo(_onTriggerEnterDis);
         }
 
@@ -30,6 +41,7 @@ namespace Main
         {
             _onTriggerEnterDis?.Clear();
             GameManager.ChangeGameState(GameState.LevelCompleted);
+            SaveLoadProgress.SaveData(new LevelProgression { Level = SceneManager.GetActiveScene().buildIndex + 1 }, UniqSavingId.LevelProgression);
             StartCoroutine(LoadNextLevel());
         }
 

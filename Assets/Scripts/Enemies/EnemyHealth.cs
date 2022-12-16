@@ -10,7 +10,7 @@ namespace Main
 
 
         private int _currentHealth;
-        [SerializeField] private int _health;
+        private int _health;
 
 
         private Room _targetRoom;
@@ -19,20 +19,11 @@ namespace Main
 
         private Enemy _enemy;
 
-        [SerializeField] private bool _isBoss = false;
-
-
         private void Awake()
         {
             _healthBar = GetComponentInChildren<HealthBar>();
             _targetRoom = GetComponentInParent<Room>();
             _enemy = GetComponent<Enemy>();
-        }
-
-        private void Start()
-        {
-            _currentHealth = _health;
-            _healthBar.UpdateUI(_health, _currentHealth);
         }
 
         public void TakeDamage(int damage)
@@ -49,17 +40,17 @@ namespace Main
         private void Death()
         {
             OnDeath?.Invoke();
-            if (_isBoss)
-            {
-                GameManager.ChangeGameState(GameState.LevelCompleted);
-            }
-
             _healthBar.gameObject.SetActive(false);
             _targetRoom?.RemoveEnemy(_enemy);
         }
 
 
-
+        public void SetupHealth(EnemyOverProgression enemyOverProgression)
+        {
+            _health = enemyOverProgression.Health;
+            _currentHealth = _health;
+            _healthBar.UpdateUI(_health, _currentHealth);
+        }
     }
 }
 

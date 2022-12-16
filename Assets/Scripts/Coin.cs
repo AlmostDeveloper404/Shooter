@@ -18,12 +18,15 @@ namespace Main
         public bool IsForPurchase { get; set; }
 
         private Sounds _sounds;
+        private PlayerResources _playerResources;
+
         [SerializeField] private AudioClip _collectSound;
 
         [Inject]
-        private void Construct(Sounds sounds)
+        private void Construct(Sounds sounds,PlayerResources playerResources)
         {
             _sounds = sounds;
+            _playerResources = playerResources;
         }
 
         private void Awake()
@@ -46,7 +49,7 @@ namespace Main
 
         public void Interact()
         {
-            PlayerResources.AddMoney(1);
+            _playerResources.AddMoney(1);
             gameObject.SetActive(false);
             _sounds.PlaySound(_collectSound);
         }

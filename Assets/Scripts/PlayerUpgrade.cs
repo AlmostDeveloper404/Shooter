@@ -159,34 +159,40 @@ namespace Main
                     _damageUpgrades++;
                     _currentDamage += _damageIncreaseModificator;
                     OnDamageChanged?.Invoke(_currentDamage, _damageUpgrades);
+                    _animator.SetTrigger(Animations.UpgradeSecond);
                     _sounds.PlaySound(_damageSound);
                     break;
                 case DropType.Clon:
                     UpgradeClon(upgradePoint);
-                    _sounds.PlaySound(_clonSound);
                     OnHealthUpgraded?.Invoke(_currentHealth, _healthUpgrades);
                     OnDamageChanged?.Invoke(_currentDamage, _damageUpgrades);
                     OnFireRateUpgraded?.Invoke(_currentFireRate);
+                    _animator.SetTrigger(Animations.UpgradeFirst);
+                    _sounds.PlaySound(_clonSound);
                     break;
                 case DropType.FireRate:
                     _currentFireRate -= _fireRateIncreseModificator;
                     OnFireRateUpgraded?.Invoke(_currentFireRate);
                     _sounds.PlaySound(_fireRateSound);
+                    _animator.SetTrigger(Animations.UpgradeSecond);
                     break;
                 case DropType.HP:
                     _healthUpgrades++;
                     _currentHealth += _healthIncreaseModificator;
                     OnHealthUpgraded?.Invoke(_currentHealth, _healthUpgrades);
                     _sounds.PlaySound(_healthSound);
+                    _animator.SetTrigger(Animations.UpgradeSecond);
                     break;
                 case DropType.AttackRadius:
                     _currentRadius += _radiusIncreaseMOdificator;
                     _attackRadiusTransform.sizeDelta = new Vector2(_currentRadius * 2, _currentRadius * 2);
                     OnRadiusUpgraded?.Invoke(_currentRadius);
+                    _animator.SetTrigger(Animations.UpgradeFirst);
                     break;
                 case DropType.Speed:
                     _currentSpeed += _speedIncreaseModificator;
                     OnSpeedUpgraded?.Invoke(_currentSpeed);
+                    _animator.SetTrigger(Animations.UpgradeFirst);
                     break;
                 default:
                     break;

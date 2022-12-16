@@ -85,6 +85,12 @@ namespace Main
                 particleSystem.Play();
             }
         }
+
+        public void SetupWeapon(EnemyOverProgression enemyOverProgression)
+        {
+            _damage = enemyOverProgression.Damage;
+            _fireRate = enemyOverProgression.FireRate;
+        }
     }
 }
 

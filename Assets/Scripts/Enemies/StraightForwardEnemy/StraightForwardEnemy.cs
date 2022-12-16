@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
+using UnityEngine.SceneManagement;
+using System;
 
 namespace Main
 {
@@ -34,6 +36,10 @@ namespace Main
 
         private Sounds _sounds;
 
+        [SerializeField] private EnemyTypes _enemyType;
+
+        [SerializeField] private EnemyOverProgression _enemyOverProgression;
+
         [Inject]
         private void Construct(Sounds sounds)
         {
@@ -45,6 +51,15 @@ namespace Main
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _enemyHealth = GetComponent<EnemyHealth>();
+
+            SetupEnemiesOverProgression();
+        }
+
+        private void SetupEnemiesOverProgression()
+        {
+            int levelIndex = SceneManager.GetActiveScene().buildIndex;
+            _enemyOverProgression = Resources.Load<EnemyOverProgression>($"Stats/Level{levelIndex}/{_enemyType}/Stats");
+            
 
             _patrolling = new StraightForwardPatrollingState(_patrolPointsContainer, _navMeshAgent, _animator, _timeToStayNearbyPatrollingPoint, _detectionRadius, _attackRadius, _runningSpeed, _patrollingSpeed, _waitingAfterLosingTarget, _enemyWeapon, _rayMask);
         }
@@ -72,6 +87,9 @@ namespace Main
         {
             _deathParticles.transform.parent = null;
             _patrolPointsContainer.transform.parent = null;
+
+            _enemyWeapon.SetupWeapon(_enemyOverProgression);
+            _enemyHealth.SetupHealth(_enemyOverProgression);
         }
 
         private void Update()

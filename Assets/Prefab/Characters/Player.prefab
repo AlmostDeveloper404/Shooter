@@ -33,7 +33,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 600476235}
-  - {fileID: 1275597195}
   - {fileID: 1633696182}
   m_Father: {fileID: 7972331043507469835}
   m_RootOrder: 3
@@ -175,17 +174,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 600476234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0000002682209}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1275597195}
   m_Father: {fileID: 104383911}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.12610027}
-  m_SizeDelta: {x: 0, y: -0.3351}
+  m_AnchoredPosition: {x: 0, y: -0.1268}
+  m_SizeDelta: {x: 0, y: -0.3339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &600476237
 CanvasRenderer:
@@ -208,18 +208,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cb51af4704b3b594e8dba13e23ec3219, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c97273a5e6cc0f245afcbf0afed64adf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -280,8 +280,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3741d750d9dcd444e94a74728c75a887, type: 3}
   - {fileID: 8300000, guid: 4cbc0f52d332801449b920a2762b6ea7, type: 3}
   - {fileID: 8300000, guid: 5a1e47bbe664fb54fbddad7132df5360, type: 3}
-  _damage: 18
-  _fireRate: 0.5
+  _damage: 0
+  _fireRate: 0
   _minShootingRate: 0.1
   _weaponUser: 0
   _spawnPoint: {fileID: 183963661}
@@ -312,17 +312,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275597194}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00000011920945}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 104383911}
-  m_RootOrder: 1
+  m_Father: {fileID: 600476235}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.12610036}
-  m_SizeDelta: {x: 0, y: -0.3306}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1275597197
 CanvasRenderer:
@@ -345,19 +345,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3803075, g: 1, b: 0.15566039, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a00c266eb576e6c48b5d3a95b92f3882, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b68c26fc83e8ac643965410660e70bc7, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.781
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -424,7 +424,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 104383911}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -82580,15 +82580,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aaa47f890542545bd8aca8fbc9b9e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultHealth: 100
-  _defaultFireRate: 0.5
-  _defaultDamage: 18
+  _defaultHealth: 30
+  _defaultFireRate: 0.7
+  _defaultDamage: 9
   _defaultRadius: 5
-  _defaultSpeed: 4
-  _fireRateIncreseModificator: 0.1
-  _damageIncreaseModificator: 15
+  _defaultSpeed: 3
+  _fireRateIncreseModificator: 0.05
+  _damageIncreaseModificator: 8
   _clonPrefab: {fileID: 590216073923513675, guid: 23ff8a308b4f5b64ebcdf21ae7cc5abf, type: 3}
-  _healthIncreaseModificator: 25
+  _healthIncreaseModificator: 50
   _radiusIncreaseMOdificator: 0.5
   _speedIncreaseModificator: 0.5
   _damageSound: {fileID: 8300000, guid: 651883612e1701d4baadfa88d73dd22b, type: 3}

@@ -63,8 +63,8 @@ namespace Main
         public override void EntryState(StraightForwardEnemy straightForwardEnemy)
         {
 
-            _animator.SetBool(Animations.Idle, false);
-            _animator.SetBool(Animations.Detecting, true);
+            _animator.SetBool(Animations.Idle, true);
+            _animator.SetBool(Animations.Detecting, false);
 
             _navMeshAgent.speed = _patrollingSpeed;
 

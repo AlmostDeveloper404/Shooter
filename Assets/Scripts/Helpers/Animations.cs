@@ -12,6 +12,7 @@ namespace Main
         public static int Roar = Animator.StringToHash("Roar");
         public static int UpgradeFirst = Animator.StringToHash("UpgradeFirst");
         public static int UpgradeSecond = Animator.StringToHash("UpgradeSecond");
+        public static int OpenDoor = Animator.StringToHash("OpenDoor");
     }
 }
 

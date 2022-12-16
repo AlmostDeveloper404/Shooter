@@ -56,18 +56,20 @@ namespace Main
         private FloatingJoystick _floatingJoystick;
         private CoinsSpawner _coinSpawner;
         private Sounds _sounds;
+        private PlayerResources _playerResources;
 
         private int _upgradesAmount = 0;
         [SerializeField] private int _maxUpgrades = 3;
 
 
         [Inject]
-        private void Construct(PlayerController controller, FloatingJoystick floatingJoystick, CoinsSpawner coinsSpawner, Sounds sounds)
+        private void Construct(PlayerController controller, FloatingJoystick floatingJoystick, CoinsSpawner coinsSpawner, Sounds sounds,PlayerResources playerResources)
         {
             _playerUpgrade = controller.GetComponent<PlayerUpgrade>();
             _floatingJoystick = floatingJoystick;
             _coinSpawner = coinsSpawner;
             _sounds = sounds;
+            _playerResources = playerResources;
         }
 
 
@@ -79,7 +81,7 @@ namespace Main
 
         public void Interact()
         {
-            if (PlayerResources.MoneyAmount > 0)
+            if (_playerResources.MoneyAmount > 0)
             {
                 Observable.EveryUpdate().Subscribe(_ => Invest()).AddTo(_onEveryUpdateDis);
                 _exitCollider.OnTriggerExitAsObservable().Where(t => t.GetComponent<PlayerController>()).Subscribe(_ => StopInvesting()).AddTo(_onTriggerExitDis);
@@ -121,7 +123,7 @@ namespace Main
 
         private void Invest()
         {
-            if (PlayerResources.MoneyAmount == 0 || _floatingJoystick.Horizontal != 0 || _floatingJoystick.Vertical != 0) return;
+            if (_playerResources.MoneyAmount == 0 || _floatingJoystick.Horizontal != 0 || _floatingJoystick.Vertical != 0) return;
 
             _timer += Time.deltaTime;
             if (_timer > _timeBetweenInvest)
@@ -130,7 +132,7 @@ namespace Main
                 _coinsInvested++;
                 _sounds.PlaySound(_investingSound);
                 ShowAnimation();
-                PlayerResources.RemoveMoney(1);
+                _playerResources.RemoveMoney(1);
                 UpdateUpgradePoint();
             }
 
@@ -187,10 +189,11 @@ namespace Main
                     _gettingItemPart.Play();
                     break;
                 case DropType.Speed:
-
+                    _gettingItemPart.Play();
                     break;
                 case DropType.AttackRadius:
-
+                    _upgradePart.transform.position = _playerUpgrade.transform.position + Vector3.up * 2f;
+                    _upgradePart.Play();
                     break;
                 default:
                     break;

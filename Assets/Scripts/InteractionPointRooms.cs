@@ -26,30 +26,26 @@ namespace Main
         [SerializeField] private int _keysNeeded;
 
         [SerializeField] private Collider _door;
-        [SerializeField] private Collider _extraDoor;
 
 
         [SerializeField] private float _lerpSpeed;
 
         private float _totalAngleToRotate;
-        private float _totalAngleToRotateExtra;
 
         private float _y;
-        private float _yExtra;
 
         [SerializeField] private float _targetY;
-        [SerializeField] private float _extraDoorYTarget;
-
-        [SerializeField] private bool _isBossDoor;
 
         private Sounds _sounds;
+        private PlayerResources _playerResources;
         [SerializeField] private AudioClip _doorOpening;
 
 
         [Inject]
-        private void Construct(Sounds sounds)
+        private void Construct(Sounds sounds,PlayerResources playerResources)
         {
             _sounds = sounds;
+            _playerResources = playerResources;
         }
 
         private void Awake()
@@ -66,19 +62,13 @@ namespace Main
         {
             _icon.enabled = _keysNeeded == 0 ? false : true;
 
-            if (_isBossDoor)
-            {
-                _yExtra = _extraDoor.transform.eulerAngles.y;
-                _totalAngleToRotateExtra = Mathf.Abs(_extraDoor.transform.eulerAngles.y - _extraDoorYTarget);
-            }
-
             _y = _door.transform.eulerAngles.y;
             _totalAngleToRotate = Mathf.Abs(_door.transform.eulerAngles.y - _targetY);
         }
 
         public void Interact()
         {
-            if (PlayerResources.KeysAmount >= _keysNeeded)
+            if (_playerResources.KeysAmount >= _keysNeeded)
             {
                 Observable.EveryUpdate().Subscribe(_ => Fill()).AddTo(_everyUpdateDis);
 
@@ -98,8 +88,6 @@ namespace Main
             else
             {
                 Observable.EveryUpdate().Subscribe(_ => OpenDoor()).AddTo(_openDoorDis);
-
-                if (_isBossDoor) Observable.EveryUpdate().Subscribe(_ => OpenDoor(_extraDoor)).AddTo(_openExtraDis);
                 OpenRoom();
             }
 
@@ -108,7 +96,7 @@ namespace Main
         private void OpenRoom()
         {
             _sounds.PlaySound(_doorOpening);
-            PlayerResources.RemoveKey(_keysNeeded);
+            _playerResources.RemoveKey(_keysNeeded);
             _targetRoom.gameObject.SetActive(true);
             _filledImage.fillAmount = 1;
             _everyUpdateDis?.Clear();
@@ -139,31 +127,6 @@ namespace Main
                 _openDoorDis?.Clear();
             }
         }
-        private void OpenDoor(Collider extraDoor)
-        {
-            extraDoor.isTrigger = true;
-            Vector3 _doorEuler = extraDoor.transform.eulerAngles;
-
-            _yExtra = Mathf.Lerp(_yExtra, _extraDoorYTarget, _lerpSpeed * Time.deltaTime);
-            _doorEuler.y = _yExtra;
-            extraDoor.transform.eulerAngles = _doorEuler;
-
-
-            float angleToRotate = Mathf.Abs(_yExtra - _extraDoorYTarget);
-            float currentAngle = _totalAngleToRotateExtra - angleToRotate;
-
-
-            float progress = currentAngle / _totalAngleToRotateExtra;
-
-            if (Mathf.Abs(progress) > 0.99f)
-            {
-                extraDoor.transform.eulerAngles = new Vector3(extraDoor.transform.eulerAngles.x, _extraDoorYTarget, extraDoor.transform.eulerAngles.z);
-                extraDoor.isTrigger = false;
-                _openExtraDis?.Clear();
-
-            }
-        }
-
         private void StopInteracting()
         {
             _onTriggerExitDis?.Clear();

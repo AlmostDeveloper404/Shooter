@@ -59,14 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3803075, g: 1, b: 0.15566039, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cb51af4704b3b594e8dba13e23ec3219, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9320dce57bba0e346afa7da9d1a62ae6, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cb51af4704b3b594e8dba13e23ec3219, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c97273a5e6cc0f245afcbf0afed64adf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21937,6 +21937,8 @@ MonoBehaviour:
   _deathParticles: {fileID: 7586269889208664456}
   _particlesOffset: {x: 0, y: 0.75, z: 0}
   _deathSound: {fileID: 8300000, guid: c0765258be17b9d46bf5b38c61161966, type: 3}
+  _enemyType: 1
+  _enemyOverProgression: {fileID: 0}
 --- !u!114 &-953684602858319694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21949,8 +21951,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cfe85000c25a64eba035116c5a570a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 50
-  _isBoss: 0
 --- !u!114 &4622195047824331256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22232,7 +22232,7 @@ MonoBehaviour:
   - {fileID: 2776568838507663025}
   _shotSounds:
   - {fileID: 8300000, guid: 6868dc4e53bbff3459c92f8d8301e02e, type: 3}
-  _damage: 13
+  _damage: 15
   _fireRate: 0.7
   _minShootingRate: 0
   _weaponUser: 1
