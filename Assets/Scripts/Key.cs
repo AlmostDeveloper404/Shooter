@@ -20,8 +20,15 @@ namespace Main
         private Sounds _sounds;
         private PlayerResources _playerResources;
 
+        private Collider _collider;
+
+        private void Awake()
+        {
+            _collider = GetComponent<Collider>();
+        }
+
         [Inject]
-        private void Construct(Sounds sounds,PlayerResources playerResources)
+        private void Construct(Sounds sounds, PlayerResources playerResources)
         {
             _sounds = sounds;
             _playerResources = playerResources;
@@ -39,6 +46,7 @@ namespace Main
 
         public void Interact()
         {
+            _collider.isTrigger = false;
             _playerResources.AddKey(_keysAmount);
             StartCoroutine(DisableKey());
             _sounds.PlaySound(_keysPickUp);

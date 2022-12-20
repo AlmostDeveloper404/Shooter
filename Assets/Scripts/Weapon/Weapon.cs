@@ -12,6 +12,7 @@ namespace Main
 
         [SerializeField] private ParticleSystem[] _shotParticles;
         [SerializeField] private AudioClip[] _shotSounds;
+        [SerializeField] private GameObject[] _pistolGrx;
 
         [SerializeField] private int _damage;
         [SerializeField] private float _fireRate;
@@ -66,6 +67,17 @@ namespace Main
 
             _damageProgression = upgradeCount;
             _damage = amount;
+
+            int lastWeapon = _pistolGrx.Length - 1;
+
+            if (_damageProgression >= lastWeapon)
+            {
+                SetupWeapon(lastWeapon);
+            }
+            else
+            {
+                SetupWeapon(_damageProgression);
+            }
         }
 
         public virtual void Attack(Transform target)
@@ -83,6 +95,14 @@ namespace Main
             {
                 ParticleSystem particleSystem = _damageProgression >= lastArrayIndexParticles ? _shotParticles[lastArrayIndexParticles] : _shotParticles[_damageProgression];
                 particleSystem.Play();
+            }
+        }
+        private void SetupWeapon(int index)
+        {
+            Debug.Log(_damageProgression);
+            for (int i = 0; i < _pistolGrx.Length; i++)
+            {
+                _pistolGrx[i].SetActive(i == index);
             }
         }
 

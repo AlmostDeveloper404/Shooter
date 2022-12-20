@@ -216,6 +216,32 @@ namespace Main
         {
             SaveLoadProgress.DeleteData(UniqSavingId.PlayerProgress);
         }
+
+        [ContextMenu("UpgradeFireRate")]
+        private void UpgradeFireRate()
+        {
+            UpgradeCharacter(null,DropType.FireRate);
+        }
+        [ContextMenu("UpgradeDamage")]
+        private void UpgradeDamage()
+        {
+            UpgradeCharacter(null, DropType.Damage);
+        }
+        [ContextMenu("UpgradeHealth")]
+        private void UpgradeHealth()
+        {
+            UpgradeCharacter(null, DropType.HP);
+        }
+        [ContextMenu("UpgradeRadius")]
+        private void UpgradeRadius()
+        {
+            UpgradeCharacter(null, DropType.AttackRadius);
+        }
+        [ContextMenu("UpgradeSpeed")]
+        private void UpgradeSpeed()
+        {
+            UpgradeCharacter(null, DropType.Speed);
+        }
     }
 }
 

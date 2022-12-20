@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Stats
   m_EditorClassIdentifier: 
   Damage: 50
-  Health: 2000
-  FireRate: 1
+  Health: 500
+  FireRate: 2
