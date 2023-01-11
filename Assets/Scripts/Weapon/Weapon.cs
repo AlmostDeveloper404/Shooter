@@ -99,7 +99,6 @@ namespace Main
         }
         private void SetupWeapon(int index)
         {
-            Debug.Log(_damageProgression);
             for (int i = 0; i < _pistolGrx.Length; i++)
             {
                 _pistolGrx[i].SetActive(i == index);

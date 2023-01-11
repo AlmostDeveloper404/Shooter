@@ -54020,7 +54020,7 @@ MonoBehaviour:
   _upgradePart: {fileID: 1546677043275411804}
   _gettingItemPart: {fileID: 7395494969757230186}
   _investingSound: {fileID: 8300000, guid: bd539961c0bd48e418b0f9c7f540af33, type: 3}
-  _maxUpgrades: 1
+  _maxUpgrades: 3
 --- !u!111 &3173159535864541919
 Animation:
   m_ObjectHideFlags: 0

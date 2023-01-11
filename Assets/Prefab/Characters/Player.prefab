@@ -84603,14 +84603,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultHealth: 30
   _defaultFireRate: 0.7
-  _defaultDamage: 9
+  _defaultDamage: 25
   _defaultRadius: 5
-  _defaultSpeed: 3
-  _fireRateIncreseModificator: 0.05
-  _damageIncreaseModificator: 8
+  _defaultSpeed: 4
+  _fireRateIncreseModificator: 0.07
+  _damageIncreaseModificator: 3
   _clonPrefab: {fileID: 590216073923513675, guid: 23ff8a308b4f5b64ebcdf21ae7cc5abf, type: 3}
-  _healthIncreaseModificator: 50
-  _radiusIncreaseMOdificator: 0.5
+  _healthIncreaseModificator: 3
+  _radiusIncreaseMOdificator: 0.05
   _speedIncreaseModificator: 0.5
   _damageSound: {fileID: 8300000, guid: 651883612e1701d4baadfa88d73dd22b, type: 3}
   _fireRateSound: {fileID: 8300000, guid: 95e6111a339830741baee42e03c26085, type: 3}

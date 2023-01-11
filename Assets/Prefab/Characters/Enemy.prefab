@@ -834,7 +834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 9118421511058850685}
   _loot: {fileID: 3557003289304506442, guid: 63332456c00356c42a3b6457340fedde, type: 3}
-  _amount: 5
+  _amount: 3
   _angle: 65
   _minSplashRadius: 0.5
   _maxSplashRadius: 1
@@ -1735,6 +1735,7 @@ MonoBehaviour:
   _shotParticles: []
   _shotSounds:
   - {fileID: 8300000, guid: aca6101cf9e43054f91f87c3c045756b, type: 3}
+  _pistolGrx: []
   _damage: 9
   _fireRate: 0.5
   _minShootingRate: 0.5

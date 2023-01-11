@@ -8,9 +8,9 @@ namespace Main
 {
     public class LevelEndDoor : MonoBehaviour
     {
-        [SerializeField] private Room _lastRoom;
+        private Room _lastRoom;
 
-        [SerializeField] private Collider _endTrigger;
+        private Collider _endTrigger;
 
         private CompositeDisposable _onTriggerEnterDis = new CompositeDisposable();
 
@@ -22,6 +22,8 @@ namespace Main
         private void Awake()
         {
             _animator = GetComponentInChildren<Animator>();
+            _lastRoom = GetComponentInParent<Room>();
+            _endTrigger = GetComponent<Collider>();
         }
 
 

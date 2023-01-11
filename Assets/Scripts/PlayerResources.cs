@@ -61,14 +61,12 @@ namespace Main
 
         private void Save()
         {
-            Debug.Log("Saved");
             Currency currency = new Currency { Money = _money };
             SaveLoadProgress.SaveData(currency, UniqSavingId.Currency);
         }
 
         private void Load()
         {
-            Debug.Log("Load");
             Currency currency = SaveLoadProgress.LoadData<Currency>(UniqSavingId.Currency);
             if (currency.Equals(default(Currency)))
             {

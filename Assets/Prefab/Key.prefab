@@ -14608,8 +14608,6 @@ GameObject:
   - component: {fileID: 2209429064882455901}
   - component: {fileID: 2209429064882455900}
   - component: {fileID: 2209429064882455715}
-  - component: {fileID: 1949112338868265563}
-  - component: {fileID: 186435372405283380}
   m_Layer: 0
   m_Name: FX_PowerUp_Coin_AA
   m_TagString: Untagged
@@ -19437,32 +19435,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!65 &1949112338868265563
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2209429064882455714}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &186435372405283380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2209429064882455714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e983e7e4de77347aa726b43efd6b44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupEffect: {fileID: 7888857835762348946, guid: 84dab4a8cf751fc4181b5f09a6186c21, type: 3}
 --- !u!1 &2302513642620795736
 GameObject:
   m_ObjectHideFlags: 0

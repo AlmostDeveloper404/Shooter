@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 namespace Main
 {
@@ -10,6 +11,8 @@ namespace Main
 
         private Rigidbody _rigidbody;
 
+        [SerializeField] private float _timeToDisable = 0.5f;
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -17,6 +20,7 @@ namespace Main
 
         public void Initialize(Action<CoinGrx> returnAction)
         {
+            StartCoroutine(DisableCoin());
             _returnAction = returnAction;
         }
 
@@ -25,13 +29,10 @@ namespace Main
             _returnAction?.Invoke(this);
         }
 
-        private void OnTriggerEnter(Collider other)
+        private IEnumerator DisableCoin()
         {
-            UpgradePoint upgradePoint = other.GetComponent<UpgradePoint>();
-            if (upgradePoint)
-            {
-                gameObject.SetActive(false);
-            }
+            yield return Helpers.Helper.GetWait(_timeToDisable);
+            gameObject.SetActive(false);
         }
 
         public void Launch(Vector3 target, Vector3 launchDirection, float angleInDegree)

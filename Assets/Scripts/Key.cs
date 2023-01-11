@@ -46,7 +46,7 @@ namespace Main
 
         public void Interact()
         {
-            _collider.isTrigger = false;
+            _collider.enabled = false;
             _playerResources.AddKey(_keysAmount);
             StartCoroutine(DisableKey());
             _sounds.PlaySound(_keysPickUp);

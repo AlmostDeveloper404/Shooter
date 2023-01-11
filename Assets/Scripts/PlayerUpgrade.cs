@@ -164,9 +164,6 @@ namespace Main
                     break;
                 case DropType.Clon:
                     UpgradeClon(upgradePoint);
-                    OnHealthUpgraded?.Invoke(_currentHealth, _healthUpgrades);
-                    OnDamageChanged?.Invoke(_currentDamage, _damageUpgrades);
-                    OnFireRateUpgraded?.Invoke(_currentFireRate);
                     _animator.SetTrigger(Animations.UpgradeFirst);
                     _sounds.PlaySound(_clonSound);
                     break;

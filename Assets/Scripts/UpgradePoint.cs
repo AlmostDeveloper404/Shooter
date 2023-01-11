@@ -63,7 +63,7 @@ namespace Main
 
 
         [Inject]
-        private void Construct(PlayerController controller, FloatingJoystick floatingJoystick, CoinsSpawner coinsSpawner, Sounds sounds,PlayerResources playerResources)
+        private void Construct(PlayerController controller, FloatingJoystick floatingJoystick, CoinsSpawner coinsSpawner, Sounds sounds, PlayerResources playerResources)
         {
             _playerUpgrade = controller.GetComponent<PlayerUpgrade>();
             _floatingJoystick = floatingJoystick;
@@ -110,7 +110,7 @@ namespace Main
                     break;
                 case DropType.AttackRadius:
                     _dropTypeImage.sprite = _radius;
-                    _frontImage.color = Color.gray;
+                    _frontImage.color = Color.yellow;
                     break;
                 case DropType.Speed:
                     _dropTypeImage.sprite = _speed;

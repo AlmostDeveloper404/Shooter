@@ -99440,6 +99440,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3741d750d9dcd444e94a74728c75a887, type: 3}
   - {fileID: 8300000, guid: 4cbc0f52d332801449b920a2762b6ea7, type: 3}
   - {fileID: 8300000, guid: 5a1e47bbe664fb54fbddad7132df5360, type: 3}
+  _pistolGrx: []
   _damage: 18
   _fireRate: 0.5
   _minShootingRate: 0.1
@@ -102430,7 +102431,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8679337796524694663}
   - component: {fileID: 8679337796524694662}
-  - component: {fileID: 4123210468631807447}
   m_Layer: 14
   m_Name: ClonGRX
   m_TagString: Untagged
@@ -102483,47 +102483,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4123210468631807447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8302635576248075837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5b62a6fc4a2028448c7990e1ada0e87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _armor:
-  - _allArmor:
-    - {fileID: 2328010166005166317}
-    - {fileID: 2781137300515400282}
-    - {fileID: 5022716057054973703}
-    - {fileID: 5930648157585660058}
-    - {fileID: 2855523839136864390}
-    - {fileID: 8416582604103692834}
-  - _allArmor:
-    - {fileID: 2328010166005166317}
-    - {fileID: 2781137300515400282}
-    - {fileID: 5022716057054973703}
-    - {fileID: 5930648157585660058}
-    - {fileID: 3522975110425514153}
-    - {fileID: 8416582604103692834}
-  - _allArmor:
-    - {fileID: 77840447326096482}
-    - {fileID: 8706088780816298476}
-    - {fileID: 2548935843704743197}
-    - {fileID: 5930648157585660058}
-    - {fileID: 3963459795055666409}
-    - {fileID: 1452527378839356049}
-  - _allArmor:
-    - {fileID: 2372061259519267574}
-    - {fileID: 1168181675183748918}
-    - {fileID: 8817488396161289850}
-    - {fileID: 7553930843489401790}
-    - {fileID: 5237458488882605455}
-    - {fileID: 8150762896569306880}
 --- !u!1 &8331216109977012457
 GameObject:
   m_ObjectHideFlags: 0

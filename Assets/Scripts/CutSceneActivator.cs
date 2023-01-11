@@ -12,14 +12,10 @@ namespace Main
 
         [SerializeField] private GameObject[] _objectsToActivate;
 
-
-        private void Start()
-        {
-            StartCutScene();
-        }
-
+        
         public void StartCutScene()
         {
+            Debug.Log("Yep");
             foreach (var item in _objectsToActivate)
             {
                 item.SetActive(true);

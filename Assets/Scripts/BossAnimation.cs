@@ -9,11 +9,13 @@ namespace Main
         [SerializeField] private AudioClip _roarSound;
 
         private Animator _animator;
+        private CutSceneActivator _cutSceneActivator;
 
         [Inject]
-        private void Construct(Sounds sounds)
+        private void Construct(Sounds sounds,CutSceneActivator cutSceneActivator)
         {
             _sounds = sounds;
+            _cutSceneActivator = cutSceneActivator;
         }
 
         private void Awake()
@@ -23,6 +25,7 @@ namespace Main
 
         private void Start()
         {
+            _cutSceneActivator.StartCutScene();
             _animator.SetTrigger(Animations.Roar);
         }
 

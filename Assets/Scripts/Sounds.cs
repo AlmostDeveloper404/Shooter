@@ -11,12 +11,12 @@ namespace Main
         [SerializeField] private AudioClip _winSound;
         [SerializeField] private AudioClip _lostSound;
 
-        private CutSceneActivator _bossTriggerActivator;
+        private CutSceneActivator _cutSceneActivator;
 
         [Inject]
         private void Construct(CutSceneActivator bossTriggerActivator)
         {
-            _bossTriggerActivator = bossTriggerActivator;
+            _cutSceneActivator = bossTriggerActivator;
         }
 
         private void Awake()
@@ -32,28 +32,28 @@ namespace Main
         {
             GameManager.OnLevelCompleted += LevelCompleted;
             GameManager.OnGameOver += GameOver;
-            _bossTriggerActivator.OnCutSceneEnded += StartBackgroundMusic;
+            _cutSceneActivator.OnCutSceneEnded += StartBackgroundMusic;
+            _cutSceneActivator.OnBossFight += StopBackgroundMusic;
         }
 
         private void OnDisable()
         {
             GameManager.OnLevelCompleted -= LevelCompleted;
             GameManager.OnGameOver -= GameOver;
-            _bossTriggerActivator.OnCutSceneEnded -= StartBackgroundMusic;
+            _cutSceneActivator.OnCutSceneEnded -= StartBackgroundMusic;
+            _cutSceneActivator.OnBossFight -= StopBackgroundMusic;
         }
 
 
-        public void PlaySound(AudioClip audioClip)
-        {
-            foreach (var clip in _allAudio)
-            {
-                if (clip.clip == audioClip) clip.Play();
-            }
-        }
 
         private void StartBackgroundMusic()
         {
             PlaySound(_backgroundMusic);
+        }
+
+        private void StopBackgroundMusic()
+        {
+            StopSound(_backgroundMusic);
         }
 
         private void LevelCompleted()
@@ -66,6 +66,13 @@ namespace Main
         {
             StopSound(_backgroundMusic);
             PlaySound(_lostSound);
+        }
+        public void PlaySound(AudioClip audioClip)
+        {
+            foreach (var clip in _allAudio)
+            {
+                if (clip.clip == audioClip) clip.Play();
+            }
         }
 
         public void StopSound(AudioClip clip)
