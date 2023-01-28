@@ -52,7 +52,6 @@ namespace Main
         private void HealthUpgraded(int amount, int amountOfUpgrade)
         {
             _maxHealth = amount;
-            //_maxHealth += amount;
             UpdateHealth();
         }
 

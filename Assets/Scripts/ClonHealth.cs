@@ -12,7 +12,6 @@ namespace Main
         private Rigidbody _rigidbody;
         private Animator _animator;
         private PlayerUpgrade _playerUpgrade;
-        private PlayerHealth _playerHealth;
         private PlayerClon _playerClon;
 
         private int _maxHealth;
@@ -21,7 +20,6 @@ namespace Main
         private void Construct(PlayerController playerController)
         {
             _playerUpgrade = playerController.GetComponent<PlayerUpgrade>();
-            _playerHealth = playerController.GetComponent<PlayerHealth>();
         }
 
         private void Awake()
@@ -35,15 +33,15 @@ namespace Main
 
         private void OnEnable()
         {
-            _playerUpgrade.OnHealthUpgraded += HealthUpgraded;
-            _playerUpgrade.OnUpgraded += Heal;
+            //_playerUpgrade.OnHealthUpgraded += HealthUpgraded;
+            //_playerUpgrade.OnUpgraded += Heal;
         }
 
 
         private void OnDisable()
         {
-            _playerUpgrade.OnHealthUpgraded -= HealthUpgraded;
-            _playerUpgrade.OnUpgraded -= Heal;
+            //_playerUpgrade.OnHealthUpgraded -= HealthUpgraded;
+            //_playerUpgrade.OnUpgraded -= Heal;
         }
 
 
@@ -52,20 +50,20 @@ namespace Main
             UpdateHealth();
         }
 
-        private void Heal()
-        {
-            _currentHealth = _maxHealth;
-            _healthBar.UpdateUI(_maxHealth, _currentHealth);
-        }
-        private void HealthUpgraded(int amount, int amountOfUpgrades)
-        {
-            _maxHealth = amount;
-            UpdateHealth();
-        }
+        //private void Heal()
+        //{
+        //    _currentHealth = _maxHealth;
+        //    _healthBar.UpdateUI(_maxHealth, _currentHealth);
+        //}
+        //private void HealthUpgraded(int amount, int amountOfUpgrades)
+        //{
+        //    _maxHealth = amount;
+        //    UpdateHealth();
+        //}
 
         private void UpdateHealth()
         {
-            _maxHealth = _playerHealth.MaxHealth;
+            _maxHealth = _playerUpgrade.GetDefaultHealth;
             _currentHealth = _maxHealth;
 
             _healthBar.UpdateUI(_maxHealth, _currentHealth);

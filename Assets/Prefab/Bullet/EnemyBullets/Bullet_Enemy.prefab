@@ -28911,7 +28911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3486f6bffe5a6b4e84a75020b95bbdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 7
   _bulletImpacts:
   - {fileID: 2715634099216971571}
   _trails:

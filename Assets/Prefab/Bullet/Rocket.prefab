@@ -23815,7 +23815,7 @@ MonoBehaviour:
   _explosionParticles: {fileID: 6302580618479232078}
   _explosionSound: {fileID: 8300000, guid: 14fc1da09bb8c734b8f59521acbc465a, type: 3}
   _radius: 3
-  _damage: 50
+  _damage: 10
   _explosiveForce: 1000
 --- !u!1 &718537416022705197
 GameObject:

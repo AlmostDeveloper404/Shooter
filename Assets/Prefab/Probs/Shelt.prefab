@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3918926767947439142}
   - component: {fileID: 8140148305063006191}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Shelt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 3599474873256361041}
   - component: {fileID: 8371118480584910640}
   - component: {fileID: 4535133937323506302}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Shelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}

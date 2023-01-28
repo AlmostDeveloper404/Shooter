@@ -58,8 +58,9 @@ namespace Main
             _returnAction?.Invoke(this);
         }
 
-        public void Launch(Vector3 target, Vector3 launchDirection, float angle)
+        public void Launch(Vector3 target, Vector3 launchDirection, float angle, int damage)
         {
+            _damage = damage;
             _rigidbody.velocity = CulculateVelocity.Culculate(transform.position, target, launchDirection, angle);
         }
 

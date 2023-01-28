@@ -896,7 +896,7 @@ GameObject:
   - component: {fileID: 1760157853382594489}
   - component: {fileID: 1735349797174180823}
   - component: {fileID: 1742985416412908327}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Wep_American_Pistol_01_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 1760041796155264493}
   - component: {fileID: 1735553354029014949}
   - component: {fileID: 1744925900070010249}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Wep_American_Pistol_01_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1062,7 +1062,7 @@ GameObject:
   - component: {fileID: 1760325342850377393}
   - component: {fileID: 1735020941690928075}
   - component: {fileID: 1743679423347717317}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Wep_American_Pistol_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1149,7 +1149,7 @@ GameObject:
   - component: {fileID: 1761631981835783363}
   - component: {fileID: 1737172186799071775}
   - component: {fileID: 1743146776908553079}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Wep_American_Pistol_01_Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1390,7 +1390,7 @@ GameObject:
   - component: {fileID: 2605083367417121747}
   - component: {fileID: 2807881286310848011}
   - component: {fileID: 2806669970067114871}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: muzzleflare_Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6200,7 +6200,7 @@ GameObject:
   - component: {fileID: 2605072169089232733}
   - component: {fileID: 2807170194488009239}
   - component: {fileID: 2806422632545153463}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11010,7 +11010,7 @@ GameObject:
   - component: {fileID: 2610118210468589629}
   - component: {fileID: 2807370014337383779}
   - component: {fileID: 2776568838507663025}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet_BlazingRed_Small_MuzzleFlare
   m_TagString: FX
   m_Icon: {fileID: 0}
@@ -15837,7 +15837,7 @@ GameObject:
   - component: {fileID: 2610118208145649205}
   - component: {fileID: 2776568838239458417}
   - component: {fileID: 2807370015030993505}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flarespikes_wide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20718,7 +20718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4437325556848345341}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21933,7 +21933,7 @@ MonoBehaviour:
   _waitingAfterLosingTarget: 5
   _rayMask:
     serializedVersion: 2
-    m_Bits: 82048
+    m_Bits: 344192
   _deathParticles: {fileID: 7586269889208664456}
   _particlesOffset: {x: 0, y: 0.75, z: 0}
   _deathSound: {fileID: 8300000, guid: c0765258be17b9d46bf5b38c61161966, type: 3}
@@ -21965,7 +21965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 3815158463248536653}
   _loot: {fileID: 3557003289304506442, guid: 63332456c00356c42a3b6457340fedde, type: 3}
-  _amount: 5
+  _amount: 3
   _angle: 65
   _minSplashRadius: 0.5
   _maxSplashRadius: 1
@@ -21978,7 +21978,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7066334528332845358}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: PartolPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22012,7 +22012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7066334528889333861}
   - component: {fileID: 7066334528889333860}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Point1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22027,7 +22027,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7066334528889333858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.75, y: 0.5, z: 0.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22147,7 +22147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7066334529822766304}
   - component: {fileID: 7066334529822766307}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Point2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22192,7 +22192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2423441351756536319}
   - component: {fileID: 7698942770012585978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22232,6 +22232,7 @@ MonoBehaviour:
   - {fileID: 2776568838507663025}
   _shotSounds:
   - {fileID: 8300000, guid: 6868dc4e53bbff3459c92f8d8301e02e, type: 3}
+  _pistolGrx: []
   _damage: 15
   _fireRate: 0.7
   _minShootingRate: 0

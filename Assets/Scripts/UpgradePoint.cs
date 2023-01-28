@@ -33,6 +33,8 @@ namespace Main
 
         private int _coinsInvested;
 
+        [SerializeField] private float _timeToNextUpgrade;
+
         private CompositeDisposable _onEveryUpdateDis = new CompositeDisposable();
         private CompositeDisposable _onTriggerExitDis = new CompositeDisposable();
 
@@ -47,7 +49,10 @@ namespace Main
         [SerializeField] private Transform _target;
         [SerializeField] private ParticleSystem _upgradePart;
         [SerializeField] private ParticleSystem _gettingItemPart;
+        [SerializeField] private ParticleSystem _pointGlow;
         [SerializeField] private AudioClip _investingSound;
+
+        private Animation _animation;
 
 
         private float _timer = 0;
@@ -59,7 +64,8 @@ namespace Main
         private PlayerResources _playerResources;
 
         private int _upgradesAmount = 0;
-        [SerializeField] private int _maxUpgrades = 3;
+        private int _maxUpgrades = 99;
+        [SerializeField] private int _maxClonUpgrades;
 
 
         [Inject]
@@ -70,6 +76,11 @@ namespace Main
             _coinSpawner = coinsSpawner;
             _sounds = sounds;
             _playerResources = playerResources;
+        }
+
+        private void Awake()
+        {
+            _animation = GetComponent<Animation>();
         }
 
 
@@ -149,7 +160,7 @@ namespace Main
 
             if (_coinsInvested == _coinsNeed)
             {
-                _timer = -0.5f;
+                _timer = -_timeToNextUpgrade;
                 _backgroundImage.fillAmount = 0;
                 _coinsInvested = 0;
                 Upgrade();
@@ -201,18 +212,22 @@ namespace Main
             _playerUpgrade.UpgradeCharacter(this, _dropType);
             _upgradesAmount++;
 
-
-            if (_upgradesAmount == _maxUpgrades)
+            if (_dropType == DropType.Clon && _upgradesAmount == _maxClonUpgrades)
+            {
+                DisablePoint();
+            }else if (_upgradesAmount==_maxUpgrades)
             {
                 DisablePoint();
             }
-
         }
 
 
 
         public void DisablePoint()
         {
+            _animation.Stop();
+            _pointGlow.Stop();
+
             _onEveryUpdateDis?.Clear();
             _onTriggerExitDis?.Clear();
 

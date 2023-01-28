@@ -7,7 +7,7 @@ namespace Main
 {
     public class Room : MonoBehaviour
     {
-        [SerializeField] private List<Enemy> _allRoomEnemies = new List<Enemy>();
+        private List<Enemy> _allRoomEnemies = new List<Enemy>();
 
         [SerializeField] private Material _roomFloorClearedMat;
         [SerializeField] private Material _roomFloorUncleared;
@@ -29,6 +29,22 @@ namespace Main
         private void Construct(Sounds sounds)
         {
             _sounds = sounds;
+        }
+
+        private void Awake()
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Enemy enemy = transform.GetChild(i).GetComponent<Enemy>();
+                if (enemy)
+                {
+                    _allRoomEnemies.Add(enemy);
+                }
+                else
+                {
+                    continue;
+                }
+            }
         }
 
         private void Start()

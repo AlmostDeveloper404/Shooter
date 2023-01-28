@@ -39,6 +39,8 @@ namespace Main
         [SerializeField] private float _defaultRadius;
         [SerializeField] private float _defaultSpeed;
 
+        public int GetDefaultHealth { get { return _defaultHealth; } }
+
 
         [Header("FireRate")]
         [SerializeField] private float _fireRateIncreseModificator;
@@ -217,7 +219,7 @@ namespace Main
         [ContextMenu("UpgradeFireRate")]
         private void UpgradeFireRate()
         {
-            UpgradeCharacter(null,DropType.FireRate);
+            UpgradeCharacter(null, DropType.FireRate);
         }
         [ContextMenu("UpgradeDamage")]
         private void UpgradeDamage()

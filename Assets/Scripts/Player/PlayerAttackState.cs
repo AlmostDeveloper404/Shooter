@@ -27,7 +27,7 @@ namespace Main
 
         public override void EntryState(PlayerController playerController)
         {
-            _timer = _weapon.FireRate * 0.5f;
+            _timer = _weapon.FireRate * 0.7f;
             _animator.SetBool(Animations.Attack, true);
             _animator.SetBool(Animations.Run, false);
             _animator.SetBool(Animations.Idle, false);

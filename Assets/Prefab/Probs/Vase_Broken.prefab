@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4249422293002914437}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Vase_Broken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2776927338653130447}
   - component: {fileID: 8139338445580370567}
   - component: {fileID: 4872103858431059192}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Vase_Broken
   m_TagString: Untagged
   m_Icon: {fileID: 0}

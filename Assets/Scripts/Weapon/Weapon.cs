@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Main
 {
-    public enum WeaponUser { PlayerArmy, Enemy }
+    public enum WeaponUser { PlayerArmy, Enemy, Clon }
 
     public class Weapon : MonoBehaviour, IDoDamage
     {
@@ -32,14 +32,14 @@ namespace Main
         {
             _sounds = sounds;
 
-            if (_weaponUser == WeaponUser.Enemy) return;
+            if (_weaponUser != WeaponUser.PlayerArmy) return;
 
             _playerUpgrade = playerController.GetComponent<PlayerUpgrade>();
         }
 
         private void OnEnable()
         {
-            if (_weaponUser == WeaponUser.Enemy) return;
+            if (_weaponUser != WeaponUser.PlayerArmy) return;
 
             _playerUpgrade.OnDamageChanged += UpgradeDamage;
             _playerUpgrade.OnFireRateUpgraded += UpgradeFireRate;
@@ -47,7 +47,7 @@ namespace Main
 
         private void OnDisable()
         {
-            if (_weaponUser == WeaponUser.Enemy) return;
+            if (_weaponUser != WeaponUser.PlayerArmy) return;
 
             _playerUpgrade.OnDamageChanged -= UpgradeDamage;
             _playerUpgrade.OnFireRateUpgraded -= UpgradeFireRate;
@@ -55,7 +55,7 @@ namespace Main
 
         private void UpgradeFireRate(float amount)
         {
-            if (_weaponUser == WeaponUser.Enemy) return;
+            if (_weaponUser != WeaponUser.PlayerArmy) return;
 
             _fireRate = amount;
             _fireRate = Mathf.Clamp(_fireRate, _minShootingRate, Mathf.Infinity);
@@ -63,7 +63,7 @@ namespace Main
 
         private void UpgradeDamage(int amount, int upgradeCount)
         {
-            if (_weaponUser == WeaponUser.Enemy) return;
+            if (_weaponUser != WeaponUser.PlayerArmy) return;
 
             _damageProgression = upgradeCount;
             _damage = amount;

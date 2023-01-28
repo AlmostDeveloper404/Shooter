@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7656327278480578126}
   - component: {fileID: 4289258313990562781}
   - component: {fileID: 7422992300472644472}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Vase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 3270951278833076308}
   - component: {fileID: 4745044115238414969}
   - component: {fileID: 2416063009241456008}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Large_Vase
   m_TagString: Untagged
   m_Icon: {fileID: 0}

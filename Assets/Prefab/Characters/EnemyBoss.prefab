@@ -745,6 +745,7 @@ MonoBehaviour:
   _shotParticles: []
   _shotSounds:
   - {fileID: 8300000, guid: 69bca82795ac9d14a906a5e04c65ab55, type: 3}
+  _pistolGrx: []
   _damage: 60
   _fireRate: 2
   _minShootingRate: 0.5
@@ -881,6 +882,37 @@ Transform:
   - {fileID: 2014901793513375510}
   m_Father: {fileID: 9008312546253390402}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &846292543283006331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6523139214558239782}
+  m_Layer: 8
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6523139214558239782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846292543283006331}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3588696066066480316}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1003705541963591486
 GameObject:
@@ -1785,6 +1817,7 @@ GameObject:
   - component: {fileID: 3588696066066480304}
   - component: {fileID: 3588696066066480307}
   - component: {fileID: 3588696066066480306}
+  - component: {fileID: 7760114546292992433}
   m_Layer: 8
   m_Name: EnemyBoss
   m_TagString: Untagged
@@ -1810,6 +1843,7 @@ Transform:
   - {fileID: 430003158}
   - {fileID: 306858681}
   - {fileID: 3664792770265739939}
+  - {fileID: 6523139214558239782}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
@@ -1878,7 +1912,7 @@ MonoBehaviour:
   _waitingAfterLosingTarget: 3
   _rayMask:
     serializedVersion: 2
-    m_Bits: 82048
+    m_Bits: 344192
   _deathParticles: {fileID: 3461279646775421345}
   _particlesOffset: {x: 0, y: 0, z: 0}
   _deathSound: {fileID: 0}
@@ -1906,6 +1940,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7760114546292992433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3588696066066480317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250f488f5100f6346b6509c49c82722f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnPoint: {fileID: 6523139214558239782}
+  _loot: {fileID: 3557003289304506442, guid: 63332456c00356c42a3b6457340fedde, type: 3}
+  _amount: 13
+  _angle: 65
+  _minSplashRadius: 0.3
+  _maxSplashRadius: 0.7
 --- !u!1 &3588696066119203071
 GameObject:
   m_ObjectHideFlags: 0

@@ -203,10 +203,10 @@ MonoBehaviour:
   _icon: {fileID: 5037761337800157624}
   _targetRoom: {fileID: 0}
   _openingMultiplier: 2
-  _keysNeeded: 0
+  _keysNeeded: 1
   _door: {fileID: 0}
   _lerpSpeed: 5
-  _targetY: -10
+  _targetY: 136
   _doorOpening: {fileID: 8300000, guid: dd91d71d264d353499fe5b8322914121, type: 3}
 --- !u!65 &5443247651998856502
 BoxCollider:

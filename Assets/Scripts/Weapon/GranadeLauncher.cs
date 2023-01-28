@@ -33,8 +33,9 @@ namespace Main
         {
             base.Attack(target);
 
-            Rocket rocket = _rocketPool.PullZenject(_spawnPoint.position , _spawnPoint.rotation);
-            rocket.Launch(target.position, _spawnPoint.forward, _angle);
+            Rocket rocket = _rocketPool.PullZenject(_spawnPoint.position, _spawnPoint.rotation);
+
+            rocket.Launch(target.position, _spawnPoint.forward, _angle, Damage);
         }
     }
 }
