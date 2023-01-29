@@ -20,6 +20,8 @@ namespace Main
         private Sounds _sounds;
         private PlayerResources _playerResources;
 
+        [SerializeField] private int _coinsAmount=1;
+
         [SerializeField] private AudioClip _collectSound;
 
         [Inject]
@@ -49,7 +51,7 @@ namespace Main
 
         public void Interact()
         {
-            _playerResources.AddMoney(1);
+            _playerResources.AddMoney(_coinsAmount);
             gameObject.SetActive(false);
             _sounds.PlaySound(_collectSound);
         }
