@@ -14,8 +14,9 @@ namespace Main
         private Vector3 _shootingDirection;
 
         private float _timer;
+        private Camera _camera;
 
-        public PlayerAttackState(Enemy enemy, Animator animator, Rigidbody rigidbody, FloatingJoystick floatingJoystick, float detectionRadius, Weapon weapon)
+        public PlayerAttackState(Enemy enemy, Animator animator, Rigidbody rigidbody, FloatingJoystick floatingJoystick, float detectionRadius, Weapon weapon, Camera camera)
         {
             _targetEnemy = enemy;
             _animator = animator;
@@ -23,6 +24,7 @@ namespace Main
             _joystick = floatingJoystick;
             _detectionRadius = detectionRadius;
             _weapon = weapon;
+            _camera = camera;
         }
 
         public override void EntryState(PlayerController playerController)

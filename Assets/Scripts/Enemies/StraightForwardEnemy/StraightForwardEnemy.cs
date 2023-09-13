@@ -38,7 +38,7 @@ namespace Main
 
         [SerializeField] private EnemyTypes _enemyType;
 
-        [SerializeField] private EnemyOverProgression _enemyOverProgression;
+        private EnemyOverProgression _enemyOverProgression;
 
         [Inject]
         private void Construct(Sounds sounds)

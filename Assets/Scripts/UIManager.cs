@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using Zenject;
 
@@ -11,7 +12,7 @@ namespace Main
 
         [SerializeField] private TMP_Text _keysText;
         [SerializeField] private TMP_Text _moneyText;
-
+        [SerializeField] private TMP_Text _levelText;
         [SerializeField] private TMP_Text _endText;
 
         [SerializeField] private GameObject _blockPanal;
@@ -20,7 +21,7 @@ namespace Main
         private PlayerResources _playerResources;
 
         [Inject]
-        private void Construct(CutSceneActivator bossTriggerActivator,PlayerResources playerResources)
+        private void Construct(CutSceneActivator bossTriggerActivator, PlayerResources playerResources)
         {
             _bossTriggerActivator = bossTriggerActivator;
             _playerResources = playerResources;
@@ -28,6 +29,8 @@ namespace Main
 
         private void Start()
         {
+            _levelText.text = $"Level: {SceneManager.GetActiveScene().buildIndex}";
+
             UpdateKeys(0);
             UpdateMoney(0);
         }

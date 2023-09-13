@@ -6,16 +6,11 @@ namespace Main
 {
     public class PlayerInteractions : MonoBehaviour
     {
-        private Collider _playerInteractionCollider;
-
+        [SerializeField] private CapsuleCollider _playerInteractionCollider;
         private CompositeDisposable _onTriggerEnterDis = new CompositeDisposable();
 
-        private void Awake()
-        {
-            _playerInteractionCollider = GetComponent<CapsuleCollider>();
-        }
 
-        private void Start()
+        private void OnEnable()
         {
             _playerInteractionCollider.OnTriggerEnterAsObservable().Where(t => t.gameObject.GetComponent<IInteractable>() as MonoBehaviour).Subscribe(_ => Interact(_.GetComponent<IInteractable>())).AddTo(_onTriggerEnterDis);
         }
@@ -25,7 +20,7 @@ namespace Main
             interactable.Interact();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             _onTriggerEnterDis?.Clear();
         }

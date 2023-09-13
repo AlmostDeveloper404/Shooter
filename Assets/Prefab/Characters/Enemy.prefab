@@ -802,12 +802,11 @@ MonoBehaviour:
   _waitingAfterLosingTarget: 5
   _rayMask:
     serializedVersion: 2
-    m_Bits: 344192
+    m_Bits: 327808
   _deathParticles: {fileID: 7586269888199098300}
   _particlesOffset: {x: 0, y: 0.75, z: 0}
   _deathSound: {fileID: 8300000, guid: c0765258be17b9d46bf5b38c61161966, type: 3}
   _enemyType: 0
-  _enemyOverProgression: {fileID: 0}
 --- !u!114 &78982636378769519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2355,7 +2354,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7036052308750683927}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0

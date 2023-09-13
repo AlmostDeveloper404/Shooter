@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cd70ecf79c2174e9e824be09137540, type: 3}
   m_Name: Stats
   m_EditorClassIdentifier: 
-  Damage: 14
-  Health: 65
-  FireRate: 0.7
+  Damage: 3
+  Health: 30
+  FireRate: 1.4

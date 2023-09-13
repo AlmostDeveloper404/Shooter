@@ -17,7 +17,9 @@ namespace Main
         private Sounds _sounds;
         private AudioClip _steps;
 
-        public PlayerStayingState(FloatingJoystick floatingJoystick, LayerMask detectionMask, LayerMask rayMask, float detectionRadius, Animator animator, Rigidbody rigidbody, Weapon activeWeapon, Sounds sounds, AudioClip steps)
+        private Camera _cam;
+
+        public PlayerStayingState(FloatingJoystick floatingJoystick, LayerMask detectionMask, LayerMask rayMask, float detectionRadius, Animator animator, Rigidbody rigidbody, Weapon activeWeapon, Sounds sounds, AudioClip steps, Camera camera)
         {
             _joystick = floatingJoystick;
             _detectionMask = detectionMask;
@@ -28,6 +30,7 @@ namespace Main
             _weapon = activeWeapon;
             _sounds = sounds;
             _steps = steps;
+            _cam = camera;
         }
 
         public override void EntryState(PlayerController playerController)
@@ -75,7 +78,7 @@ namespace Main
             {
                 Enemy targetEnemy = nearestEnemy;
                 playerController.OnEnemyDetected?.Invoke(targetEnemy);
-                _playerAttackState = new PlayerAttackState(targetEnemy, _animator, _rigidBody, _joystick, _detectionRadius, _weapon);
+                _playerAttackState = new PlayerAttackState(targetEnemy, _animator, _rigidBody, _joystick, _detectionRadius, _weapon, _cam);
                 playerController.ChangeState(_playerAttackState);
             }
         }

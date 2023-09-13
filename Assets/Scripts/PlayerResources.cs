@@ -23,6 +23,7 @@ namespace Main
         private void Start()
         {
             Load();
+            AddMoney(1000);
         }
 
         private void OnEnable()

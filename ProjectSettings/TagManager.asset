@@ -27,7 +27,7 @@ TagManager:
   - RayObstacle
   - Ground
   - WalkableObj
-  - 
+  - DetectionColliders
   - 
   - 
   - 

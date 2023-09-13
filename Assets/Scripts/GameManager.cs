@@ -38,7 +38,13 @@ namespace Main
 
         public static void NextLevel()
         {
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+            int nextLevelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (nextLevelIndex == SceneManager.sceneCountInBuildSettings)
+            {
+                nextLevelIndex = 1;
+            }
+
+            SceneManager.LoadSceneAsync(nextLevelIndex);
         }
     }
 }

@@ -2858,7 +2858,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b86eff5f43a18e8488f33872dd7571a1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 297c92e2e1815a44b952298864c115c9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -3143,4 +3143,4 @@ MonoBehaviour:
   _allAudio: []
   _backgroundMusic: {fileID: 8300000, guid: 5983eac2111264841b64b21fc1baac23, type: 3}
   _winSound: {fileID: 8300000, guid: 432fc0b8f6ec4194e837e338b1cf21fd, type: 3}
-  _lostSound: {fileID: 8300000, guid: b86eff5f43a18e8488f33872dd7571a1, type: 3}
+  _lostSound: {fileID: 8300000, guid: 297c92e2e1815a44b952298864c115c9, type: 3}

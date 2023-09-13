@@ -32,29 +32,29 @@ namespace Main
         {
             GameManager.OnLevelCompleted += LevelCompleted;
             GameManager.OnGameOver += GameOver;
-            _cutSceneActivator.OnCutSceneEnded += StartBackgroundMusic;
-            _cutSceneActivator.OnBossFight += StopBackgroundMusic;
+            //_cutSceneActivator.OnCutSceneEnded += StartBackgroundMusic;
+            //_cutSceneActivator.OnBossFight += StopBackgroundMusic;
         }
 
         private void OnDisable()
         {
             GameManager.OnLevelCompleted -= LevelCompleted;
             GameManager.OnGameOver -= GameOver;
-            _cutSceneActivator.OnCutSceneEnded -= StartBackgroundMusic;
-            _cutSceneActivator.OnBossFight -= StopBackgroundMusic;
+            //_cutSceneActivator.OnCutSceneEnded -= StartBackgroundMusic;
+            //_cutSceneActivator.OnBossFight -= StopBackgroundMusic;
         }
 
 
 
-        private void StartBackgroundMusic()
-        {
-            PlaySound(_backgroundMusic);
-        }
+        //private void StartBackgroundMusic()
+        //{
+        //    PlaySound(_backgroundMusic);
+        //}
 
-        private void StopBackgroundMusic()
-        {
-            StopSound(_backgroundMusic);
-        }
+        //private void StopBackgroundMusic()
+        //{
+        //    StopSound(_backgroundMusic);
+        //}
 
         private void LevelCompleted()
         {

@@ -10,19 +10,10 @@ namespace Main
 
         [SerializeField] private float _cameraOffset;
 
-        private Rigidbody _playerRigidbody;
-        private Vector3 _previousDirection;
-
         [Inject]
         private void Construct(PlayerController playerController)
         {
             _playerController = playerController;
-            _playerRigidbody = _playerController.GetComponent<Rigidbody>();
-        }
-
-        private void Start()
-        {
-            _previousDirection = Vector3.zero;
         }
 
         private void LateUpdate()
@@ -31,7 +22,6 @@ namespace Main
             direction.y = 0;
 
             transform.position = Vector3.Lerp(transform.position, _playerController.transform.position + direction * _cameraOffset, _lerpSpeed * Time.deltaTime);
-
         }
     }
 }

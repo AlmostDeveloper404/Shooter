@@ -18,9 +18,11 @@ namespace Main
         [SerializeField] private Image _backgroundImage;
         [SerializeField] private Image _dropTypeImage;
         [SerializeField] private Image _coinImage;
+        
 
         [SerializeField] private TMP_Text _coinsCounter;
         [SerializeField] private TMP_Text _upgradeDropName;
+        [SerializeField] private TMP_Text _titleText;
 
         [SerializeField] private Sprite _fireRate;
         [SerializeField] private Sprite _health;
@@ -105,27 +107,39 @@ namespace Main
             {
                 case DropType.Damage:
                     _dropTypeImage.sprite = _damage;
-                    _frontImage.color = Color.red;
+                    _dropTypeImage.color= Color.red;
+                    _backgroundImage.color = Color.red;
+                    _titleText.text = "DAMAGE";
                     break;
                 case DropType.Clon:
                     _dropTypeImage.sprite = _clon;
-                    _frontImage.color = Color.cyan;
+                    _dropTypeImage.color = Color.cyan;
+                    _backgroundImage.color = Color.cyan;
+
                     break;
                 case DropType.FireRate:
                     _dropTypeImage.sprite = _fireRate;
-                    _frontImage.color = Color.blue;
+                    _dropTypeImage.color = Color.blue;
+                    _backgroundImage.color = Color.blue;
+                    _titleText.text = "ASPD";
                     break;
                 case DropType.HP:
                     _dropTypeImage.sprite = _health;
-                    _frontImage.color = Color.green;
+                    _dropTypeImage.color = Color.green;
+                    _backgroundImage.color = Color.green;
+                    _titleText.text = "ARMOR";
                     break;
                 case DropType.AttackRadius:
                     _dropTypeImage.sprite = _radius;
-                    _frontImage.color = Color.yellow;
+                    _dropTypeImage.color = Color.yellow;
+                    _backgroundImage.color = Color.yellow;
+                    _titleText.text = "RADIUS";
                     break;
                 case DropType.Speed:
                     _dropTypeImage.sprite = _speed;
-                    _frontImage.color = Color.magenta;
+                    _dropTypeImage.color = Color.magenta;
+                    _backgroundImage.color = Color.magenta;
+                    _titleText.text = "SPEED";
                     break;
                 default:
                     break;

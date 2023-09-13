@@ -15,7 +15,6 @@ namespace Main
         
         public void StartCutScene()
         {
-            Debug.Log("Yep");
             foreach (var item in _objectsToActivate)
             {
                 item.SetActive(true);
